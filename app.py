@@ -16,14 +16,6 @@ Année : 2024
 
 """
 
-
-
-# connecter le compte sur la plateforme Shiny.io avec le système de programmation local
-# déployer l'application sur le serveur de Shiny.io via le compte personnel sur la plateforme
-
-
-
-# importer les méthodes utiles
 from shiny import App, render, ui, reactive
 from shinywidgets import output_widget, render_widget, render_plotly
 import shinyswatch
@@ -34,256 +26,11 @@ import numpy as np
 import datetime
 
 
+########
+## UI ##
+########
 
-#########################################################################################
-# Créer les fonctions graphiques (à une variable, ou à deux variables croisées)
-#########################################################################################
-
-
-
-#------------------------------------------------------------------------------
-# créer une fonction à 2 arguments qui crée le graphique d'une seule variable
-#------------------------------------------------------------------------------
-# def Graph_1Var(csvfile, nom_var):
-#     """
-#     ---------------------------
-#     Paramètres de la fonction :
-#     ---------------------------
-#     + csvfile :
-#         * type : character (string)
-#         * description : nom du fichier CSV contenant les données
-#         * exemple : 'T_inteurst.csv'
-#     + nom_var :
-#         * type : character (string)
-#         * description : nom de la variable à représenter
-#         * exemple : 'INTEURST
-#     """
-#
-#     # créer le tableau Pandas contenant les données
-#     data_var = pd.read_csv(csvfile)
-#     # supprimer la première colonne (vide) de la base de donnée
-#     data_var = data_var.drop(data_var.columns[0], axis=1)
-#     # créer la partie réactive dans le titre du graphique
-#     titre_var = ""
-#     if nom_var == 'INTEURST':
-#         titre_var = "Intérêt pour les élections européennes de juin 2024"
-#     elif nom_var == 'CERT':
-#         titre_var = "Intention d'aller voter aux élections européennes de juin 2024"
-#     else:
-#         titre_var = "Indice de participation aux élections européennes de juin 2024"
-#     # créer la variable qui contient les pourcentages arrondis au dixième
-#     data_var["pct_arr"] = round(data_var["3"], 1)
-#     # créer le graphique avec la courbe des données retenues
-#     fig = px.line(data_var,
-#                   x="vague",
-#                   y="3",
-#                   # définir les titres des axes et la légende
-#                   labels={'3':"Pourcentage de répondants (%)",
-#                           'vague': "Vague de l'enquête"
-#                           },
-#                   # afficher les pourcentages arrondis sur les courbes
-#                   text="pct_arr"
-#                 )
-#     # afficher les pourcentages arrondis au-dessus de chaque marqueur
-#     fig.update_traces(textposition = "top center")
-#     # définir l'esthétique des courbes (pointillés) et des marqueurs
-#     fig.update_traces(line = dict(dash = "dot",
-#                                   width = 2
-#                                   ),
-#                       marker = dict(size = 10)
-#                       )
-#     # définir le titre du graphique
-#     fig.update_layout(title=titre_var,
-#                       xaxis_tickfont_size=12,
-#                       yaxis=dict(title='Pourcentage de répondants (%)',
-#                                  titlefont_size=12,
-#                                  tickfont_size=12,
-#                                 ),
-#                       legend=dict(orientation="h",
-#                                   xanchor="left",
-#                                   x=0.01,
-#                                   yanchor="top",
-#                                   y=-0.20,
-#                                   bgcolor='rgba(255, 255, 255, 0)',
-#                                   bordercolor='rgba(255, 255, 255, 0)'
-#                                 ),
-#                       uniformtext_minsize=12
-#                     )
-#     # Source
-#     annotations = []
-#     annotations.append(dict(xref='paper',
-#                             yref='paper',
-#                             x=0.0,
-#                             y=1.07,
-#                             text='Enquête électorale française pour les ' +
-#                             'élections européennes de juin 2024, ' +
-#                             'par Ipsos Sopra Steria, Cevipof, ' +
-#                             'Le Monde, Fondation Jean Jaurès et ' +
-#                             'Institut Montaigne (2024)',
-#                             font=dict(family='Arial',
-#                                       size=12,
-#                                       color='rgb(105,105,105)'
-#                                       ), # 132,132,132
-#                             showarrow=False
-#                             )
-#     )
-#     fig.update_layout(annotations=annotations)
-#     # retourner l'angle de rotation en degrés et le type d'alignement de l'étiquette
-#     return fig
-# # #------------------------------------------------------------------------------
-# # # FIN de la fonction
-# # #------------------------------------------------------------------------------
-#
-# # test de la fonction sur un exemple
-# Graph_1Var('data/T_inteurst.csv', 'INTEURST')
-
-
-
-#------------------------------------------------------------------------------
-# créer une fonction à 2 arguments qui crée 1 graphique de 2 variables croisées
-#------------------------------------------------------------------------------
-# def Graph_2Var(csvfile, nom_var):
-#     """
-#     ---------------------------
-#     Paramètres de la fonction :
-#     ---------------------------
-#     + csvfile :
-#         * type : character (string)
-#         * description : nom du fichier CSV contenant les données
-#         * exemple : 'T_certst3_agglo5st.csv'
-#     + nom_var :
-#         * type : character (string)
-#         * description : nom de la variable socio-démographique à croiser
-#         * exemple : 'AGGLO5ST
-#     """
-#
-#     # créer le tableau Pandas contenant les données
-#     data_var = pd.read_csv(csvfile)
-#     # supprimer la première colonne (vide) de la base de donnée
-#     data_var = data_var.drop(data_var.columns[0], axis=1)
-#     # créer les parties réactives du titre et de la légende du graphique
-#     # titre
-#     titre_var = ""
-#     # légende
-#     legend_var = ""
-#     if nom_var == 'SEXEST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction du genre"
-#         legend_var = "Genre"
-#     elif nom_var == 'AGERST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction de l'âge"
-#         legend_var = "Âge"
-#     elif nom_var == 'REG13ST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction de la région de résidence"
-#         legend_var = "Région"
-#     elif nom_var == 'AGGLO5ST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction du type d'agglomération de résidence"
-#         legend_var = "Agglomération"
-#     elif nom_var == 'EMPST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction du type d'emploi occupé"
-#         legend_var = "Emploi"
-#     elif nom_var == 'PCSIST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction de la catégorie socio-professionnelle"
-#         legend_var = "Catégorie socio-professionnelle"
-#     elif nom_var == 'EDUR4ST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction du niveau de scolarité atteint"
-#         legend_var = "Niveau de scolarité"
-#     elif nom_var == 'REL1ST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction de l'appartenance religieuse"
-#         legend_var = "Religion"
-#     elif nom_var == 'ECO2ST2':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction du revenu du ménage"
-#         legend_var = "Revenu"
-#     elif nom_var == 'INTPOLST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction de l'intérêt pour la politique"
-#         legend_var = "Intérêt pour la politique"
-#     elif nom_var == 'Q7ST':
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction du positionnement idéologique"
-#         legend_var = "Positionnement idéologique"
-#     else:
-#         titre_var = "Certitude d'aller voter aux élections européennes de juin 2024 en fonction de la préférence partisane"
-#         legend_var = "Préférence partisane"
-#     # créer la variable qui contient les pourcentages arrondis au dixième
-#     data_var["pct_arr"] = round(data_var["pct"], 1)
-#     # créer le graphique avec les courbes des données retenues
-#     fig = px.line(data_var,
-#                   x="VAGUE",
-#                   y="pct",
-#                   # chaque modalité de la variable a une couleur de courbe différente
-#                   color="%s" % nom_var,
-#                   # chaque modalité de la variable a un marqueur de valeur différent
-#                   markers=True,
-#                   symbol="%s" % nom_var,
-#                   # définir les titres des axes et la légende
-#                   labels={'pct':"Pourcentage de répondants (%)",
-#                           'CERTST3':"Certitude d'aller voter",
-#                           '%s' % nom_var: '%s' % legend_var,
-#                           'VAGUE': "Vague de l'enquête"},
-#                   # afficher les pourcentages arrondis sur les courbes
-#                   text="pct_arr"
-#                 )
-#     # afficher les pourcentages arrondis au-dessus de chaque marqueur
-#     fig.update_traces(textposition = "top center")
-#     # définir l'esthétique des courbes (pointillés) et des marqueurs
-#     fig.update_traces(line = dict(dash = "dot",
-#                                   width = 2
-#                                 ),
-#                       marker = dict(size = 10)
-#                     )
-#     # définir le titre du graphique
-#     fig.update_layout(title='%s' % titre_var,
-#                       xaxis_tickfont_size=12,
-#                       yaxis=dict(title='Pourcentage de répondants (%)',
-#                                  titlefont_size=12,
-#                                  tickfont_size=12,
-#                                 ),
-#                       legend=dict(orientation="h",
-#                                   xanchor="left",
-#                                   x=0.01,
-#                                   yanchor="top",
-#                                   y=-0.20,
-#                                   bgcolor='rgba(255, 255, 255, 0)',
-#                                   bordercolor='rgba(255, 255, 255, 0)'
-#                                   ),
-#                       uniformtext_minsize=12,
-#                     )
-#     # Source
-#     annotations = []
-#     annotations.append(dict(xref='paper',
-#                             yref='paper',
-#                             x=0.0,
-#                             y=1.07,
-#                             text='Enquête électorale française pour les ' +
-#                                  'élections européennes de juin 2024, ' +
-#                                  'par Ipsos Sopra Steria, Cevipof, ' +
-#                                  'Le Monde, Fondation Jean Jaurès et ' +
-#                                  'Institut Montaigne (2024)',
-#                             font=dict(family='Arial',
-#                                       size=12,
-#                                       color='rgb(105,105,105)'
-#                                       ), # 132,132,132
-#                             showarrow=False
-#                             )
-#     )
-#     fig.update_layout(annotations=annotations)
-#     # retourner l'angle de rotation en degrés et le type d'alignement de l'étiquette
-#     return fig
-# #------------------------------------------------------------------------------
-# FIN de la fonction
-#------------------------------------------------------------------------------
-
-# test de la fonction sur un exemple
-#Graph_2Var('T_certst3_agglo5st.csv', 'AGGLO5ST')
-
-tips = px.data.tips()
-
-
-
-
-#########################################################################################
-# Construire l'application
-#########################################################################################
-
-# définir une méthode utile pour construire des cadres d'information selon le même format
+# définir des ui-card maison
 def ui_card(title, *args):
     return (
         ui.div(
@@ -293,11 +40,9 @@ def ui_card(title, *args):
         ),
     )
 
-
-# définir la page principale de l'application
+# définir la page principale
 app_ui = ui.page_fillable(
 
-    #shinyswatch.theme.lux,
     shinyswatch.theme.simplex,
 
     # définir le titre de l'application
@@ -354,6 +99,7 @@ app_ui = ui.page_fillable(
         # onglet 02
         ui.nav_panel("Tableau de bord général",
             ui.layout_columns(
+                # indicateurs globaux en exergues
                 ui.card(
                     ui_card("Intitulés des questions",
                         ui.input_action_button("descript_inteur", "Intérêt pour l'élection"),
@@ -366,6 +112,7 @@ app_ui = ui.page_fillable(
                         ),
                     ),
                 ),
+                # dataviz temporelle par vagues des indicateurs
                 ui_card("Évolution des variables principales d'intérêt pour l'élection",
                     output_widget("graph_interet", width="auto", height="auto")),
                 col_widths=(3, 9)
@@ -374,7 +121,7 @@ app_ui = ui.page_fillable(
 
         # onglet 03
         ui.nav_panel("Intention d'aller voter",
-            # définir deux colonnes sur cet onglet (une pour les informations, une pour le graphique)
+            # définir deux colonnes sur cet onglet
             ui.layout_columns(
                 # colonne 1 de l'onglet : informations et choix de l'utilisateur
                 ui.card(
@@ -413,28 +160,19 @@ app_ui = ui.page_fillable(
                             ui.input_action_button("Show_VarSD_Info", # input ID
                                                    "Afficher sa description" # texte affiché dans le bouton
                             )
-                    ),
-
-                    # #ui.output_ui("Vague_value"),
-                    # ui.output_ui("VarSD_value"),
-                    # ui.output_ui("Nom_VarSD_Titre"),
-                    # #ui.output_ui("Nom_Vague_Titre"),
-                    # ui.output_ui("Nom_Cert_Graph"),
-                    # ui.output_ui("Nom_VarSD_Graph"),
-                    # ui.output_ui("Nom_VarSD_Legende"),
+                    )
                 ),
-
                 # colonne 2 de l'onglet : graphique des variables
                 ui_card("CERTITUDE D'ALLER VOTER EN FONCTION D'UNE VARIABLE SOCIO-DEMOGRAPHIQUE",
                         # afficher le graphique ad hoc
                         output_widget(id="graph_croise")
                 ),
-
                 # largeurs respectives des deux cadres sur cet onglet 03
                 col_widths=(3, 9)
             )
         ),
 
+        # TODO
         # onglet 04
         # ui.nav_panel("Exploration thématique",
         #             # barre de navigation contenant les sous-onglets thématiques
@@ -462,12 +200,14 @@ app_ui = ui.page_fillable(
     )
 )
 
-
+#############
+## SERVEUR ##
+#############
 
 # bloc définissant les méthodes mises en oeuvre pour la réactivité des objets
 def server(input, output, session):
 
-    # boutons onglet 2
+    # bouton onglet 2 : intérêt pour l'élection
     @reactive.effect
     @reactive.event(input.descript_inteur)
     def _():
@@ -477,6 +217,7 @@ def server(input, output, session):
             )
         ui.modal_show(m)
 
+    # bouton onglet 2 : indice de participation
     @reactive.effect
     @reactive.event(input.descript_indpart)
     def _():
@@ -486,7 +227,7 @@ def server(input, output, session):
             )
         ui.modal_show(m)
 
-    # effet lié au bouton 01
+    # bouton onglet 3 : question posée dans l'enquête
     @reactive.effect
     @reactive.event(input.Show_CERT_Question)
     def _():
@@ -499,9 +240,7 @@ def server(input, output, session):
             )
         ui.modal_show(m)
 
-
-
-    # effet lié au bouton 02
+    # bouton onglet 3 : variable choisie pour les graphiques
     @reactive.effect
     @reactive.event(input.Show_CERTST_Info)
     def _():
@@ -514,7 +253,7 @@ def server(input, output, session):
             )
         ui.modal_show(m)
 
-    # effet lié au bouton 03
+    # bouton onglet 3 : afficher sa description (variable socio-démographique)
     @reactive.effect
     @reactive.event(input.Show_VarSD_Info)
     def _():
@@ -578,17 +317,56 @@ def server(input, output, session):
             )
         ui.modal_show(m)
 
+    # graphique onglet 2
+    @output
+    @render_widget
+    def graph_interet():
 
-    # définir la fonction qui crée le graphique croisé en fonction de la
-    # variable socio-démographique choisie
+        # charge les données spécifiquement préparées pour ce graphique
+        indicateurs = pd.read_csv("data/indicateurs.csv")
+
+        # construit le graphique avec autant de courbe que "d'Indicateurs"
+        fig = px.line(indicateurs,
+            x="Date",
+            y="Valeur",
+            color="Indicateurs",
+            markers=True,
+            template="plotly_white",
+            text="Valeur",
+            labels={'Valeur':"Pourcentage de répondants (%)",
+                  'Date': "Vague de l'enquête"}
+        )
+
+        # met à jour les axes, lignes, valeurs affichées et marqueurs
+        fig.update_layout(yaxis_range=[30, 70])
+        fig.update_traces(textposition="top right", line=dict(width=2, dash='dash'), line_shape="spline")
+        fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
+
+        # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
+        for date in list(indicateurs.Date):
+            fig.add_vline(
+                x=datetime.datetime.strptime(date, "%Y-%m-%d").timestamp() * 1000,
+                line_width=2,
+                line_color="grey",
+                annotation_text=datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%B %Y"),
+                annotation_position="top left",
+                annotation_borderpad=10,
+            )
+
+        return fig
+
+    # graphique onglet 3
     @output
     @render_plotly
     def graph_croise():
+
         # importer la base de données au format CSV avec Panda
         csvfile = "data/T_certst3_" + "%s" % input.select_VarSD().lower() + ".csv"
         data = pd.read_csv(csvfile)
+
         # supprimer la première colonne (vide) de la base de donnée
         data = data.drop(data.columns[0], axis=1)
+
         # définir la partie variable du titre
         dico_titre = {
                     "SEXEST": "du genre",
@@ -634,8 +412,10 @@ def server(input, output, session):
                     "Q7ST": [30, 80],
                     "PROXST": [20, 80],
         }
+
         # arrondir les fréquences croisées pondérées (besoin des étiquettes)
         data["pct"] = round(data["pct"], 2)
+
         # créer un graphique de courbes
         fig = px.line(data,
                       x="VAGUE",
@@ -646,7 +426,7 @@ def server(input, output, session):
                       markers=True,
                       # afficher simultanément les étiquettes sur chaque courbe pour une vague donnée
                       title="layout.hovermode='x'",
-                      # 
+                      #
                       hover_data={"%s" % input.select_VarSD():False,
                                   "CERTST3":False,
                                   "pct":True,
@@ -662,24 +442,25 @@ def server(input, output, session):
                       # définir l'apparence du graphique
                       template="plotly_white"
                     )
-        # réduire la taille de la bulle de l'étiquette contenant la fréquence arrondie
-        # en excluant la modalité de la variable socio-démographique
+
+        # améliorations graphiques variées
         fig.update_traces(hovertemplate=None)
         fig.update_layout(hovermode="x")
-        # met à jour les axes, lignes, valeurs affichées et marqueurs
         fig.update_layout(yaxis_range=dico_echelleY.get("%s" % input.select_VarSD())),
         fig.update_traces(textposition="top right", line=dict(width=2), line_shape="spline")
         fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
+
         # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
-        for date in list(data.VAGUE):
-            fig.add_vline(
-                x=datetime.datetime.strptime(date, "%Y-%m-%d").timestamp() * 1000,
-                line_width=2,
-                line_color="grey",
-                annotation_text=datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%B %Y"),
-                annotation_position="top left",
-                annotation_borderpad=10
-            )
+        # for date in list(data.VAGUE):
+        #     fig.add_vline(
+        #         x=datetime.datetime.strptime(date, "%Y-%m-%d").timestamp() * 1000,
+        #         line_width=2,
+        #         line_color="grey",
+        #         annotation_text=datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%B %Y"),
+        #         annotation_position="top left",
+        #         annotation_borderpad=10
+        #     )
+
         # définir le titre du graphique
         fig.update_layout(
             title="Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.select_VarSD()),
@@ -690,7 +471,8 @@ def server(input, output, session):
                 tickfont_size=12,
             )
         )
-        # Source
+
+        # source
         annotations = []
         annotations.append(dict(xref='paper',
                                 yref='paper',
@@ -709,49 +491,8 @@ def server(input, output, session):
         )
         fig.update_layout(annotations=annotations)
         return fig
-    
 
-
-    @output
-    @render_widget
-    def graph_interet():
-
-        # charge les données spécifiquement préparées pour ce graphique
-        onglet_2 = pd.read_csv("data/onglet_2.csv")
-
-        # construit le graphique avec autant de courbe que de "Variable"
-        fig = px.line(onglet_2,
-            x="Date",
-            y="Valeur",
-            color="Variable",
-            markers=True,
-            template="plotly_white",
-            text="Valeur",
-            labels={'Valeur':"Pourcentage de répondants (%)",
-                  'Date': "Vague de l'enquête"}
-        )
-
-        # met à jour les axes, lignes, valeurs affichées et marqueurs
-        fig.update_layout(yaxis_range=[30, 70])
-        fig.update_traces(textposition="top right", line=dict(width=2, dash='dash'), line_shape="spline")
-        fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
-
-        # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
-        for date in list(onglet_2.Date):
-            fig.add_vline(
-                x=datetime.datetime.strptime(date, "%Y-%m-%d").timestamp() * 1000,
-                line_width=2,
-                line_color="grey",
-                annotation_text=datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%B %Y"),
-                annotation_position="top left",
-                annotation_borderpad=10,
-            )
-
-        return fig
-
-
-
-# définir l'application comme fonction des deux modules définis ci-dessus
+# définir l'app
 app = App(app_ui, server)
 
 
