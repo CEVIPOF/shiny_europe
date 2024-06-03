@@ -262,6 +262,8 @@ app_ui = ui.page_fillable(
 # bloc définissant les méthodes mises en oeuvre pour la réactivité des objets
 def server(input, output, session):
 
+    # onglet 2
+
     # bouton onglet 2 : intérêt pour l'élection
     @reactive.effect
     @reactive.event(input.descript_inteur)
@@ -281,6 +283,46 @@ def server(input, output, session):
                     easy_close=False
             )
         ui.modal_show(m)
+
+    # graphique onglet 2
+    @output
+    @render_widget
+    def graph_interet():
+
+        # charge les données spécifiquement préparées pour ce graphique
+        indicateurs = pd.read_csv("data/indicateurs.csv")
+
+        # construit le graphique avec autant de courbe que "d'Indicateurs"
+        fig = px.line(indicateurs,
+            x="Date",
+            y="Valeur",
+            color="Indicateurs",
+            markers=True,
+            template="plotly_white",
+            text="Valeur",
+            labels={'Valeur':"Pourcentage de répondants (%)",
+                  'Date': "Vague de l'enquête"}
+        )
+
+        # met à jour les axes, lignes, valeurs affichées et marqueurs
+        fig.update_layout(yaxis_range=[30, 70])
+        fig.update_traces(textposition="top right", line=dict(width=2, dash='dash'), line_shape="spline")
+        fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
+
+        # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
+        for date in list(indicateurs.Date):
+            fig.add_vline(
+                x=datetime.datetime.strptime(date, "%Y-%m-%d").timestamp() * 1000,
+                line_width=2,
+                line_color="grey",
+                annotation_text=datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%B %Y"),
+                annotation_position="top left",
+                annotation_borderpad=10,
+            )
+
+        return fig
+
+    # onglet 3
 
     # bouton onglet 3 : question posée dans l'enquête
     @reactive.effect
@@ -371,44 +413,6 @@ def server(input, output, session):
                      easy_close=True
             )
         ui.modal_show(m)
-
-    # graphique onglet 2
-    @output
-    @render_widget
-    def graph_interet():
-
-        # charge les données spécifiquement préparées pour ce graphique
-        indicateurs = pd.read_csv("data/indicateurs.csv")
-
-        # construit le graphique avec autant de courbe que "d'Indicateurs"
-        fig = px.line(indicateurs,
-            x="Date",
-            y="Valeur",
-            color="Indicateurs",
-            markers=True,
-            template="plotly_white",
-            text="Valeur",
-            labels={'Valeur':"Pourcentage de répondants (%)",
-                  'Date': "Vague de l'enquête"}
-        )
-
-        # met à jour les axes, lignes, valeurs affichées et marqueurs
-        fig.update_layout(yaxis_range=[30, 70])
-        fig.update_traces(textposition="top right", line=dict(width=2, dash='dash'), line_shape="spline")
-        fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
-
-        # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
-        for date in list(indicateurs.Date):
-            fig.add_vline(
-                x=datetime.datetime.strptime(date, "%Y-%m-%d").timestamp() * 1000,
-                line_width=2,
-                line_color="grey",
-                annotation_text=datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%B %Y"),
-                annotation_position="top left",
-                annotation_borderpad=10,
-            )
-
-        return fig
 
     # graphique onglet 3
     @output
@@ -546,6 +550,8 @@ def server(input, output, session):
         )
         fig.update_layout(annotations=annotations)
         return fig
+
+        # onglet 5
 
         # boutons onglet 5
         @reactive.effect
