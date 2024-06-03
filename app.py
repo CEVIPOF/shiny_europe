@@ -117,7 +117,7 @@ app_ui = ui.page_fillable(
         ),
 
         # onglet 03
-        ui.nav_panel("Intention d'aller voter",
+        ui.nav_panel("Intention d'aller voter - Votants",
             # définir deux colonnes sur cet onglet
             ui.layout_columns(
                 # colonne 1 de l'onglet : informations et choix de l'utilisateur
@@ -194,7 +194,7 @@ app_ui = ui.page_fillable(
         # ),
 
         # onglet 05
-        ui.nav_panel("Intention d'aller voter (abstentionnistes déclarés)",
+        ui.nav_panel("Intention d'aller voter - Abstentionnistes",
             # définir deux colonnes sur cet onglet (une pour les informations, une pour le graphique)
             ui.layout_columns(
                 # colonne 1 de l'onglet : informations et choix de l'utilisateur
@@ -311,6 +311,25 @@ def server(input, output, session):
         fig.update_traces(hovertemplate=None)
         fig.update_layout(hovermode="x")
 
+        # source
+        annotations = []
+        annotations.append(dict(xref='paper',
+                                yref='paper',
+                                x=0.9,
+                                y=-0.22,
+                                text='Enquête électorale française pour les ' +
+                                    'élections européennes de juin 2024, ' +
+                                    'par Ipsos Sopra Steria, Cevipof, ' +
+                                    'Le Monde, Fondation Jean Jaurès et ' +
+                                    'Institut Montaigne (2024)',
+                                font=dict(family='Arial',
+                                        size=12,
+                                        color='rgb(153, 122, 144)'),
+                                showarrow=False
+                                )
+        )
+        fig.update_layout(annotations=annotations)
+
         # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
         for date in list(indicateurs.Date):
             fig.add_vline(
@@ -321,7 +340,6 @@ def server(input, output, session):
                 # annotation_position="top left",
                 # annotation_borderpad=10,
             )
-
         return fig
 
     # onglet 3
