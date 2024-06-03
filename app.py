@@ -102,10 +102,10 @@ app_ui = ui.page_fillable(
                         ui.input_action_button("descript_inteur", "Intérêt pour l'élection"),
                         ui.input_action_button("descript_indpart", "Indice de participation"),
                     ),
-                    ui_card("Derniers indicateurs enregistrés - Avril 2024",
+                    ui_card("Derniers indicateurs enregistrés - Juin 2024",
                         ui.layout_columns(
-                            ui_card("Intérêt pour l'élection", "56,9%"),
-                            ui_card("Indice de participation", "44.9%")
+                            ui_card("Intérêt pour l'élection", "61,9%"),
+                            ui_card("Indice de participation", "47,1%")
                         ),
                     ),
                 ),
