@@ -2,4 +2,5 @@ matplotlib
 plotly
 shiny
 shinywidgets
+shinyswatch
 pandas
