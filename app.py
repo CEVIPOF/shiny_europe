@@ -102,7 +102,7 @@ app_ui = ui.page_fillable(
                         ui.input_action_button("descript_inteur", "Intérêt pour l'élection"),
                         ui.input_action_button("descript_indpart", "Indice de participation"),
                     ),
-                    ui_card("Derniers indicateurs enregistrés - Juin 2024",
+                    ui_card("Derniers indicateurs enregistrés - Mai 2024",
                         ui.layout_columns(
                             ui_card("Intérêt pour l'élection", "61,9%"),
                             ui_card("Indice de participation", "47,1%")
@@ -265,7 +265,7 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.descript_inteur)
     def _():
-        m = ui.modal("La question posée aux répondants était : sur une échelle de 0 à 10, où 0 signifie aucun intérêt et 10 signifie énormément d'intérêt, quel est votre niveau d'intérêt pour les prochaines élections européennes de 2024 ?",
+        m = ui.modal("La question posée aux répondants est la suivante : 'Sur une échelle de 0 à 10, où 0 signifie aucun intérêt et 10 signifie énormément d'intérêt, quel est votre niveau d'intérêt pour les prochaines élections européennes de 2024 ?'",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
@@ -275,7 +275,7 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.descript_indpart)
     def _():
-        m = ui.modal("L'indice de participation aux élections européennes de juin 2024 INDPART est calculé à partir de la question : les prochaines élections européennes se tiendront le 9 juin 2024 en France. Pouvez-vous donner une note de 0 à 10 sur votre intention d’aller voter lors de ces élections européennes ? 0 signifiant que vous êtes vraiment tout à fait certain de ne pas aller voter, et 10 que vous êtes vraiment tout à fait certain d’aller voter.",
+        m = ui.modal("L'indice de participation aux élections européennes de juin 2024 est calculé à partir de la question suivante : 'Les prochaines élections européennes se tiendront le 9 juin 2024 en France. Pouvez-vous donner une note de 0 à 10 sur votre intention d’aller voter lors de ces élections européennes ? 0 signifiant que vous êtes vraiment tout à fait certain de ne pas aller voter, et 10 que vous êtes vraiment tout à fait certain d’aller voter.'",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
@@ -348,10 +348,10 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.Show_CERT_Question)
     def _():
-        m = ui.modal("Les prochaines élections européennes se tiendront le 9 juin 2024 en France. \
+        m = ui.modal("La question posée aux répondants est la suivante : 'Les prochaines élections européennes se tiendront le 9 juin 2024 en France. \
                     Pouvez-vous donner une note de 0 à 10 sur votre intention d’aller voter lors de ces élections européennes ? \
                     0 signifiant que vous êtes vraiment tout à fait certain de ne pas aller voter, \
-                    et 10 que vous êtes vraiment tout à fait certain d’aller voter.",
+                    et 10 que vous êtes vraiment tout à fait certain d’aller voter.'",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
@@ -481,14 +481,14 @@ def server(input, output, session):
                     "SEXEST": [35, 65],
                     "AGERST": [20, 80],
                     "REG13ST": [35, 65],
-                    "AGGLO5ST": [40, 60],
+                    "AGGLO5ST": [35, 65],
                     "EMPST": [30, 70],
                     "PCSIST": [25, 75],
                     "EDUR4ST": [35, 65],
                     "REL1ST": [20, 70],
                     "ECO2ST2": [30, 70],
                     "INTPOLST": [10, 90],
-                    "Q7ST": [30, 80],
+                    "Q7ST": [30, 90],
                     "PROXST": [20, 80],
         }
 
@@ -526,6 +526,7 @@ def server(input, output, session):
         fig.update_layout(yaxis_range=dico_echelleY.get("%s" % input.select_VarSD())),
         fig.update_traces(textposition="top right", line=dict(width=2), line_shape="spline")
         fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
+        fig.update_layout(showlegend=False)
 
         # définir le titre du graphique
         fig.update_layout(
@@ -543,7 +544,7 @@ def server(input, output, session):
         annotations.append(dict(xref='paper',
                                 yref='paper',
                                 x=0.925,
-                                y=-0.09,
+                                y=-0.12,
                                 text='Enquête électorale française pour les ' +
                                     'élections européennes de juin 2024, ' +
                                     'par Ipsos Sopra Steria, Cevipof, ' +
@@ -576,10 +577,10 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.Show_CERT_Question_Abst)
     def _():
-        m = ui.modal("Les prochaines élections européennes se tiendront le 9 juin 2024 en France. \
+        m = ui.modal("La question posée aux répondants est la suivante : 'Les prochaines élections européennes se tiendront le 9 juin 2024 en France. \
                     Pouvez-vous donner une note de 0 à 10 sur votre intention d’aller voter lors de ces élections européennes ? \
                     0 signifiant que vous êtes vraiment tout à fait certain de ne pas aller voter, \
-                    et 10 que vous êtes vraiment tout à fait certain d’aller voter.",
+                    et 10 que vous êtes vraiment tout à fait certain d’aller voter.'",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
@@ -712,8 +713,8 @@ def server(input, output, session):
                     "EDUR4ST": [10, 40],
                     "REL1ST": [10, 50],
                     "ECO2ST2": [10, 50],
-                    "INTPOLST": [0, 70],
-                    "Q7ST": [0, 40],
+                    "INTPOLST": [0, 80],
+                    "Q7ST": [5, 40],
                     "PROXST": [0, 60],
         }
 
@@ -751,6 +752,7 @@ def server(input, output, session):
         fig.update_layout(yaxis_range=dico_echelleY.get("%s" % input.select_VarSD_Abst())),
         fig.update_traces(textposition="top right", line=dict(width=2), line_shape="spline")
         fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
+        fig.update_layout(showlegend=False)
 
         # définir le titre du graphique
         fig.update_layout(
@@ -767,7 +769,7 @@ def server(input, output, session):
         annotations.append(dict(xref='paper',
                                 yref='paper',
                                 x=0.925,
-                                y=-0.09,
+                                y=-0.12,
                                 text='Enquête électorale française pour les ' +
                                     'élections européennes de juin 2024, ' +
                                     'par Ipsos Sopra Steria, Cevipof, ' +
