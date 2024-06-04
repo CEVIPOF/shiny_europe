@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 Construction d'une application interactive de visualisation de données
 pour les enquêtes électorales françaises faites pour les élections européennes
@@ -301,7 +302,7 @@ def server(input, output, session):
                         "Date": False
                       },
             labels={'Valeur':"Pourcentage de répondants (%)",
-                  'Date': "Vague de l'enquête"},
+                    'Date': ""},
         )
 
         # améliorations graphiques variées
@@ -310,13 +311,14 @@ def server(input, output, session):
         fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
         fig.update_traces(hovertemplate=None)
         fig.update_layout(hovermode="x")
+        fig.update_layout(showlegend=False)
 
         # source
         annotations = []
         annotations.append(dict(xref='paper',
                                 yref='paper',
-                                x=0.9,
-                                y=-0.22,
+                                x=0.925,
+                                y=-0.12,
                                 text='Enquête électorale française pour les ' +
                                     'élections européennes de juin 2024, ' +
                                     'par Ipsos Sopra Steria, Cevipof, ' +
