@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 Construction d'une application interactive de visualisation de données
 pour les enquêtes électorales françaises faites pour les élections européennes
@@ -15,14 +14,16 @@ Centre : Cevipof (SciencesPo)
 Année : 2024
 """
 
-from shiny import App, render, ui, reactive
-from shinywidgets import output_widget, render_widget, render_plotly
+
+# importation des librairies utiles au projet
+from shiny import App, ui, reactive
+from shinywidgets import render_widget, render_plotly, output_widget 
 import shinyswatch
 import plotly.express as px
-import plotly.graph_objects as go
 import pandas as pd
-import numpy as np
 import datetime
+
+
 
 ########
 ## UI ##
@@ -58,8 +59,9 @@ app_ui = ui.page_fillable(
                         ### L'Enquête Électorale Française
 
                         Dans la perspective des élections européennes du 9 juin 2024, _Ipsos Sopra Steria_,
-                        le _Cevipof_ et _Le Monde_ ont mis en place en juin 2023 un dispositif d'enquêtes
-                        par panel intitulé Enquête Électorale Française pour les élections européennes du 9 juin 2024 - ENEF
+                        le _Cevipof_, _Le Monde_, _La Fondation Jean Jaurès_ et _L'Institut Montaigne_
+                        ont mis en place en juin 2023 un dispositif d'enquêtes par panel intitulé
+                        Enquête Électorale Française (ENEF) pour les élections européennes du 9 juin 2024.
                         <br>
                         <br>
                         Composé de plus de 10 000 personnes, le panel d'individus est interrogé
@@ -99,19 +101,19 @@ app_ui = ui.page_fillable(
             ui.layout_columns(
                 # indicateurs globaux en exergues
                 ui.card(
-                    ui_card("Intitulés des questions",
+                    ui_card("INTITULES DES QUESTIONS",
                         ui.input_action_button("descript_inteur", "Intérêt pour l'élection"),
-                        ui.input_action_button("descript_indpart", "Indice de participation"),
+                        ui.input_action_button("descript_indcertvot", "Indice de certitude d'aller voter"),
                     ),
-                    ui_card("Derniers indicateurs enregistrés - Mai 2024",
+                    ui_card("DERNIERES VALEURS ENREGISTREES - Mai 2024",
                         ui.layout_columns(
                             ui_card("Intérêt pour l'élection", "61,9%"),
-                            ui_card("Indice de participation", "47,1%")
+                            ui_card("Indice de certitude d'aller voter", "47,1%")
                         ),
                     ),
                 ),
                 # dataviz temporelle par vagues des indicateurs
-                ui_card("Évolution des variables principales d'intérêt pour l'élection",
+                ui_card("EVOLUTION DE PRINCIPAUX INDICATEURS POUR L'ELECTION",
                     output_widget("graph_interet", width="auto", height="auto")),
                 col_widths=(3, 9)
             )
@@ -146,7 +148,7 @@ app_ui = ui.page_fillable(
                                          "AGGLO5ST": "Taille d'agglomération",
                                          "EMPST": "Type d'emploi occupé",
                                          "PCSIST": "Catégorie professionnelle",
-                                         "EDUR4ST": "Niveau de scolarité atteint",
+                                         "EDUST": "Niveau de scolarité atteint",
                                          "REL1ST": "Religion",
                                          "ECO2ST2": "Revenu mensuel du foyer",
                                          "INTPOLST": "Intérêt pour la politique",
@@ -162,10 +164,19 @@ app_ui = ui.page_fillable(
                 ),
                 # colonne 2 de l'onglet : graphique des variables
                 ui_card("CERTITUDE D'ALLER VOTER EN FONCTION D'UNE VARIABLE SOCIO-DEMOGRAPHIQUE",
+                        # afficher une ligne d'indication
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher la légende du graphique, amener la souris sur les barres verticales grises : les valeurs et les étiquettes des catégories apparaissent à chaque
+                            vague de l'enquête. Si l'affichage des étiquettes est incomplet, cliquer sur le bouton 'Afficher sa description' en bas à gauche pour voir leur texte en entier.
+                            ```
+                            """
+                        ),
                         # afficher le graphique ad hoc
                         output_widget(id="graph_croise")
                 ),
-                # largeurs respectives des deux cadres sur cet onglet 03
+                # largeurs respectives des deux cadres sur cet onglet
                 col_widths=(3, 9)
             )
         ),
@@ -223,7 +234,7 @@ app_ui = ui.page_fillable(
                                          "AGGLO5ST": "Taille d'agglomération",
                                          "EMPST": "Type d'emploi occupé",
                                          "PCSIST": "Catégorie professionnelle",
-                                         "EDUR4ST": "Niveau de scolarité atteint",
+                                         "EDUST": "Niveau de scolarité atteint",
                                          "REL1ST": "Religion",
                                          "ECO2ST2": "Revenu mensuel du foyer",
                                          "INTPOLST": "Intérêt pour la politique",
@@ -240,11 +251,20 @@ app_ui = ui.page_fillable(
 
                 # colonne 2 de l'onglet : graphique des variables
                 ui_card("CERTITUDE DE S'ABSTENIR EN FONCTION D'UNE VARIABLE SOCIO-DEMOGRAPHIQUE",
+                        # afficher une ligne d'indication
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher la légende du graphique, amener la souris sur les barres verticales grises : les valeurs et les étiquettes des catégories apparaissent à chaque
+                            vague de l'enquête. Si l'affichage des étiquettes est incomplet, cliquer sur le bouton 'Afficher sa description' en bas à gauche pour voir leur texte en entier.
+                            ```
+                            """
+                        ),
                         # afficher le graphique ad hoc
                         output_widget(id="graph_croise_Abst")
                 ),
 
-                # largeurs respectives des deux cadres
+                # largeurs respectives des deux cadres sur cet onglet
                 col_widths=(3, 9)
             )
         ),
@@ -252,6 +272,8 @@ app_ui = ui.page_fillable(
         id="tab"
         ),
     )
+
+
 
 #############
 ## SERVEUR ##
@@ -266,7 +288,9 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.descript_inteur)
     def _():
-        m = ui.modal("La question posée aux répondants est la suivante : 'Sur une échelle de 0 à 10, où 0 signifie aucun intérêt et 10 signifie énormément d'intérêt, quel est votre niveau d'intérêt pour les prochaines élections européennes de 2024 ?'",
+        m = ui.modal("La question posée aux répondants est la suivante : 'Sur une échelle de 0 à 10, \
+                     où 0 signifie aucun intérêt et 10 signifie énormément d'intérêt, quel est votre \
+                     niveau d'intérêt pour les prochaines élections européennes de 2024 ?'",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
@@ -274,9 +298,15 @@ def server(input, output, session):
 
     # bouton onglet 2 : indice de participation
     @reactive.effect
-    @reactive.event(input.descript_indpart)
+    @reactive.event(input.descript_indcertvot)
     def _():
-        m = ui.modal("L'indice de participation aux élections européennes de juin 2024 est calculé à partir de la question suivante : 'Les prochaines élections européennes se tiendront le 9 juin 2024 en France. Pouvez-vous donner une note de 0 à 10 sur votre intention d’aller voter lors de ces élections européennes ? 0 signifiant que vous êtes vraiment tout à fait certain de ne pas aller voter, et 10 que vous êtes vraiment tout à fait certain d’aller voter.'",
+        m = ui.modal("L'indice de certitude d'aller voter est calculé à partir de la question suivante : \
+                     'Les prochaines élections européennes se tiendront le 9 juin 2024 en France. \
+                     Pouvez-vous donner une note de 0 à 10 sur votre intention d’aller voter lors de ces \
+                     élections européennes ? 0 signifiant  que vous êtes vraiment tout à fait certain de \
+                     ne pas aller voter, et 10 que vous êtes vraiment tout à fait certain d’aller voter.' \
+                     L'indice est alors calculé comme la somme des fréquences obtenues aux modalités \
+                     9 et 10 de cette question.",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
@@ -311,14 +341,13 @@ def server(input, output, session):
         fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
         fig.update_traces(hovertemplate=None)
         fig.update_layout(hovermode="x")
-        fig.update_layout(showlegend=False)
 
         # source
         annotations = []
         annotations.append(dict(xref='paper',
                                 yref='paper',
-                                x=0.925,
-                                y=-0.12,
+                                x=0,
+                                y=-0.14,
                                 text='Enquête électorale française pour les ' +
                                     'élections européennes de juin 2024, ' +
                                     'par Ipsos Sopra Steria, Cevipof, ' +
@@ -331,6 +360,8 @@ def server(input, output, session):
                                 )
         )
         fig.update_layout(annotations=annotations)
+        # aligne le texte sur le bord gauche du graphique
+        fig.update_annotations(xanchor='left')
 
         # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
         for date in list(indicateurs.Date):
@@ -368,7 +399,7 @@ def server(input, output, session):
                     Ainsi, parmi les onze modalités de réponse (0 à 10) à la question de l'enquête, \
                     on ne retient que les valeurs 9 et 10, dont on additionne les fréquences respectives.",
                     title="Informations complémentaires sur la variable choisie pour les graphiques :",
-                    easy_close=True
+                    easy_close=False
             )
         ui.modal_show(m)
 
@@ -386,7 +417,7 @@ def server(input, output, session):
                     "AGGLO5ST": "Taille d'agglomération",
                     "EMPST": "Type d'emploi occupé",
                     "PCSIST": "Catégorie professionnelle",
-                    "EDUR4ST": "Niveau de scolarité atteint",
+                    "EDUST": "Niveau de scolarité atteint",
                     "REL1ST": "Religion",
                     "ECO2ST2": "Revenu mensuel du foyer",
                     "INTPOLST": "Intérêt pour la politique",
@@ -401,7 +432,7 @@ def server(input, output, session):
                     "AGGLO5ST": "Veuillez indiquer le département et la commune où vous résidez.",
                     "EMPST": "Quelle est votre situation professionnelle actuelle ?",
                     "PCSIST": "Quelle est votre situation professionnelle actuelle ?",
-                    "EDUR4ST": "Choisissez votre niveau de scolarité le plus élevé.",
+                    "EDUST": "Choisissez votre niveau de scolarité le plus élevé.",
                     "REL1ST": "Quelle est votre religion, si vous en avez une ?",
                     "ECO2ST2": " Pour finir, nous avons besoin de connaître, à des fins statistiques uniquement, la tranche dans laquelle se situe le revenu MENSUEL NET de votre FOYER après déduction des impôts sur le revenu (veuillez considérer toutes vos sources de revenus: salaires, bourses, prestations retraite et sécurité sociale, dividendes, revenus immobiliers, pensions alimentaires etc.).",
                     "INTPOLST": "De manière générale, diriez-vous que vous vous intéressez à la politique ?",
@@ -416,12 +447,12 @@ def server(input, output, session):
                     "AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
                     "EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
                     "PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
-                    "EDUR4ST": "1 = 'Aucun diplôme, CEP' ; 2 = 'BEPC, CAP, BEP' ; 3 = 'Baccalauréat ' ; 4 = 'Diplôme de l'enseignement supérieur'",
+                    "EDUST": "1 = 'Aucun diplôme, CAP, BEP' ; 2 = 'Baccalauréat' ; 3 = 'Bac +2 ' ; 4 = 'Bac +3/+4' ; 5 = 'Bac +5 et plus'",
                     "REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
                     "ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
                     "INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
                     "Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-                    "PROXST": "1 = 'Gauche et écologistes (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise, Parti Socialiste, Europe Ecologie - Les Verts)' ; 2 = 'Centre (La République En Marche !, désormais Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 3 = 'Droite (Les Républicains)' ; 4 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 5 = 'Autre parti ou aucun parti'"
+                    "PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (La République En Marche !, désormais Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (parties fixes et variables)
         m = ui.modal("La variable '%s' correspond à ou est calculée à partir de la question suivante posée aux répondants : \
@@ -432,7 +463,7 @@ def server(input, output, session):
                              dico_modalite_var.get("%s" % input.select_VarSD())
                      ),
                      title="Informations complémentaires sur la variable socio-démographique choisie :",
-                     easy_close=True
+                     easy_close=False
             )
         ui.modal_show(m)
 
@@ -456,7 +487,7 @@ def server(input, output, session):
                     "AGGLO5ST": "de la taille de l'agglomération de résidence",
                     "EMPST": "du type d'emploi occupé",
                     "PCSIST": "de la catégorie socio-professionnelle",
-                    "EDUR4ST": "du niveau de scolarité atteint",
+                    "EDUST": "du niveau de scolarité atteint",
                     "REL1ST": "de la religion",
                     "ECO2ST2": "du revenu mensuel du foyer",
                     "INTPOLST": "de l'intérêt pour la politique",
@@ -471,7 +502,7 @@ def server(input, output, session):
                     "AGGLO5ST": "Taille d'agglomération",
                     "EMPST": "Type d'emploi occupé",
                     "PCSIST": "Catégorie professionnelle",
-                    "EDUR4ST": "Niveau de scolarité atteint",
+                    "EDUST": "Niveau de scolarité atteint",
                     "REL1ST": "Religion",
                     "ECO2ST2": "Revenu mensuel du foyer",
                     "INTPOLST": "Intérêt pour la politique",
@@ -486,7 +517,7 @@ def server(input, output, session):
                     "AGGLO5ST": [35, 65],
                     "EMPST": [30, 70],
                     "PCSIST": [25, 75],
-                    "EDUR4ST": [35, 65],
+                    "EDUST": [35, 65],
                     "REL1ST": [20, 70],
                     "ECO2ST2": [30, 70],
                     "INTPOLST": [10, 90],
@@ -545,8 +576,8 @@ def server(input, output, session):
         annotations = []
         annotations.append(dict(xref='paper',
                                 yref='paper',
-                                x=0.925,
-                                y=-0.12,
+                                x=0,
+                                y=-0.14,
                                 text='Enquête électorale française pour les ' +
                                     'élections européennes de juin 2024, ' +
                                     'par Ipsos Sopra Steria, Cevipof, ' +
@@ -559,6 +590,8 @@ def server(input, output, session):
                                 )
         )
         fig.update_layout(annotations=annotations)
+        # aligne le texte sur le bord gauche du graphique
+        fig.update_annotations(xanchor='left')
 
         # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
         for date in list(data.VAGUE):
@@ -596,7 +629,7 @@ def server(input, output, session):
                     Ainsi, parmi les onze modalités de réponse (0 à 10) à la question de l'enquête, \
                     on ne retient que les valeurs 0 à 5, dont on additionne les fréquences respectives.",
                     title="Informations complémentaires sur la variable choisie pour les graphiques :",
-                    easy_close=True
+                    easy_close=False
             )
         ui.modal_show(m)
 
@@ -613,7 +646,7 @@ def server(input, output, session):
                     "AGGLO5ST": "Taille d'agglomération",
                     "EMPST": "Type d'emploi occupé",
                     "PCSIST": "Catégorie professionnelle",
-                    "EDUR4ST": "Niveau de scolarité atteint",
+                    "EDUST": "Niveau de scolarité atteint",
                     "REL1ST": "Religion",
                     "ECO2ST2": "Revenu mensuel du foyer",
                     "INTPOLST": "Intérêt pour la politique",
@@ -628,7 +661,7 @@ def server(input, output, session):
                     "AGGLO5ST": "Veuillez indiquer le département et la commune où vous résidez.",
                     "EMPST": "Quelle est votre situation professionnelle actuelle ?",
                     "PCSIST": "Quelle est votre situation professionnelle actuelle ?",
-                    "EDUR4ST": "Choisissez votre niveau de scolarité le plus élevé.",
+                    "EDUST": "Choisissez votre niveau de scolarité le plus élevé.",
                     "REL1ST": "Quelle est votre religion, si vous en avez une ?",
                     "ECO2ST2": " Pour finir, nous avons besoin de connaître, à des fins statistiques uniquement, la tranche dans laquelle se situe le revenu MENSUEL NET de votre FOYER après déduction des impôts sur le revenu (veuillez considérer toutes vos sources de revenus: salaires, bourses, prestations retraite et sécurité sociale, dividendes, revenus immobiliers, pensions alimentaires etc.).",
                     "INTPOLST": "De manière générale, diriez-vous que vous vous intéressez à la politique ?",
@@ -643,12 +676,12 @@ def server(input, output, session):
                     "AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
                     "EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
                     "PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
-                    "EDUR4ST": "1 = 'Aucun diplôme, CEP' ; 2 = 'BEPC, CAP, BEP' ; 3 = 'Baccalauréat ' ; 4 = 'Diplôme de l'enseignement supérieur'",
+                    "EDUST": "1 = 'Aucun diplôme, CAP, BEP' ; 2 = 'Baccalauréat' ; 3 = 'Bac +2 ' ; 4 = 'Bac +3/+4' ; 5 = 'Bac +5 et plus'",
                     "REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
                     "ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
                     "INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
                     "Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-                    "PROXST": "1 = 'Gauche et écologistes (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise, Parti Socialiste, Europe Ecologie - Les Verts)' ; 2 = 'Centre (La République En Marche !, désormais Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 3 = 'Droite (Les Républicains)' ; 4 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 5 = 'Autre parti ou aucun parti'"
+                    "PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (La République En Marche !, désormais Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (parties fixes et variables)
         m = ui.modal("La variable '%s' correspond à ou est calculée à partir de la question suivante posée aux répondants : \
@@ -659,7 +692,7 @@ def server(input, output, session):
                              dico_modalite_var.get("%s" % input.select_VarSD_Abst())
                      ),
                      title="Informations complémentaires sur la variable socio-démographique choisie :",
-                     easy_close=True
+                     easy_close=False
             )
         ui.modal_show(m)
 
@@ -682,7 +715,7 @@ def server(input, output, session):
                     "AGGLO5ST": "de la taille de l'agglomération de résidence",
                     "EMPST": "du type d'emploi occupé",
                     "PCSIST": "de la catégorie socio-professionnelle",
-                    "EDUR4ST": "du niveau de scolarité atteint",
+                    "EDUST": "du niveau de scolarité atteint",
                     "REL1ST": "de la religion",
                     "ECO2ST2": "du revenu mensuel du foyer",
                     "INTPOLST": "de l'intérêt pour la politique",
@@ -697,7 +730,7 @@ def server(input, output, session):
                     "AGGLO5ST": "Taille d'agglomération",
                     "EMPST": "Type d'emploi occupé",
                     "PCSIST": "Catégorie professionnelle",
-                    "EDUR4ST": "Niveau de scolarité atteint",
+                    "EDUST": "Niveau de scolarité atteint",
                     "REL1ST": "Religion",
                     "ECO2ST2": "Revenu mensuel du foyer",
                     "INTPOLST": "Intérêt pour la politique",
@@ -712,7 +745,7 @@ def server(input, output, session):
                     "AGGLO5ST": [10, 40],
                     "EMPST": [10, 40],
                     "PCSIST": [10, 50],
-                    "EDUR4ST": [10, 40],
+                    "EDUST": [10, 40],
                     "REL1ST": [10, 50],
                     "ECO2ST2": [10, 50],
                     "INTPOLST": [0, 80],
@@ -770,8 +803,8 @@ def server(input, output, session):
         annotations = []
         annotations.append(dict(xref='paper',
                                 yref='paper',
-                                x=0.925,
-                                y=-0.12,
+                                x=0,
+                                y=-0.14,
                                 text='Enquête électorale française pour les ' +
                                     'élections européennes de juin 2024, ' +
                                     'par Ipsos Sopra Steria, Cevipof, ' +
@@ -784,6 +817,8 @@ def server(input, output, session):
                                 )
         )
         fig.update_layout(annotations=annotations)
+        # aligne le texte sur le bord gauche du graphique
+        fig.update_annotations(xanchor='left')
 
         # affiche des lignes verticales grise à chaque vagues avec une annotation de la date
         for date in list(data.VAGUE):
