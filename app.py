@@ -58,10 +58,9 @@ app_ui = ui.page_fillable(
                         """
                         ### L'Enquête Électorale Française
 
-                        Dans la perspective des élections européennes du 9 juin 2024, _Ipsos Sopra Steria_,
-                        le _Cevipof_, _Le Monde_, _La Fondation Jean Jaurès_ et _L'Institut Montaigne_
-                        ont mis en place en juin 2023 un dispositif d'enquêtes par panel intitulé
-                        Enquête Électorale Française (ENEF) pour les élections européennes du 9 juin 2024.
+                        L'Enquête Électorale Française (ENEF) pour les élections européennes du 9 juin 2024
+                        est un dispositif d'enquêtes par panel réalisées par l'institut _IPSOS_ pour le
+                        _CEVIPOF_, la _Fondation Jean Jaurès_, _Institut Montaigne_ et _Le Monde_.
                         <br>
                         <br>
                         Composé de plus de 10 000 personnes, le panel d'individus est interrogé
@@ -103,12 +102,12 @@ app_ui = ui.page_fillable(
                 ui.card(
                     ui_card("INTITULES DES QUESTIONS",
                         ui.input_action_button("descript_inteur", "Intérêt pour l'élection"),
-                        ui.input_action_button("descript_indcertvot", "Indice de certitude d'aller voter"),
+                        ui.input_action_button("descript_indcertvot", "Certitude d'aller voter"),
                     ),
                     ui_card("DERNIERES VALEURS ENREGISTREES - Mai 2024",
                         ui.layout_columns(
                             ui_card("Intérêt pour l'élection", "61,9%"),
-                            ui_card("Indice de certitude d'aller voter", "47,1%")
+                            ui_card("Certitude d'aller voter", "47,1%")
                         ),
                     ),
                 ),
@@ -300,12 +299,12 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.descript_indcertvot)
     def _():
-        m = ui.modal("L'indice de certitude d'aller voter est calculé à partir de la question suivante : \
+        m = ui.modal("La certitude d'aller voter est calculée à partir de la question suivante : \
                      'Les prochaines élections européennes se tiendront le 9 juin 2024 en France. \
                      Pouvez-vous donner une note de 0 à 10 sur votre intention d’aller voter lors de ces \
                      élections européennes ? 0 signifiant  que vous êtes vraiment tout à fait certain de \
                      ne pas aller voter, et 10 que vous êtes vraiment tout à fait certain d’aller voter.' \
-                     L'indice est alors calculé comme la somme des fréquences obtenues aux modalités \
+                     L'indicateur est alors calculé comme la somme des fréquences obtenues aux modalités \
                      9 et 10 de cette question.",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
@@ -452,7 +451,7 @@ def server(input, output, session):
                     "ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
                     "INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
                     "Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-                    "PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (La République En Marche !, désormais Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+                    "PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (parties fixes et variables)
         m = ui.modal("La variable '%s' correspond à ou est calculée à partir de la question suivante posée aux répondants : \
@@ -561,15 +560,22 @@ def server(input, output, session):
         fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
         fig.update_layout(showlegend=False)
 
-        # définir le titre du graphique
+        # définir l'affichage sur les axes du graphique
         fig.update_layout(
-            title="Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.select_VarSD()),
             xaxis_tickfont_size=12,
             yaxis=dict(
                 title='Pourcentage de répondants (%)',
                 titlefont_size=12,
                 tickfont_size=12,
             )
+        )
+        # définir le titre du graphique
+        fig.update_layout(title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.select_VarSD()),
+                                 'y':0.99,
+                                 'x':0,
+                                 'xanchor': 'left',
+                                 'yanchor': 'top'
+                                }
         )
 
         # source
@@ -681,7 +687,7 @@ def server(input, output, session):
                     "ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
                     "INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
                     "Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-                    "PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (La République En Marche !, désormais Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+                    "PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (parties fixes et variables)
         m = ui.modal("La variable '%s' correspond à ou est calculée à partir de la question suivante posée aux répondants : \
@@ -789,9 +795,8 @@ def server(input, output, session):
         fig.update_traces(marker=dict(size=8, line=dict(width=2, color='dimgrey')))
         fig.update_layout(showlegend=False)
 
-        # définir le titre du graphique
+        # définir l'affichage sur les axes du graphique
         fig.update_layout(
-            title="Certitude de s'abstenir en fonction %s" % dico_titre.get("%s" % input.select_VarSD_Abst()),
             xaxis_tickfont_size=12,
             yaxis=dict(
                 title='Pourcentage de répondants (%)',
@@ -799,6 +804,15 @@ def server(input, output, session):
                 tickfont_size=12,
             )
         )
+        # définir le titre du graphique
+        fig.update_layout(title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.select_VarSD()),
+                                 'y':0.99,
+                                 'x':0,
+                                 'xanchor': 'left',
+                                 'yanchor': 'top'
+                                }
+        )
+
         # source
         annotations = []
         annotations.append(dict(xref='paper',
@@ -835,3 +849,5 @@ def server(input, output, session):
 
 # définir l'app
 app = App(app_ui, server)
+
+
