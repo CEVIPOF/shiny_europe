@@ -64,9 +64,17 @@ app_ui = ui.page_fillable(
                         à 6 reprises de juin 2023 à juin 2024, afin de mieux comprendre les logiques de
                         leurs décisions de vote pour ces élections.
                         <br>
-                        <br>
-                        Les résultats détaillés de ce dispositif d'enquête, accompagnés de décryptages et
+                        Les résultats détaillés de ce dispositif d'enquêtes, accompagnés de décryptages et
                         d'analyses, sont disponibles sur la [page dédiée du Cevipof](https://www.sciencespo.fr/cevipof/fr/content/resultats-et-decrypyages-par-vagues.html).
+                        <br>
+                        <br>
+                        L'attention de l'utilisateur est appelée sur le fait que les opinions mesurées en
+                        pourcentage sont sujettes à un _aléa de mesure statistique_, ou _marge d'erreur_,
+                        qu'il est important de prendre en compte lors de l'interprétation de ces nombres.
+                        L'utilisateur pourra consulter la page 3 des [rapports de résultats détaillés](https://www.sciencespo.fr/cevipof/fr/content/resultats-et-decrypyages-par-vagues.html)
+                        pour une évaluation synthétique de ces aléas, et une
+                        [note](https://www.sciencespo.fr/cevipof/sites/sciencespo.fr.cevipof/files/Note_Inge%cc%81s1_electionspresidentielles2022_mars2022_V8.pdf)
+                        pour une présentation détaillée de cette problématique.
                         <br>
                         ***
                         ### Une application interactive
@@ -114,7 +122,8 @@ app_ui = ui.page_fillable(
                     ui.markdown(
                         """
                         ```
-                        Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises : elles apparaissent à chaque vague de l'enquête.
+                        Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                        Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                         ```
                         """
                     ),
@@ -173,7 +182,8 @@ app_ui = ui.page_fillable(
                     ui.markdown(
                         """
                         ```
-                        Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises : elles apparaissent à chaque vague de l'enquête.
+                        Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                        Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                         ```
                         """
                     ),
@@ -259,7 +269,8 @@ app_ui = ui.page_fillable(
                         ui.markdown(
                             """
                             ```
-                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises : elles apparaissent à chaque vague de l'enquête.
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                             ```
                             """
                         ),
@@ -460,7 +471,7 @@ def server(input, output, session):
                     "AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
                     "EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
                     "PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
-                    "EDUST": "1 = 'Aucun diplôme, CAP, BEP' ; 2 = 'Baccalauréat' ; 3 = 'Bac +2 ' ; 4 = 'Bac +3/+4' ; 5 = 'Bac +5 et plus'",
+                    "EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
                     "REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
                     "ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
                     "INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
@@ -697,7 +708,7 @@ def server(input, output, session):
                     "AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
                     "EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
                     "PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
-                    "EDUST": "1 = 'Aucun diplôme, CAP, BEP' ; 2 = 'Baccalauréat' ; 3 = 'Bac +2 ' ; 4 = 'Bac +3/+4' ; 5 = 'Bac +5 et plus'",
+                    "EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
                     "REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
                     "ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
                     "INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
