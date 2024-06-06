@@ -109,8 +109,17 @@ app_ui = ui.page_fillable(
                     ),
                 ),
                 # dataviz temporelle par vagues des indicateurs
-                ui_card("EVOLUTION DE PRINCIPAUX INDICATEURS POUR L'ELECTION",
-                    output_widget("graph_interet", width="auto", height="auto")),
+                ui.card(
+                    # afficher une ligne d'indication
+                    ui.markdown(
+                        """
+                        ```
+                        Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises : elles apparaissent à chaque vague de l'enquête.
+                        ```
+                        """
+                    ),
+                    output_widget("graph_interet", width="auto", height="auto")
+                ),
                 col_widths=(3, 9)
             )
         ),
@@ -159,18 +168,17 @@ app_ui = ui.page_fillable(
                     )
                 ),
                 # colonne 2 de l'onglet : graphique des variables
-                ui_card("CERTITUDE D'ALLER VOTER EN FONCTION DE LA VARIABLE SOCIO-DEMOGRAPHIQUE CHOISIE",
-                        # # afficher une ligne d'indication
-                        # ui.markdown(
-                        #     """
-                        #     ```
-                        #     Pour afficher la légende du graphique, amener la souris sur les barres verticales grises : les valeurs et les étiquettes des catégories apparaissent à chaque
-                        #     vague de l'enquête. Si l'affichage des étiquettes est incomplet, cliquer sur le bouton 'Afficher sa description' en bas à gauche pour voir leur texte en entier.
-                        #     ```
-                        #     """
-                        # ),
-                        # afficher le graphique ad hoc
-                        output_widget(id="graph_croise")
+                ui.card(
+                    # afficher une ligne d'indication
+                    ui.markdown(
+                        """
+                        ```
+                        Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises : elles apparaissent à chaque vague de l'enquête.
+                        ```
+                        """
+                    ),
+                    # afficher le graphique ad hoc
+                    output_widget(id="graph_croise", width="auto", height="auto")
                 ),
                 # largeurs respectives des deux cadres sur cet onglet
                 col_widths=(3, 9)
@@ -246,20 +254,18 @@ app_ui = ui.page_fillable(
                 ),
 
                 # colonne 2 de l'onglet : graphique des variables
-                ui_card("CERTITUDE DE S'ABSTENIR EN FONCTION DE LA VARIABLE SOCIO-DEMOGRAPHIQUE CHOISIE",
-                        # # afficher une ligne d'indication
-                        # ui.markdown(
-                        #     """
-                        #     ```
-                        #     Pour afficher la légende du graphique, amener la souris sur les barres verticales grises : les valeurs et les étiquettes des catégories apparaissent à chaque
-                        #     vague de l'enquête. Si l'affichage des étiquettes est incomplet, cliquer sur le bouton 'Afficher sa description' en bas à gauche pour voir leur texte en entier.
-                        #     ```
-                        #     """
-                        # ),
+                ui.card(
+                        # afficher une ligne d'indication
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises : elles apparaissent à chaque vague de l'enquête.
+                            ```
+                            """
+                        ),
                         # afficher le graphique ad hoc
-                        output_widget(id="graph_croise_Abst")
+                        output_widget(id="graph_croise_Abst", width="auto", height="auto")
                 ),
-
                 # largeurs respectives des deux cadres sur cet onglet
                 col_widths=(3, 9)
             )
@@ -268,8 +274,6 @@ app_ui = ui.page_fillable(
         id="tab"
         ),
     )
-
-
 
 #############
 ## SERVEUR ##
@@ -370,6 +374,17 @@ def server(input, output, session):
                 # annotation_borderpad=10,
             )
         fig.update_layout(hoverlabel_namelength=0)
+        # TODO : légende avec une taille fixe
+        # fig.update_layout(legend=dict(x=0, y=-100, entrywidthmode="pixels", entrywidth=5000))
+
+        # définir le titre du graphique
+        fig.update_layout(title={'text': "Évolution de deux indicateurs clés sur l'élection",
+                                 'y':0.99,
+                                 'x':0,
+                                 'xanchor': 'left',
+                                 'yanchor': 'top'
+                                }
+        )
 
         return fig
 
@@ -568,14 +583,14 @@ def server(input, output, session):
                 tickfont_size=12,
             )
         )
-        # # définir le titre du graphique
-        # fig.update_layout(title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.select_VarSD()),
-        #                          'y':0.99,
-        #                          'x':0,
-        #                          'xanchor': 'left',
-        #                          'yanchor': 'top'
-        #                         }
-        # )
+        # définir le titre du graphique
+        fig.update_layout(title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.select_VarSD()),
+                                 'y':0.99,
+                                 'x':0,
+                                 'xanchor': 'left',
+                                 'yanchor': 'top'
+                                }
+        )
 
         # source
         annotations = []
@@ -804,14 +819,14 @@ def server(input, output, session):
                 tickfont_size=12,
             )
         )
-        # # définir le titre du graphique
-        # fig.update_layout(title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.select_VarSD()),
-        #                          'y':0.99,
-        #                          'x':0,
-        #                          'xanchor': 'left',
-        #                          'yanchor': 'top'
-        #                         }
-        # )
+        # définir le titre du graphique
+        fig.update_layout(title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.select_VarSD_Abst()),
+                                 'y':0.99,
+                                 'x':0,
+                                 'xanchor': 'left',
+                                 'yanchor': 'top'
+                                }
+        )
 
         # source
         annotations = []
