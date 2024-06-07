@@ -41,3 +41,15 @@ Il est par conséquent vivement recommandé à l'utilisateur de [contacter le Ce
 et les chercheurs membres du laboratoire en cas de doute, ou pour toute question ou besoin
 de clarification, de contextualisation ou d'analyse détaillée et commentée de ces
 principaux résultats graphiques.
+
+---
+
+### Installation
+
+```
+git clone
+cd shiny_europe
+pip install shiny
+pip install requirements.txt
+shiny run app.py
+```
