@@ -112,7 +112,7 @@ app_ui = ui.page_fillable(
                     ui_card("DERNIERES VALEURS ENREGISTREES - Mai 2024",
                         ui.layout_columns(
                             ui_card("Intérêt pour l'élection", "61,9%"),
-                            ui_card("Certitude d'aller voter", "47,1%")
+                            ui_card("Certitude d'aller voter", "61,1%")
                         ),
                     ),
                 ),
@@ -301,7 +301,9 @@ def server(input, output, session):
     def _():
         m = ui.modal("La question posée aux répondants est la suivante : 'Sur une échelle de 0 à 10, \
                      où 0 signifie aucun intérêt et 10 signifie énormément d'intérêt, quel est votre \
-                     niveau d'intérêt pour les prochaines élections européennes de 2024 ?'",
+                     niveau d'intérêt pour les prochaines élections européennes de 2024 ?'. \
+                     L'indicateur est alors calculé comme la somme des fréquences obtenues aux \
+                     modalités 7 à 10 de cette question.",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
