@@ -1,31 +1,31 @@
-,PROXST,CERTST1,pct,n,unweighted_n,VAGUE
-1,"Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste,<br>Parti Communiste Français, France Insoumise)",1,25.9786618560416,1183.81219867952,1057,2023-06-16
-2,"Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",1,19.3330399300196,1432.15714786806,1519,2023-06-16
-3,"Centre (Renaissance, Le MoDem (Mouvement Démocrate),<br>Horizons, L’UDI (Union des Démocrates et Indépendants))",1,13.1237835335534,1627.71102691228,1677,2023-06-16
-4,Droite  (Les Républicains),1,15.559603739444,680.876275357783,861,2023-06-16
-5,"Très à droite (Debout la France, Rassemblement national,<br>Reconquête!)",1,24.7707301245448,2305.59315499589,2147,2023-06-16
-6,Autre parti ou aucun parti,1,48.3376311862481,3397.80461314194,3367,2023-06-16
-7,"Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste,<br>Parti Communiste Français, France Insoumise)",1,24.2601246791607,1232.00161362344,1038,2023-11-29
-8,"Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",1,19.9918834066231,1513.65028367854,1642,2023-11-29
-9,"Centre (Renaissance, Le MoDem (Mouvement Démocrate),<br>Horizons, L’UDI (Union des Démocrates et Indépendants))",1,13.7863022244277,1662.5632428471,1862,2023-11-29
-10,Droite  (Les Républicains),1,16.0086986381845,728.562222989551,919,2023-11-29
-11,"Très à droite (Debout la France, Rassemblement national,<br>Reconquête!)",1,23.584238013978,2611.60887547712,2496,2023-11-29
-12,Autre parti ou aucun parti,1,48.012656378743,3940.03768623169,3732,2023-11-29
-13,"Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste,<br>Parti Communiste Français, France Insoumise)",1,18.2417041892488,1278.42951180797,1079,2024-03-01
-14,"Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",1,14.5631932216825,1667.36654312879,1744,2024-03-01
-15,"Centre (Renaissance, Le MoDem (Mouvement Démocrate),<br>Horizons, L’UDI (Union des Démocrates et Indépendants))",1,10.8933749961707,1694.53093751708,1808,2024-03-01
-16,Droite  (Les Républicains),1,8.83866671169645,738.684741974472,921,2024-03-01
-17,"Très à droite (Debout la France, Rassemblement national,<br>Reconquête!)",1,12.7678277638063,2745.77959849467,2626,2024-03-01
-18,Autre parti ou aucun parti,1,39.3661960749263,3644.22701308416,3591,2024-03-01
-19,"Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste,<br>Parti Communiste Français, France Insoumise)",1,17.5156660720526,1104.25152012409,968,2024-04-19
-20,"Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",1,14.6610924717209,1548.64763504462,1620,2024-04-19
-21,"Centre (Renaissance, Le MoDem (Mouvement Démocrate),<br>Horizons, L’UDI (Union des Démocrates et Indépendants))",1,10.4675497171564,1479.51047360454,1537,2024-04-19
-22,Droite  (Les Républicains),1,11.7739474750939,670.931687405908,800,2024-04-19
-23,"Très à droite (Debout la France, Rassemblement national,<br>Reconquête!)",1,12.4409375945668,2561.09694641128,2479,2024-04-19
-24,Autre parti ou aucun parti,1,37.9976017703397,3281.80775724541,3243,2024-04-19
-25,"Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste,<br>Parti Communiste Français, France Insoumise)",1,15.3470195308855,1228.25064920094,1079,2024-05-27
-26,"Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",1,12.0215871178096,1683.91661177748,1796,2024-05-27
-27,"Centre (Renaissance, Le MoDem (Mouvement Démocrate),<br>Horizons, L’UDI (Union des Démocrates et Indépendants))",1,12.0065349826679,1528.3257982987,1632,2024-05-27
-28,Droite  (Les Républicains),1,10.9281995281111,755.573095069594,916,2024-05-27
-29,"Très à droite (Debout la France, Rassemblement national,<br>Reconquête!)",1,9.86232419822434,2775.1423269787,2682,2024-05-27
-30,Autre parti ou aucun parti,1,35.4834741545083,3456.62681789051,3323,2024-05-27
+"","PROXST","CERTST1","pct","n","unweighted_n","VAGUE","TAILLEECH"
+"1","Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)","1",25.9786618560416,1183.81219867952,1057,"2023-06-16",10600
+"2","Gauche (Parti Socialiste, Europe Ecologie - Les Verts)","1",19.3330399300196,1432.15714786806,1519,"2023-06-16",10600
+"3","Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))","1",13.1237835335534,1627.71102691228,1677,"2023-06-16",10600
+"4","Droite  (Les Républicains)","1",15.559603739444,680.876275357783,861,"2023-06-16",10600
+"5","Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)","1",24.7707301245448,2305.59315499589,2147,"2023-06-16",10600
+"6","Autre parti ou aucun parti","1",48.3376311862481,3397.80461314194,3367,"2023-06-16",10600
+"7","Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)","1",24.2601246791607,1232.00161362344,1038,"2023-11-29",11691
+"8","Gauche (Parti Socialiste, Europe Ecologie - Les Verts)","1",19.9918834066231,1513.65028367854,1642,"2023-11-29",11691
+"9","Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))","1",13.7863022244277,1662.5632428471,1862,"2023-11-29",11691
+"10","Droite  (Les Républicains)","1",16.0086986381845,728.562222989551,919,"2023-11-29",11691
+"11","Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)","1",23.584238013978,2611.60887547712,2496,"2023-11-29",11691
+"12","Autre parti ou aucun parti","1",48.012656378743,3940.03768623169,3732,"2023-11-29",11691
+"13","Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)","1",18.2417041892488,1278.42951180797,1079,"2024-03-01",11770
+"14","Gauche (Parti Socialiste, Europe Ecologie - Les Verts)","1",14.5631932216825,1667.36654312879,1744,"2024-03-01",11770
+"15","Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))","1",10.8933749961707,1694.53093751708,1808,"2024-03-01",11770
+"16","Droite  (Les Républicains)","1",8.83866671169645,738.684741974472,921,"2024-03-01",11770
+"17","Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)","1",12.7678277638063,2745.77959849467,2626,"2024-03-01",11770
+"18","Autre parti ou aucun parti","1",39.3661960749263,3644.22701308416,3591,"2024-03-01",11770
+"19","Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)","1",17.5156660720526,1104.25152012409,968,"2024-04-19",10651
+"20","Gauche (Parti Socialiste, Europe Ecologie - Les Verts)","1",14.6610924717209,1548.64763504462,1620,"2024-04-19",10651
+"21","Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))","1",10.4675497171564,1479.51047360454,1537,"2024-04-19",10651
+"22","Droite  (Les Républicains)","1",11.7739474750939,670.931687405908,800,"2024-04-19",10651
+"23","Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)","1",12.4409375945668,2561.09694641128,2479,"2024-04-19",10651
+"24","Autre parti ou aucun parti","1",37.9976017703397,3281.80775724541,3243,"2024-04-19",10651
+"25","Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)","1",15.3470195308855,1228.25064920094,1079,"2024-05-27",11430
+"26","Gauche (Parti Socialiste, Europe Ecologie - Les Verts)","1",12.0215871178096,1683.91661177748,1796,"2024-05-27",11430
+"27","Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))","1",12.0065349826679,1528.3257982987,1632,"2024-05-27",11430
+"28","Droite  (Les Républicains)","1",10.9281995281111,755.573095069594,916,"2024-05-27",11430
+"29","Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)","1",9.86232419822434,2775.1423269787,2682,"2024-05-27",11430
+"30","Autre parti ou aucun parti","1",35.4834741545083,3456.62681789051,3323,"2024-05-27",11430
