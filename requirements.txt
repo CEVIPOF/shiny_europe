@@ -4,3 +4,4 @@ shiny
 shinywidgets
 shinyswatch
 pandas
+orjson

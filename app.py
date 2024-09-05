@@ -46,9 +46,6 @@ def ui_card(title, *args):
 # définir la page principale
 app_ui = ui.page_fillable(
 
-    # définir l'apparence générale de l'application
-    shinyswatch.theme.simplex,
-
     # définir le titre de l'application
     ui.h2("Enquête Électorale Française sur les élections européennes du 9 juin 2024"
     ),
@@ -268,9 +265,11 @@ app_ui = ui.page_fillable(
                 col_widths=(3, 9)
             )
         ),
-        
+
         id="tab"
-    )
+    ),
+    # définition du theme de couleur de l'application
+    theme = shinyswatch.theme.simplex
 )
 
 
@@ -346,7 +345,7 @@ def server(input, output, session):
             df_var = df[df['Indicateurs'] == var_modal].sort_values('VAGUE')
             # ajouter la courbe principale (pourcentage selon la vague)
             fig.add_trace(go.Scatter( # ajouter un objet de type Scatter à la zone de graphique
-                x=df_var['VAGUE'], 
+                x=df_var['VAGUE'],
                 y=df_var['pct'],
                 mode='lines+markers',
                 name=var_modal,
@@ -434,7 +433,7 @@ def server(input, output, session):
             margin=dict(b=50, # b = bottom
                         t=30,  # t = top
                         r=200 # r = right
-                        ), 
+                        ),
             # fixer la position et la taille de la légende
             legend=dict(
                 x=1.02, # position horizontale de la légende (1 = à droite du graphique)
@@ -653,7 +652,7 @@ def server(input, output, session):
             df_varSD = data[data["%s" % input.Select_VarSD_Vote()] == varSD_modal].sort_values('VAGUE')
             # ajouter la courbe principale (pourcentage selon la vague)
             fig.add_trace(go.Scatter( # ajouter un objet de type Scatter à la zone de graphique
-                x=df_varSD['VAGUE'], 
+                x=df_varSD['VAGUE'],
                 y=df_varSD['pct'],
                 # afficher les courbes avec des marqueurs (ronds)
                 mode='lines+markers',
@@ -666,7 +665,7 @@ def server(input, output, session):
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
                 hovertemplate='%{y:.1f}%<extra></extra>'
-            ))  
+            ))
             # ajouter l'intervalle de confiance autour de la courbe principale des données
             fig.add_trace(go.Scatter(
                 # définir une zone fermée, en ajoutant la liste des dates inversées
@@ -770,14 +769,14 @@ def server(input, output, session):
                 yanchor='top', # ancrer la légende en haut de sa position y
                 bgcolor='rgba(255,255,255,0.8)' # fond légèrement transparent
             )
-        )   
+        )
 
         # ajuster l'axe des ordonnées en fonction des valeurs observées
         fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarSD_Vote()))
 
         # modifier l'apparence des courbes (affinées et "arrondies")
         fig.update_traces(line_shape="spline")
-        
+
         # retourner le graphique
         return fig
 
@@ -980,7 +979,7 @@ def server(input, output, session):
             df_varSD = data[data["%s" % input.Select_VarSD_Abst()] == varSD_modal].sort_values('VAGUE')
             # ajouter la courbe principale (pourcentage selon la vague)
             fig.add_trace(go.Scatter( # ajouter un objet de type Scatter à la zone de graphique
-                x=df_varSD['VAGUE'], 
+                x=df_varSD['VAGUE'],
                 y=df_varSD['pct'],
                 # afficher les courbes avec des marqueurs (ronds)
                 mode='lines+markers',
@@ -993,7 +992,7 @@ def server(input, output, session):
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
                 hovertemplate='%{y:.1f}%<extra></extra>'
-            ))  
+            ))
             # ajouter l'intervalle de confiance autour de la courbe principale des données
             fig.add_trace(go.Scatter(
                 # définir une zone fermée, en ajoutant la liste des dates inversées
@@ -1097,14 +1096,14 @@ def server(input, output, session):
                 yanchor='top', # ancrer la légende en haut de sa position y
                 bgcolor='rgba(255,255,255,0.8)' # fond légèrement transparent
             )
-        )   
+        )
 
         # ajuster l'axe des ordonnées en fonction des valeurs observées
         fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarSD_Abst()))
 
         # modifier l'apparence des courbes (affinées et "arrondies")
         fig.update_traces(line_shape="spline")
-        
+
         # retourner le graphique
         return fig
 
@@ -1116,5 +1115,3 @@ def server(input, output, session):
 
 # définir une nouvelle instance de l'application
 app = App(app_ui, server)
-
-
