@@ -785,9 +785,9 @@ def server(input, output, session):
                 rangeselector=dict(
                     buttons=list([
                         dict(step="all", label="Depuis la 1ère vague de l'enquête"),
-                        dict(count=3, label="Depuis 3 mois", step="month", stepmode="backward"),
+                        dict(count=9, label="Depuis 9 mois", step="month", stepmode="backward"),
                         dict(count=6, label="Depuis 6 mois", step="month", stepmode="backward"),
-                        dict(count=9, label="Depuis 9 mois", step="month", stepmode="backward")
+                        dict(count=3, label="Depuis 3 mois", step="month", stepmode="backward")
                     ])
                 )
             ),
@@ -1112,9 +1112,9 @@ def server(input, output, session):
                 rangeselector=dict(
                     buttons=list([
                         dict(step="all", label="Depuis la 1ère vague de l'enquête"),
-                        dict(count=3, label="Depuis 3 mois", step="month", stepmode="backward"),
+                        dict(count=9, label="Depuis 9 mois", step="month", stepmode="backward"),
                         dict(count=6, label="Depuis 6 mois", step="month", stepmode="backward"),
-                        dict(count=9, label="Depuis 9 mois", step="month", stepmode="backward")
+                        dict(count=3, label="Depuis 3 mois", step="month", stepmode="backward")
                     ])
                 )
             ),
