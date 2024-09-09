@@ -266,6 +266,68 @@ app_ui = ui.page_fillable(
             )
         ),
 
+        # onglet 05 : PARTICIPATION AVEC DES VARIABLES SOCIO-DEMO
+        ui.nav_panel("Participation",
+            # définir deux colonnes
+            ui.layout_columns(
+                # colonne 01 : informations et choix de l'utilisateur
+                ui.card(
+                    # cadre 01 : informations sur la variable de l'intention d'aller voter
+                    ui_card("Participation au vote",
+                            # bouton 01 : information sur la question posée dans l'enquête
+                            ui.input_action_button("Show_PART_Question", # input ID
+                                                   "Question posée dans l'enquête" # texte affiché dans le bouton
+                            ),
+                            # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                        ui.input_action_button("Show_PARTST_Info", # input ID
+                                                   "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                            ),
+                    ),
+                    # cadre 02 : choix de la variable socio-démographique à croiser avec l'intention d'aller voter
+                    ui_card("CHOISIR UNE VARIABLE SOCIO- DEMOGRAPHIQUE",
+                            # groupe de boutons de sélection
+                            ui.input_radio_buttons(
+                                id="Select_VarSD_Part",
+                                label="",
+                                choices={"SEXEST": "Genre",
+                                         "AGERST": "Âge",
+                                         "REG13ST": "Région",
+                                         "AGGLO5ST": "Taille d'agglomération",
+                                         "EMPST": "Type d'emploi occupé",
+                                         "PCSIST": "Catégorie professionnelle",
+                                         "EDUST": "Niveau de scolarité atteint",
+                                         "REL1ST": "Religion",
+                                         "ECO2ST2": "Revenu mensuel du foyer",
+                                         "INTPOLST": "Intérêt pour la politique",
+                                         "Q7ST": "Positionnement idéologique",
+                                         "PROXST": "Préférence partisane"
+                                }
+                            ),
+                            # bouton 03 : informations détaillées sur la variable socio-démographique choisie
+                            ui.input_action_button("Show_VarSD_Part_Info", # input ID
+                                                   "Afficher sa description" # texte affiché dans le bouton
+                            )
+                    )
+                ),
+
+                # colonne 02: graphique des variables croisées par vagues d'enquête
+                ui.card(
+                        # afficher une ligne d'indication pour l'utilisateur
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
+                            ```
+                            """
+                        ),
+                        # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                        output_widget(id="Graph_Croise_Part", width="auto", height="auto")
+                ),
+                # définir les largeurs des colonnes contenant les cadres graphiques
+                col_widths=(3, 9)
+            )
+        ),
         id="tab"
     ),
     # définition du theme de couleur de l'application
@@ -1108,6 +1170,328 @@ def server(input, output, session):
         return fig
 
 
+    #############
+    # onglet 05 #
+    #############
+
+    # bouton 01 : décrire la question posée dans l'enquête
+    @reactive.effect
+    @reactive.event(input.Show_PART_Question)
+    def _():
+        m = ui.modal("La question posée aux répondants est la suivante : 'QUESTION PARTICIPATION'",
+                    title="Informations complémentaires sur la question contenue dans l'enquête :",
+                    easy_close=False
+            )
+        ui.modal_show(m)
+
+    # bouton 02 : décrire la variable de l'intention d'aller voter choisie
+    @reactive.effect
+    @reactive.event(input.Show_PARTST_Info)
+    def _():
+        m = ui.modal("La variable sur la participation présentée ici sur les graphiques est une modalité synthétique \
+                    de la question posée aux répondants de l'enquête. \
+                    Ainsi, parmi les quatre modalités de réponse à la question de l'enquête [...]",
+                    title="Informations complémentaires sur la variable choisie pour les graphiques :",
+                    easy_close=False
+            )
+        ui.modal_show(m)
+
+    # bouton 03 : afficher la description de la variable socio-démographique choisie
+    # avec plusieurs parties de texte qui dépendent de ce choix (via des dictionnaires)
+    @reactive.effect
+    @reactive.event(input.Show_VarSD_Part_Info)
+    def _():
+        # définir le nom de la variable socio-démographique choisie
+        dico_nom_var = {
+                    "SEXEST": "Genre",
+                    "AGERST": "Âge",
+                    "REG13ST": "Région",
+                    "AGGLO5ST": "Taille d'agglomération",
+                    "EMPST": "Type d'emploi occupé",
+                    "PCSIST": "Catégorie professionnelle",
+                    "EDUST": "Niveau de scolarité atteint",
+                    "REL1ST": "Religion",
+                    "ECO2ST2": "Revenu mensuel du foyer",
+                    "INTPOLST": "Intérêt pour la politique",
+                    "Q7ST": "Positionnement idéologique",
+                    "PROXST": "Préférence partisane"
+        }
+        # définir la question de l'enquête associée à la variable socio-démographique choisie
+        dico_question_var = {
+                    "SEXEST": "Êtes-vous ?",
+                    "AGERST": "Quelle est votre date de naissance ?",
+                    "REG13ST": "Veuillez indiquer le département et la commune où vous résidez.",
+                    "AGGLO5ST": "Veuillez indiquer le département et la commune où vous résidez.",
+                    "EMPST": "Quelle est votre situation professionnelle actuelle ?",
+                    "PCSIST": "Quelle est votre situation professionnelle actuelle ?",
+                    "EDUST": "Choisissez votre niveau de scolarité le plus élevé.",
+                    "REL1ST": "Quelle est votre religion, si vous en avez une ?",
+                    "ECO2ST2": " Pour finir, nous avons besoin de connaître, à des fins statistiques uniquement, la tranche dans laquelle se situe le revenu MENSUEL NET de votre FOYER après déduction des impôts sur le revenu (veuillez considérer toutes vos sources de revenus: salaires, bourses, prestations retraite et sécurité sociale, dividendes, revenus immobiliers, pensions alimentaires etc.).",
+                    "INTPOLST": "De manière générale, diriez-vous que vous vous intéressez à la politique ?",
+                    "Q7ST": "Sur une échelle de 0 à 10, où 0 correspond à la gauche et 10 correspond à la droite, où diriez-vous que vous vous situez ?",
+                    "PROXST": "De quel parti vous sentez-vous proche ou moins éloigné que les autres ?"
+        }
+        # définir les modalités de réponse à la question de l'enquête associée à la variable socio-démographique choisie
+        dico_modalite_var = {
+                    "SEXEST": "1 = 'Homme' ; 2 = 'Femme'",
+                    "AGERST": "1 = '18 à 24 ans' ; 2 = '25 à 34 ans' ; 3 = '35 à 49 ans' ; 4 = '50 à 59 ans' ; 5 = '60 ans et plus'",
+                    "REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
+                    "AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
+                    "EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
+                    "PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+                    "EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
+                    "REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
+                    "ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+                    "INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
+                    "Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
+                    "PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
+        m = ui.modal("La variable '%s' correspond à ou est calculée à partir de la question suivante posée aux répondants : \
+                     '%s', \
+                     et ses modalités de réponse (inchangées par rapport au questionnaire ou regroupées pour les présents graphiques) sont : \
+                     %s." % (dico_nom_var.get("%s" % input.Select_VarSD_Part()),
+                             dico_question_var.get("%s" % input.Select_VarSD_Part()),
+                             dico_modalite_var.get("%s" % input.Select_VarSD_Part())
+                     ),
+                     title="Informations complémentaires sur la variable socio-démographique choisie :",
+                     easy_close=False
+            )
+        ui.modal_show(m)
+
+    # graphique
+    @output
+    @render_plotly
+    def Graph_Croise_Part():
+        # définir la partie variable du titre
+        dico_titre = {
+                    "SEXEST": "du genre",
+                    "AGERST": "de l'âge",
+                    "REG13ST": "de la région de résidence",
+                    "AGGLO5ST": "de la taille de l'agglomération de résidence",
+                    "EMPST": "du type d'emploi occupé",
+                    "PCSIST": "de la catégorie socio-professionnelle",
+                    "EDUST": "du niveau de scolarité atteint",
+                    "REL1ST": "de la religion",
+                    "ECO2ST2": "du revenu mensuel du foyer",
+                    "INTPOLST": "de l'intérêt pour la politique",
+                    "Q7ST": "du positionnement idéologique",
+                    "PROXST": "de la préférence partisane"
+        }
+        # définir la partie variable du titre de la légende
+        dico_legende = {
+                    "SEXEST": "Genre",
+                    "AGERST": "Âge",
+                    "REG13ST": "Région",
+                    "AGGLO5ST": "Taille d'agglomération",
+                    "EMPST": "Type d'emploi occupé",
+                    "PCSIST": "Catégorie professionnelle",
+                    "EDUST": "Niveau de scolarité atteint",
+                    "REL1ST": "Religion",
+                    "ECO2ST2": "Revenu mensuel du foyer",
+                    "INTPOLST": "Intérêt pour la politique",
+                    "Q7ST": "Positionnement idéologique",
+                    "PROXST": "Préférence partisane"
+        }
+        # définir l'échelle de l'axe des ordonnées en fonction des
+        # valeurs prises par la variable socio-démographique choisie
+        dico_echelleY = {
+                    "SEXEST": [10, 40],
+                    "AGERST": [10, 45],
+                    "REG13ST": [15, 35],
+                    "AGGLO5ST": [15, 35],
+                    "EMPST": [15, 40],
+                    "PCSIST": [10, 45],
+                    "EDUST": [15, 40],
+                    "REL1ST": [10, 45],
+                    "ECO2ST2": [10, 45],
+                    "INTPOLST": [0, 75],
+                    "Q7ST": [5, 40],
+                    "PROXST": [5, 55],
+        }
+
+        # définir une fonction qui affiche les étiquettes
+        # des modalités de la variablr SD choisie dans la légende
+        # sur plusieurs lignes si leur longueur initiale dépasse la
+        # largeur du cadre de la légende
+        def wrap_label(label, max_length=20):
+            if len(label) <= max_length:
+                return label
+            words = label.split()
+            lines = []
+            current_line = []
+            current_length = 0
+            for word in words:
+                if current_length + len(word) > max_length:
+                    lines.append(' '.join(current_line))
+                    current_line = [word]
+                    current_length = len(word)
+                else:
+                    current_line.append(word)
+                    current_length += len(word) + 1
+            if current_line:
+                lines.append(' '.join(current_line))
+            return '<br>'.join(lines)
+
+        # importer les données
+        csvfile = "data/T_certst1_" + "%s" % input.Select_VarSD_Part().lower() + ".csv"
+        data = pd.read_csv(csvfile)
+
+        # supprimer la première colonne (vide) de la base de donnée
+        data = data.drop(data.columns[0], axis=1)
+
+        # calculer les intervalles de confiance à 95% de probabilité (ou 5% de risque)
+        # d'après la formule pour les proportions contenue dans l'encadré 3 du document :
+        # https://www.sciencespo.fr/cevipof/sites/sciencespo.fr.cevipof/files/Note_Inge%cc%81s1_electionspresidentielles2022_mars2022_V8.pdf
+        # calculer la borne BASSE
+        data["IC95bb"] = data["pct"] - 1.96*np.sqrt((data["pct"]*(100-data["pct"]))/data["TAILLEECH"])
+        # calculer la borne HAUTE
+        data["IC95bh"] = data["pct"] + 1.96*np.sqrt((data["pct"]*(100-data["pct"]))/data["TAILLEECH"])
+
+        # créer la figure en mémoire
+        fig = go.Figure()
+
+        # créer et sélectionner les couleurs des courbes pour les modalités de la variable SD
+        couleurs = ['blue', 'red', 'green', 'purple', 'orange', 'magenta']
+        nb_mod = len(data["%s" % input.Select_VarSD_Abst()].unique())
+        # array : l'indice de position commence à 0, et se termine une valeur
+        # avant le nombre indiqué comme limite à droite dans la sélection
+        couleurs_mod = couleurs[:nb_mod]
+
+        # ajouter une courbe pour chaque modalité de la variable SD
+        # pour chacune des modalités de la variable SD :
+        for i, varSD_modal in enumerate(data["%s" % input.Select_VarSD_Abst()].unique()):
+            # trier les valeurs de la table selon la vague de l'enquête
+            df_varSD = data[data["%s" % input.Select_VarSD_Abst()] == varSD_modal].sort_values('VAGUE')
+            # ajouter la courbe principale (pourcentage selon la vague)
+            fig.add_trace(go.Scatter( # ajouter un objet de type Scatter à la zone de graphique
+                x=df_varSD['VAGUE'],
+                y=df_varSD['pct'],
+                # afficher les courbes avec des marqueurs (ronds)
+                mode='lines+markers',
+                # afficher les étiquettes des modalités sur plusieurs lignes dans le cadre
+                # de la légende
+                name=wrap_label(varSD_modal),
+                # afficher les courbes selon le dictionnaire de couleurs
+                line=dict(color=couleurs_mod[i]),
+                # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
+                # au survol de la courbe par la souris, et supprimer toutes les autres
+                # informations qui pourraient s'afficher en plus (nom de la modalité)
+                hovertemplate='%{y:.1f}%<extra></extra>'
+            ))
+            # ajouter l'intervalle de confiance autour de la courbe principale des données
+            fig.add_trace(go.Scatter(
+                # définir une zone fermée, en ajoutant la liste des dates inversées
+                # à la liste des dates chronologiques des vagues de l'enquête
+                x=df_varSD['VAGUE'].tolist() + df_varSD['VAGUE'].tolist()[::-1],
+                # créer le contour de l'intervalle de confiance, en ajoutant la
+                # liste inversée des bornes inférieures à la liste des bornes supérieures
+                y=df_varSD['IC95bh'].tolist() + df_varSD['IC95bb'].tolist()[::-1],
+                # remplir l'espace entre les lignes ainsi définies
+                fill='toself',
+                # définir la couleur de remplissage des zones de confiance
+                # identique à la couleur des courbes principales auxquelles
+                # elles correspondent
+                fillcolor=couleurs_mod[i],
+                # rendre la ligne de contour de la zone de confiance invisible
+                # (opacité = 0, soit transparence totale)
+                line=dict(color='rgba(255, 255, 255, 0)'),
+                # empêcher l'affichage d'informations quand la souris survole
+                # la zone de confiance
+                hoverinfo="skip",
+                # empêcher l'affichage des zones de confiance dans la légende
+                showlegend=False,
+                # définir l'opacité de la zone de confiance
+                # (20% d'opacité correspond à une transparence de 80%)
+                opacity=0.2,
+            ))
+
+        # ajouter des lignes verticales pour chaque vague de l'enquête
+        for date in data['VAGUE'].unique():
+            fig.add_vline(x=date, line_width=2, line_color="grey")
+
+        # mise en forme détaillée et personnalisée du graphique
+        fig.update_layout(
+            title={'text': "Participation en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Part()),
+                    'y':1,
+                    'x':0,
+                    'xanchor': 'left',
+                    'yanchor': 'top'
+            },
+            # définir le titre de la légende
+            legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Part()),
+            # définir l'affichage séparé des valeurs de % affichées sur les
+            # courbes quand la souris survole chaque vague (barre verticale)
+            hovermode="x",
+            # définir le thème général de l'apparence du graphique
+            template="plotly_white",
+             # définir l'apparence de l'axe des abscisses
+            xaxis=dict(
+                tickformat='%Y-%m-%d',
+                hoverformat='%Y-%m-%d',
+                # ajouter un 'rangeslider' sous le graphique
+                rangeslider=dict(visible=False), # désactivé actuellement
+                # ajouter des boutons au-dessus du graphique pour sélectionner
+                # la plage temporelle à observer
+                rangeselector=dict(
+                    buttons=list([
+                        dict(step="all", label="Depuis la 1ère vague de l'enquête"),
+                        dict(count=9, label="Depuis 9 mois", step="month", stepmode="backward"),
+                        dict(count=6, label="Depuis 6 mois", step="month", stepmode="backward"),
+                        dict(count=3, label="Depuis 3 mois", step="month", stepmode="backward")
+                    ])
+                )
+            ),
+            # définir le titre de l'axe des ordonnées et son apparence
+            yaxis_title=dict(
+                text='Pourcentage de répondants (%)',
+                font_size=12
+            ),
+            # définir les sources des données
+            annotations=[
+                dict(
+                    xref='paper',
+                    yref='paper',
+                    x=0,
+                    y=-0.1,
+                    xanchor='left',
+                    yanchor='top',
+                    text=   'Enquête électorale française pour les ' +
+                            'élections européennes de juin 2024, ' +
+                            'par Ipsos Sopra Steria, Cevipof, ' +
+                            'Le Monde, Fondation Jean Jaurès et ' +
+                            'Institut Montaigne (2024)',
+                    font=dict(size=10, color='grey'),
+                    showarrow=False,
+                )
+            ],
+            # définir les marges de la zone graphique
+            # (augmentées à droite pour le cadre fixe de la légende)
+            margin=dict(b=50, # b = bottom
+                        t=50,  # t = top
+                        l=50, # l = left
+                        r=200 # r = right
+                        ),
+            # fixer la position de la légende
+            legend=dict(
+                orientation="v",
+                valign='top',  # aligner le texte en haut de chaque marqueur de la légende
+                x=1.02, # position horizontale de la légende (1 = à droite du graphique)
+                y=1, # position verticale de la légende (1 = en haut)
+                xanchor='left', # ancrer la légende à gauche de sa position x
+                yanchor='top', # ancrer la légende en haut de sa position y
+                bgcolor='rgba(255,255,255,0.8)' # fond légèrement transparent
+            )
+        )
+
+        # ajuster l'axe des ordonnées en fonction des valeurs observées
+        fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarSD_Abst()))
+
+        # modifier l'apparence des courbes (affinées et "arrondies")
+        fig.update_traces(line_shape="spline")
+
+        # retourner le graphique
+        return fig
 
 #######
 # APP #
