@@ -1311,7 +1311,7 @@ def server(input, output, session):
         }
 
         # définir une fonction qui affiche les étiquettes
-        # des modalités de la variablr SD choisie dans la légende
+        # des modalités de la variable SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
         # largeur du cadre de la légende
         def wrap_label(label, max_length=20):
@@ -1343,20 +1343,11 @@ def server(input, output, session):
         # créer la figure en mémoire
         fig = go.Figure()
 
-        # ajouter une courbe pour chaque modalité de la variable SD
-        # pour chacune des modalités de la variable SD :
         for i, varSD_modal in enumerate(data["%s" % input.Select_VarSD_Part()].unique()):
-            # ajouter la courbe principale (pourcentage selon la vague)
-            fig.add_trace(go.Bar( # ajouter un objet de type Scatter à la zone de graphique
+            fig.add_trace(go.Bar(
                 x=data['Y6PARTEU24ST'],
                 y=data['pct'],
-                # afficher les étiquettes des modalités sur plusieurs lignes dans le cadre
-                # de la légende
                 name=wrap_label(varSD_modal),
-                # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
-                # au survol de la courbe par la souris, et supprimer toutes les autres
-                # informations qui pourraient s'afficher en plus (nom de la modalité)
-                hovertemplate='%{y:.1f}%<extra></extra>'
             ))
 
         # mise en forme détaillée et personnalisée du graphique
