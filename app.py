@@ -289,18 +289,18 @@ app_ui = ui.page_fillable(
                             ui.input_radio_buttons(
                                 id="Select_VarSD_Part",
                                 label="",
-                                choices={"SEXEST": "Genre",
-                                         "AGERST": "Âge",
-                                         "REG13ST": "Région",
-                                         "AGGLO5ST": "Taille d'agglomération",
-                                         "EMPST": "Type d'emploi occupé",
-                                         "PCSIST": "Catégorie professionnelle",
-                                         "EDUST": "Niveau de scolarité atteint",
-                                         "REL1ST": "Religion",
-                                         "ECO2ST2": "Revenu mensuel du foyer",
-                                         "INTPOLST": "Intérêt pour la politique",
-                                         "Q7ST": "Positionnement idéologique",
-                                         "PROXST": "Préférence partisane"
+                                choices={"Y6SEXEST": "Genre",
+                                         "Y6AGERST": "Âge",
+                                         "Y6REG13ST": "Région",
+                                         "Y6AGGLO5ST": "Taille d'agglomération",
+                                         "Y6EMPST": "Type d'emploi occupé",
+                                         "Y6PCSIST": "Catégorie professionnelle",
+                                         "Y6EDUST": "Niveau de scolarité atteint",
+                                         "Y6REL1ST": "Religion",
+                                         "Y6ECO2ST2": "Revenu mensuel du foyer",
+                                         "Y6INTPOLST": "Intérêt pour la politique",
+                                         "Y6Q7ST": "Positionnement idéologique",
+                                         "Y6PROXST": "Préférence partisane"
                                 }
                             ),
                             # bouton 03 : informations détaillées sur la variable socio-démographique choisie
@@ -1203,48 +1203,48 @@ def server(input, output, session):
     def _():
         # définir le nom de la variable socio-démographique choisie
         dico_nom_var = {
-                    "SEXEST": "Genre",
-                    "AGERST": "Âge",
-                    "REG13ST": "Région",
-                    "AGGLO5ST": "Taille d'agglomération",
-                    "EMPST": "Type d'emploi occupé",
-                    "PCSIST": "Catégorie professionnelle",
-                    "EDUST": "Niveau de scolarité atteint",
-                    "REL1ST": "Religion",
-                    "ECO2ST2": "Revenu mensuel du foyer",
-                    "INTPOLST": "Intérêt pour la politique",
-                    "Q7ST": "Positionnement idéologique",
-                    "PROXST": "Préférence partisane"
+                    "Y6SEXEST": "Genre",
+                    "Y6AGERST": "Âge",
+                    "Y6REG13ST": "Région",
+                    "Y6AGGLO5ST": "Taille d'agglomération",
+                    "Y6EMPST": "Type d'emploi occupé",
+                    "Y6PCSIST": "Catégorie professionnelle",
+                    "Y6EDUST": "Niveau de scolarité atteint",
+                    "Y6REL1ST": "Religion",
+                    "Y6ECO2ST2": "Revenu mensuel du foyer",
+                    "Y6INTPOLST": "Intérêt pour la politique",
+                    "Y6Q7ST": "Positionnement idéologique",
+                    "Y6PROXST": "Préférence partisane"
         }
         # définir la question de l'enquête associée à la variable socio-démographique choisie
         dico_question_var = {
-                    "SEXEST": "Êtes-vous ?",
-                    "AGERST": "Quelle est votre date de naissance ?",
-                    "REG13ST": "Veuillez indiquer le département et la commune où vous résidez.",
-                    "AGGLO5ST": "Veuillez indiquer le département et la commune où vous résidez.",
-                    "EMPST": "Quelle est votre situation professionnelle actuelle ?",
-                    "PCSIST": "Quelle est votre situation professionnelle actuelle ?",
-                    "EDUST": "Choisissez votre niveau de scolarité le plus élevé.",
-                    "REL1ST": "Quelle est votre religion, si vous en avez une ?",
-                    "ECO2ST2": " Pour finir, nous avons besoin de connaître, à des fins statistiques uniquement, la tranche dans laquelle se situe le revenu MENSUEL NET de votre FOYER après déduction des impôts sur le revenu (veuillez considérer toutes vos sources de revenus: salaires, bourses, prestations retraite et sécurité sociale, dividendes, revenus immobiliers, pensions alimentaires etc.).",
-                    "INTPOLST": "De manière générale, diriez-vous que vous vous intéressez à la politique ?",
-                    "Q7ST": "Sur une échelle de 0 à 10, où 0 correspond à la gauche et 10 correspond à la droite, où diriez-vous que vous vous situez ?",
-                    "PROXST": "De quel parti vous sentez-vous proche ou moins éloigné que les autres ?"
+                    "Y6SEXEST": "Êtes-vous ?",
+                    "Y6AGERST": "Quelle est votre date de naissance ?",
+                    "Y6REG13ST": "Veuillez indiquer le département et la commune où vous résidez.",
+                    "Y6AGGLO5ST": "Veuillez indiquer le département et la commune où vous résidez.",
+                    "Y6EMPST": "Quelle est votre situation professionnelle actuelle ?",
+                    "Y6PCSIST": "Quelle est votre situation professionnelle actuelle ?",
+                    "Y6EDUST": "Choisissez votre niveau de scolarité le plus élevé.",
+                    "Y6REL1ST": "Quelle est votre religion, si vous en avez une ?",
+                    "Y6ECO2ST2": " Pour finir, nous avons besoin de connaître, à des fins statistiques uniquement, la tranche dans laquelle se situe le revenu MENSUEL NET de votre FOYER après déduction des impôts sur le revenu (veuillez considérer toutes vos sources de revenus: salaires, bourses, prestations retraite et sécurité sociale, dividendes, revenus immobiliers, pensions alimentaires etc.).",
+                    "Y6INTPOLST": "De manière générale, diriez-vous que vous vous intéressez à la politique ?",
+                    "Y6Q7ST": "Sur une échelle de 0 à 10, où 0 correspond à la gauche et 10 correspond à la droite, où diriez-vous que vous vous situez ?",
+                    "Y6PROXST": "De quel parti vous sentez-vous proche ou moins éloigné que les autres ?"
         }
         # définir les modalités de réponse à la question de l'enquête associée à la variable socio-démographique choisie
         dico_modalite_var = {
-                    "SEXEST": "1 = 'Homme' ; 2 = 'Femme'",
-                    "AGERST": "1 = '18 à 24 ans' ; 2 = '25 à 34 ans' ; 3 = '35 à 49 ans' ; 4 = '50 à 59 ans' ; 5 = '60 ans et plus'",
-                    "REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
-                    "AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
-                    "EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-                    "PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
-                    "EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
-                    "REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-                    "ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
-                    "INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
-                    "Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-                    "PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+                    "Y6SEXEST": "1 = 'Homme' ; 2 = 'Femme'",
+                    "Y6AGERST": "1 = '18 à 24 ans' ; 2 = '25 à 34 ans' ; 3 = '35 à 49 ans' ; 4 = '50 à 59 ans' ; 5 = '60 ans et plus'",
+                    "Y6REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
+                    "Y6AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
+                    "Y6EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
+                    "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+                    "Y6EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
+                    "Y6REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
+                    "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+                    "Y6INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
+                    "Y6Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
+                    "Y6PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal("La variable '%s' correspond à ou est calculée à partir de la question suivante posée aux répondants : \
@@ -1265,49 +1265,49 @@ def server(input, output, session):
     def Graph_Croise_Part():
         # définir la partie variable du titre
         dico_titre = {
-                    "SEXEST": "du genre",
-                    "AGERST": "de l'âge",
-                    "REG13ST": "de la région de résidence",
-                    "AGGLO5ST": "de la taille de l'agglomération de résidence",
-                    "EMPST": "du type d'emploi occupé",
-                    "PCSIST": "de la catégorie socio-professionnelle",
-                    "EDUST": "du niveau de scolarité atteint",
-                    "REL1ST": "de la religion",
-                    "ECO2ST2": "du revenu mensuel du foyer",
-                    "INTPOLST": "de l'intérêt pour la politique",
-                    "Q7ST": "du positionnement idéologique",
-                    "PROXST": "de la préférence partisane"
+                    "Y6SEXEST": "du genre",
+                    "Y6AGERST": "de l'âge",
+                    "Y6REG13ST": "de la région de résidence",
+                    "Y6AGGLO5ST": "de la taille de l'agglomération de résidence",
+                    "Y6EMPST": "du type d'emploi occupé",
+                    "Y6PCSIST": "de la catégorie socio-professionnelle",
+                    "Y6EDUST": "du niveau de scolarité atteint",
+                    "Y6REL1ST": "de la religion",
+                    "Y6ECO2ST2": "du revenu mensuel du foyer",
+                    "Y6INTPOLST": "de l'intérêt pour la politique",
+                    "Y6Q7ST": "du positionnement idéologique",
+                    "Y6PROXST": "de la préférence partisane"
         }
         # définir la partie variable du titre de la légende
         dico_legende = {
-                    "SEXEST": "Genre",
-                    "AGERST": "Âge",
-                    "REG13ST": "Région",
-                    "AGGLO5ST": "Taille d'agglomération",
-                    "EMPST": "Type d'emploi occupé",
-                    "PCSIST": "Catégorie professionnelle",
-                    "EDUST": "Niveau de scolarité atteint",
-                    "REL1ST": "Religion",
-                    "ECO2ST2": "Revenu mensuel du foyer",
-                    "INTPOLST": "Intérêt pour la politique",
-                    "Q7ST": "Positionnement idéologique",
-                    "PROXST": "Préférence partisane"
+                    "Y6SEXEST": "Genre",
+                    "Y6AGERST": "Âge",
+                    "Y6REG13ST": "Région",
+                    "Y6AGGLO5ST": "Taille d'agglomération",
+                    "Y6EMPST": "Type d'emploi occupé",
+                    "Y6PCSIST": "Catégorie professionnelle",
+                    "Y6EDUST": "Niveau de scolarité atteint",
+                    "Y6REL1ST": "Religion",
+                    "Y6ECO2ST2": "Revenu mensuel du foyer",
+                    "Y6INTPOLST": "Intérêt pour la politique",
+                    "Y6Q7ST": "Positionnement idéologique",
+                    "Y6PROXST": "Préférence partisane"
         }
         # définir l'échelle de l'axe des ordonnées en fonction des
         # valeurs prises par la variable socio-démographique choisie
         dico_echelleY = {
-                    "SEXEST": [10, 40],
-                    "AGERST": [10, 45],
-                    "REG13ST": [15, 35],
-                    "AGGLO5ST": [15, 35],
-                    "EMPST": [15, 40],
-                    "PCSIST": [10, 45],
-                    "EDUST": [15, 40],
-                    "REL1ST": [10, 45],
-                    "ECO2ST2": [10, 45],
-                    "INTPOLST": [0, 75],
-                    "Q7ST": [5, 40],
-                    "PROXST": [5, 55],
+                    "Y6SEXEST": [10, 40],
+                    "Y6AGERST": [10, 45],
+                    "Y6REG13ST": [15, 35],
+                    "Y6AGGLO5ST": [15, 35],
+                    "Y6EMPST": [15, 40],
+                    "Y6PCSIST": [10, 45],
+                    "Y6EDUST": [15, 40],
+                    "Y6REL1ST": [10, 45],
+                    "Y6ECO2ST2": [10, 45],
+                    "Y6INTPOLST": [0, 75],
+                    "Y6Q7ST": [5, 40],
+                    "Y6PROXST": [5, 55],
         }
 
         # définir une fonction qui affiche les étiquettes
@@ -1334,81 +1334,30 @@ def server(input, output, session):
             return '<br>'.join(lines)
 
         # importer les données
-        csvfile = "data/T_certst1_" + "%s" % input.Select_VarSD_Part().lower() + ".csv"
+        csvfile = "data/T_w6_parteu24st_" + "%s" % input.Select_VarSD_Part().lower()[2:] + ".csv"
         data = pd.read_csv(csvfile)
 
         # supprimer la première colonne (vide) de la base de donnée
         data = data.drop(data.columns[0], axis=1)
 
-        # calculer les intervalles de confiance à 95% de probabilité (ou 5% de risque)
-        # d'après la formule pour les proportions contenue dans l'encadré 3 du document :
-        # https://www.sciencespo.fr/cevipof/sites/sciencespo.fr.cevipof/files/Note_Inge%cc%81s1_electionspresidentielles2022_mars2022_V8.pdf
-        # calculer la borne BASSE
-        data["IC95bb"] = data["pct"] - 1.96*np.sqrt((data["pct"]*(100-data["pct"]))/data["TAILLEECH"])
-        # calculer la borne HAUTE
-        data["IC95bh"] = data["pct"] + 1.96*np.sqrt((data["pct"]*(100-data["pct"]))/data["TAILLEECH"])
-
         # créer la figure en mémoire
         fig = go.Figure()
 
-        # créer et sélectionner les couleurs des courbes pour les modalités de la variable SD
-        couleurs = ['blue', 'red', 'green', 'purple', 'orange', 'magenta']
-        nb_mod = len(data["%s" % input.Select_VarSD_Abst()].unique())
-        # array : l'indice de position commence à 0, et se termine une valeur
-        # avant le nombre indiqué comme limite à droite dans la sélection
-        couleurs_mod = couleurs[:nb_mod]
-
         # ajouter une courbe pour chaque modalité de la variable SD
         # pour chacune des modalités de la variable SD :
-        for i, varSD_modal in enumerate(data["%s" % input.Select_VarSD_Abst()].unique()):
-            # trier les valeurs de la table selon la vague de l'enquête
-            df_varSD = data[data["%s" % input.Select_VarSD_Abst()] == varSD_modal].sort_values('VAGUE')
+        for i, varSD_modal in enumerate(data["%s" % input.Select_VarSD_Part()].unique()):
             # ajouter la courbe principale (pourcentage selon la vague)
-            fig.add_trace(go.Scatter( # ajouter un objet de type Scatter à la zone de graphique
-                x=df_varSD['VAGUE'],
-                y=df_varSD['pct'],
-                # afficher les courbes avec des marqueurs (ronds)
-                mode='lines+markers',
+            fig.add_trace(go.Bar( # ajouter un objet de type Scatter à la zone de graphique
+                x=data['Y6PARTEU24ST'],
+                y=data['pct'],
                 # afficher les étiquettes des modalités sur plusieurs lignes dans le cadre
                 # de la légende
                 name=wrap_label(varSD_modal),
-                # afficher les courbes selon le dictionnaire de couleurs
-                line=dict(color=couleurs_mod[i]),
                 # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
                 hovertemplate='%{y:.1f}%<extra></extra>'
             ))
-            # ajouter l'intervalle de confiance autour de la courbe principale des données
-            fig.add_trace(go.Scatter(
-                # définir une zone fermée, en ajoutant la liste des dates inversées
-                # à la liste des dates chronologiques des vagues de l'enquête
-                x=df_varSD['VAGUE'].tolist() + df_varSD['VAGUE'].tolist()[::-1],
-                # créer le contour de l'intervalle de confiance, en ajoutant la
-                # liste inversée des bornes inférieures à la liste des bornes supérieures
-                y=df_varSD['IC95bh'].tolist() + df_varSD['IC95bb'].tolist()[::-1],
-                # remplir l'espace entre les lignes ainsi définies
-                fill='toself',
-                # définir la couleur de remplissage des zones de confiance
-                # identique à la couleur des courbes principales auxquelles
-                # elles correspondent
-                fillcolor=couleurs_mod[i],
-                # rendre la ligne de contour de la zone de confiance invisible
-                # (opacité = 0, soit transparence totale)
-                line=dict(color='rgba(255, 255, 255, 0)'),
-                # empêcher l'affichage d'informations quand la souris survole
-                # la zone de confiance
-                hoverinfo="skip",
-                # empêcher l'affichage des zones de confiance dans la légende
-                showlegend=False,
-                # définir l'opacité de la zone de confiance
-                # (20% d'opacité correspond à une transparence de 80%)
-                opacity=0.2,
-            ))
-
-        # ajouter des lignes verticales pour chaque vague de l'enquête
-        for date in data['VAGUE'].unique():
-            fig.add_vline(x=date, line_width=2, line_color="grey")
 
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
@@ -1418,6 +1367,7 @@ def server(input, output, session):
                     'xanchor': 'left',
                     'yanchor': 'top'
             },
+            barmode='stack',
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Part()),
             # définir l'affichage séparé des valeurs de % affichées sur les
@@ -1486,9 +1436,6 @@ def server(input, output, session):
 
         # ajuster l'axe des ordonnées en fonction des valeurs observées
         fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarSD_Abst()))
-
-        # modifier l'apparence des courbes (affinées et "arrondies")
-        fig.update_traces(line_shape="spline")
 
         # retourner le graphique
         return fig
