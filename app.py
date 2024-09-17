@@ -1343,10 +1343,10 @@ def server(input, output, session):
         # créer la figure en mémoire
         fig = go.Figure()
 
-        for i, varSD_modal in enumerate(data[input.Select_VarSD_Part()].unique()):
+        for i, varSD_modal in enumerate(data["Y6PARTEU24ST"].unique()):
             fig.add_trace(go.Bar(
-                x=data["Y6PARTEU24ST"],
-                y=data[data[input.Select_VarSD_Part()] == varSD_modal]["pct"],
+                x=data[input.Select_VarSD_Part()].unique(),
+                y=data[data["Y6PARTEU24ST"] == varSD_modal]["pct"],
                 name=wrap_label(varSD_modal),
                 offsetgroup=0
             ))
