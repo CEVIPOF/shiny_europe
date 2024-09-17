@@ -328,6 +328,44 @@ app_ui = ui.page_fillable(
                 col_widths=(3, 9)
             )
         ),
+
+        # onglet 06 : VOTE EN FAVEUR DES LISTES
+        ui.nav_panel("Listes éléctorales",
+            # définir deux colonnes
+            ui.layout_columns(
+                # colonne 01 : informations et choix de l'utilisateur
+                ui.card(
+                    # cadre 01 : informations sur la variable de l'intention d'aller voter
+                    ui_card("TODO",
+                            # bouton 01 : information sur la question posée dans l'enquête
+                            ui.input_action_button("Show_LIST_Question", # input ID
+                                                   "Question posée dans l'enquête" # texte affiché dans le bouton
+                            ),
+                            # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                        ui.input_action_button("Show_LIST_Info", # input ID
+                                                   "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                            ),
+                    )
+                ),
+
+                # colonne 02: graphique du vote en faveur des listes
+                ui.card(
+                        # afficher une ligne d'indication pour l'utilisateur
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
+                            ```
+                            """
+                        ),
+                        # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                        output_widget(id="Graph_List", width="auto", height="auto")
+                ),
+                # définir les largeurs des colonnes contenant les cadres graphiques
+                col_widths=(3, 9)
+            )
+        ),
         id="tab"
     ),
     # définition du theme de couleur de l'application
