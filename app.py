@@ -1476,6 +1476,81 @@ def server(input, output, session):
         # retourner le graphique
         return fig
 
+
+    #############
+    # onglet 06 #
+    #############
+
+    # bouton 01 : décrire la question posée dans l'enquête
+    @reactive.effect
+    @reactive.event(input.Show_LIST_Question)
+    def _():
+        m = ui.modal("La question posée aux répondants est la suivante : 'QUESTION LISTE'",
+                    title="Informations complémentaires sur la question contenue dans l'enquête :",
+                    easy_close=False
+            )
+        ui.modal_show(m)
+
+    # bouton 02 : décrire la variable de l'intention d'aller voter choisie
+    @reactive.effect
+    @reactive.event(input.Show_EU24DXST_Info)
+    def _():
+        m = ui.modal("La variable sur la participation présentée ici sur les graphiques est une modalité synthétique \
+                    de la question posée aux répondants de l'enquête. \
+                    Ainsi, parmi les quatre modalités de réponse à la question de l'enquête [...]",
+                    title="Informations complémentaires sur la variable choisie pour les graphiques :",
+                    easy_close=False
+            )
+        ui.modal_show(m)
+
+    # graphique
+    @output
+    @render_plotly
+    def Graph_List():
+
+        # définir une fonction qui affiche les étiquettes
+        # des modalités de la variable SD choisie dans la légende
+        # sur plusieurs lignes si leur longueur initiale dépasse la
+        # largeur du cadre de la légende
+        def wrap_label(label, max_length=20):
+            if len(label) <= max_length:
+                return label
+            words = label.split()
+            lines = []
+            current_line = []
+            current_length = 0
+            for word in words:
+                if current_length + len(word) > max_length:
+                    lines.append(' '.join(current_line))
+                    current_line = [word]
+                    current_length = len(word)
+                else:
+                    current_line.append(word)
+                    current_length += len(word) + 1
+            if current_line:
+                lines.append(' '.join(current_line))
+            return '<br>'.join(lines)
+
+        # importer les données
+        csvfile = "data/T_w6_eu24dxst.csv"
+        data = pd.read_csv(csvfile)
+
+        # supprimer la première colonne (vide) de la base de donnée
+        data = data.drop(data.columns[0], axis=1)
+
+        # créer la figure en mémoire
+        fig = go.Figure()
+
+        for i, varSD_modal in enumerate(data["EU24DXST"]):
+            fig.add_trace(go.Bar(
+                x=data["EU24DXST"],
+                y=data["pct"],
+                name=wrap_label(varSD_modal),
+            ))
+
+        # retourner le graphique
+        return fig
+
 #######
 # APP #
 #######
