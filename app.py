@@ -1541,12 +1541,21 @@ def server(input, output, session):
         # créer la figure en mémoire
         fig = go.Figure()
 
-        for i, varSD_modal in enumerate(data["EU24DXST"]):
-            fig.add_trace(go.Bar(
-                x=data["EU24DXST"],
-                y=data["pct"],
-                name=wrap_label(varSD_modal),
-            ))
+        fig.add_trace(go.Bar(
+            x=data["EU24DXST"],
+            y=data["pct"]
+        ))
+
+        fig.update_layout(
+            autosize=True,
+            height=800,
+            template="plotly_white",
+            margin=dict(b=50, # b = bottom
+                        t=50,  # t = top
+                        l=50, # l = left
+                        r=200 # r = right
+                        )
+        )
 
         # retourner le graphique
         return fig
