@@ -1340,15 +1340,20 @@ def server(input, output, session):
         # supprimer la première colonne (vide) de la base de donnée
         data = data.drop(data.columns[0], axis=1)
 
+        # calcul des totaux votants/non-votants pour la normalisation à 100% de ces catégories
+        total_votant = data[data["Y6PARTEU24ST"] == "Vous avez voté"]["pct"].sum()
+        total_abstention = data[data["Y6PARTEU24ST"] == "Vous n'avez pas voté"]["pct"].sum()
+        data.loc[data["Y6PARTEU24ST"] == "Vous avez voté", "pct_normalized"] = data["pct"] * 100 / total_votant
+        data.loc[data["Y6PARTEU24ST"] == "Vous n'avez pas voté", "pct_normalized"] = data["pct"] * 100 / total_abstention
+
         # créer la figure en mémoire
         fig = go.Figure()
 
-        for i, varSD_modal in enumerate(data["Y6PARTEU24ST"].unique()):
+        for i, varSD_modal in enumerate(data[input.Select_VarSD_Part()].unique()):
             fig.add_trace(go.Bar(
-                x=data[input.Select_VarSD_Part()].unique(),
-                y=data[data["Y6PARTEU24ST"] == varSD_modal]["pct"],
+                x=data["Y6PARTEU24ST"],
+                y=data[data[input.Select_VarSD_Part()] == varSD_modal]["pct_normalized"],
                 name=wrap_label(varSD_modal),
-                offsetgroup=0
             ))
 
 
