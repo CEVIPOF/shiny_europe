@@ -1,3 +1,9 @@
+# NOTA BENE
+
+Version pré-électorale de l'application, figée à la vague 5 de l'ENEF 2024, avant le scrutin du premier tour de l'élection européenne 2024 (9 juin 2024).
+
+Objectif de cette version : conserver une version permettant de visualiser uniquement les intentions d'aller voter. Réplicable pour les futures élections.
+
 ### L'Enquête Électorale Française
 
 L'Enquête Électorale Française (ENEF) pour les élections européennes du 9 juin 2024
