@@ -477,15 +477,27 @@ app_ui = ui.page_fillable(
                 # colonne 01 : informations et choix de l'utilisateur
                 ui.card(
                     # cadre 01 : informations sur la variable du contexte du choix du vote
-                    ui_card("TODO",
-                            # bouton 01 : information sur la question posée dans l'enquête
-                            ui.input_action_button("Show_CONTEXT_Question", # input ID
+                    ui_card("CONTEXTE DU CHOIX DU VOTE",
+                            # bouton 01 : choix de la variable concernant le contexte du choix du vote
+                            # groupe de boutons de sélection
+                            ui.input_radio_buttons(
+                                id="Select_VarChoixVote",
+                                label="",
+                                choices={"EUCHOIXST": "Moment du choix du vote",
+                                         "EUDECST": "Choix fait par adhésion ou par défaut",
+                                         "EUMOTPRST": "Choix lié au Président ou au Gouvernement en place",
+                                         "EUELARGST": "Choix lié à l'élargissement de l'UE",
+                                         "EURNT_0": "Choix du vote pour le RN (Rassemblement national) par adhésion à son programme sur l'Europe",
+                                         "EURNT_1": "Choix du vote pour le RN par envie de soutenir Mme Le Pen",
+                                         "EURNT_2": "Choix du vote pour le RN par volonté de sanctionner le pouvoir en place",
+                                         "EURNT_3": "Choix du vote pour le RN par envie de soutenir M. Bardella",
+                                         "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"
+                                }
+                            ),
+                            # bouton 02 : information sur la question posée dans l'enquête
+                            ui.input_action_button("Show_ChoixVote_Question", # input ID
                                                    "Question posée dans l'enquête" # texte affiché dans le bouton
-                            ),
-                            # bouton 02 : information sur la variable sélectionnée pour les graphiques
-                            ui.input_action_button("Show_CONTEXT_Info", # input ID
-                                                   "Variable choisie pour les graphiques" # texte affiché dans le bouton
-                            ),
+                            )
                     )
                 ),
 
@@ -501,7 +513,7 @@ app_ui = ui.page_fillable(
                             """
                         ),
                         # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
-                        output_widget(id="Graph_Context", width="auto", height="auto")
+                        output_widget(id="Graph_ContextChoixVote", width="auto", height="auto")
                 ),
                 # définir les largeurs des colonnes contenant les cadres graphiques
                 col_widths=(3, 9)
@@ -1876,6 +1888,177 @@ def server(input, output, session):
 
 
     #############
+    # onglet 09 #
+    #############
+
+    # bouton 02 : décrire la question posée dans l'enquête
+    @reactive.effect
+    @reactive.event(input.Show_ChoixVote_Question)
+    def _():
+        # définir le nom de la variable choisie
+        dico_nom_var = {"EUCHOIXST": "Moment du choix du vote",
+                        "EUDECST": "Choix fait par adhésion ou par défaut",
+                        "EUMOTPRST": "Choix lié au Président ou au Gouvernement en place",
+                        "EUELARGST": "Choix lié à l'élargissement de l'UE",
+                        "EURNT_0": "Choix du vote pour le RN (Rassemblement national) par adhésion à son programme sur l'Europe",
+                        "EURNT_1": "Choix du vote pour le RN par envie de soutenir Mme Le Pen",
+                        "EURNT_2": "Choix du vote pour le RN par volonté de sanctionner le pouvoir en place",
+                        "EURNT_3": "Choix du vote pour le RN par envie de soutenir M. Bardella",
+                        "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"              
+        }
+        # définir la question de l'enquête associée à la variable choisie
+        dico_question_var = {"EUCHOIXST": "A quel moment avez-vous décidé de la liste pour laquelle vous avez voté ?",
+                             "EUDECST": "Avez-vous voté pour cette liste... ?",
+                             "EUMOTPRST": "Lors des élections européennes, avez-vous voté...",
+                             "EUELARGST": "Pour certains, il faut continuer l’élargissement de l’Union européenne et accueillir de nouveaux pays membres. Pour d'autres, il faut arrêter l’élargissement de l’Union européenne et ne plus accueillir de nouveaux pays membres. Sur une échelle de 0 à 10, dites-moi quelle est votre opinion ? (0 signifie qu’il faut arrêter l’élargissement de l’Union européenne, 10 signifie qu’il faut continuer l’élargissement de l’Union européenne)",
+                             "EURNT_0": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par adhésion à son programme sur l’Europe",
+                             "EURNT_1": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par envie de soutenir Marine Le Pen",
+                             "EURNT_2": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par volonté de sanctionner le pouvoir en place et les autres partis politiques",
+                             "EURNT_3": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par envie de soutenir Jordan Bardella",
+                             "EURNT_4": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par adhésion aux valeurs et aux idées que défend le RN"  
+        }
+        # définir les modalités de réponse à la question de l'enquête associée à la variable choisie
+        dico_modalite_var = {"EUCHOIXST": "1 = 'Il y a au moins un mois' ; 2 = 'Les dernières semaines avant le scrutin' ; 3 = 'Les derniers jours avant le scrutin' ; 4 = 'Juste avant le week-end des élections' ; 5 = 'Au dernier moment, le jour du scrutin ou la veille'",
+                             "EUDECST": "1 = 'Avant tout par adhésion' ; 2 = 'Avant tout par défaut'",
+                             "EUMOTPRST": "1 = 'Avant tout pour manifester votre soutien au Président de la République et au Gouvernement' ; 2 = 'Avant tout pour manifester votre opposition au Président de la République et au Gouvernement' ; 3 = 'Ni l'un, ni l'autre'",
+                             "EUELARGST": "1 = 'Arrêter l'élargissement' ; 2 = 'Ni l'un, ni l'autre' ; 3 = 'Continuer l'élargissement'",
+                             "EURNT_0": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'",
+                             "EURNT_1": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'",
+                             "EURNT_2": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'",
+                             "EURNT_3": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'",
+                             "EURNT_4": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'"
+        }
+        # afficher le texte de décrivant la question (avec parties fixes et variables en fonction du choix)
+        m = ui.modal("La variable '%s' correspond à la question suivante posée aux répondants : \
+                     '%s', \
+                    et ses modalités de réponse (inchangées par rapport au questionnaire ou regroupées pour les présents graphiques) sont : \
+                    %s." % (dico_nom_var.get("%s" % input.Select_VarChoixVote()),
+                            dico_question_var.get("%s" % input.Select_VarChoixVote()),
+                            dico_modalite_var.get("%s" % input.Select_VarChoixVote())
+                            ),
+                    title="Informations complémentaires sur la question contenue dans l'enquête :",
+                    easy_close=False
+                    )
+        ui.modal_show(m)
+
+       
+    # graphique
+    @output
+    @render_plotly
+    def Graph_ContextChoixVote():
+        # définir la partie variable du titre
+        dico_titre = {"EUCHOIXST": "Moment du choix du vote",
+                      "EUDECST": "Choix fait par adhésion ou par défaut",
+                      "EUMOTPRST": "Choix lié au Président ou au Gouvernement en place",
+                      "EUELARGST": "Choix lié à l'élargissement de l'UE",
+                      "EURNT_0": "Choix du vote pour le RN (Rassemblement national) par adhésion à son programme sur l'Europe",
+                      "EURNT_1": "Choix du vote pour le RN par envie de soutenir Mme Le Pen",
+                      "EURNT_2": "Choix du vote pour le RN par volonté de sanctionner le pouvoir en place",
+                      "EURNT_3": "Choix du vote pour le RN par envie de soutenir M. Bardella",
+                      "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"   
+        }
+        # définir l'échelle de l'axe des ordonnées en fonction des
+        # valeurs prises par la variable choisie
+        dico_echelleY = {
+                    "EUCHOIXST": [0, 60],
+                    "EUDECST": [0, 60],
+                    "EUMOTPRST": [0, 40],       
+                    "EUELARGST": [0, 50],
+                    "EURNT_0": [0, 90],
+                    "EURNT_1": [0, 90],
+                    "EURNT_2": [0, 90],
+                    "EURNT_3": [0, 90],
+                    "EURNT_4": [0, 90]
+        }
+        # importer les données
+        csvfile = "data/T_w6_" + "%s" % input.Select_VarChoixVote().lower() + ".csv"
+        data = pd.read_csv(csvfile)
+
+        # supprimer la première colonne (vide) de la base de donnée
+        data = data.drop(data.columns[0], axis=1)
+
+        # créer la figure en mémoire
+        fig = go.Figure()
+
+        # créer la liste des couleurs en fonction du nombre de modalités
+        couleurs_cl = cl.scales[str(max(3, len(data["%s" % input.Select_VarChoixVote()])))]['qual']['Set1']
+
+        fig.add_trace(go.Bar(
+            x=data["%s" % input.Select_VarChoixVote()],
+            y=data["pct"],
+            # changer de couleur en fonction de la modalité de réponse
+            marker_color=couleurs_cl,
+            # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
+            # au survol de la courbe par la souris, et supprimer toutes les autres
+            # informations qui pourraient s'afficher en plus (nom de la modalité)
+            hovertemplate='%{y:.1f}%<extra></extra>'
+            )
+        )
+
+        fig.update_layout(
+            autosize=True,
+            height=800,
+            template="plotly_white",
+            margin=dict(b=50, # b = bottom
+                        t=50,  # t = top
+                        l=50, # l = left
+                        r=200 # r = right
+                        )
+        )
+
+        # mise en forme détaillée et personnalisée du graphique
+        fig.update_layout(
+            # définir le titre du graphique et son apparence
+            title={'text': "%s" % (dico_titre.get("%s" % input.Select_VarChoixVote())),
+                   'y':0.99,
+                   'x':0.01,
+                   'xanchor': 'left',
+                   'yanchor': 'top'
+                    },
+            # définir le titre de l'axe des ordonnées et son apparence
+            yaxis_title=dict(
+                text='Pourcentage de répondants (%)',
+                font_size=12
+            ),
+            # définir l'affichage séparé des valeurs de % affichées sur les
+            # courbes quand la souris survole chaque vague (barre verticale)
+            hovermode="x",
+            # définir le thème général de l'apparence du graphique
+            template="plotly_white",
+            # définir les sources des données
+            annotations=[
+                dict(
+                    xref='paper',
+                    yref='paper',
+                    x=0,
+                    y=-0.05,
+                    xanchor='left',
+                    yanchor='top',
+                    text=   'Enquête électorale française pour les ' +
+                            'élections européennes de juin 2024, ' +
+                            'par Ipsos Sopra Steria, Cevipof, ' +
+                            'Le Monde, Fondation Jean Jaurès et ' +
+                            'Institut Montaigne (2024)',
+                    font=dict(size=10, color='grey'),
+                    showarrow=False
+                )
+            ],
+            # définir les marges de la zone graphique
+            # (augmentées à droite pour la légende)
+            margin=dict(b=305, # b = bottom
+                        t=30,  # t = top
+                        r=200 # r = right
+                        )
+        )
+
+        # ajuster l'axe des ordonnées en fonction des valeurs observées
+        fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarChoixVote()))
+
+        # retourner le graphique
+        return fig
+
+
+    #############
     # onglet 10 #
     #############
 
@@ -1883,19 +2066,19 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.Show_DISSOL_Question)
     def _():
-        # définir le nom de la variable socio-démographique choisie
+        # définir le nom de la variable choisie
         dico_nom_var = {
                     "DISS1ST": "Avis sur la dissolution de l'Assemblée nationale",
                     "DISS2ST": "Impression sur la dissolution de l'Assemblée nationale",
                     "DISS3ST": "Opinion sur la décision du Président de la République"                    
         }
-        # définir la question de l'enquête associée à la variable socio-démographique choisie
+        # définir la question de l'enquête associée à la variable choisie
         dico_question_var = {
                     "DISS1ST": "A l’issue des élections européennes, le président de la République Emmanuel Macron a décidé de dissoudre l’Assemblée nationale. Ainsi, de nouvelles élections législatives auront lieu les 30 juin et 7 juillet prochain. Diriez-vous que vous êtes favorable ou opposé à la dissolution de l’Assemblée nationale ?",
                     "DISS2ST": "Et plus précisément, quand vous pensez à la dissolution de l’Assemblée nationale et à la perspective de nouvelles élections législatives, lequel des sentiments suivants est le plus proche de ce que vous ressentez ?",
                     "DISS3ST": "Diriez-vous que la décision d’Emmanuel Macron de dissoudre l’Assemblée nationale est..."                    
         }
-        # définir les modalités de réponse à la question de l'enquête associée à la variable socio-démographique choisie
+        # définir les modalités de réponse à la question de l'enquête associée à la variable choisie
         dico_modalite_var = {
                     "DISS1ST": "1 = 'Favorable' ; 2 = 'Opposé'",
                     "DISS2ST": "1 = 'Sentiment positif' ; 2 = 'Indifférence' ; '3' = 'Sentiment négatif'",
@@ -1926,7 +2109,7 @@ def server(input, output, session):
                     "DISS3ST": "Opinion sur la décision du Président de la République"
         }
         # définir l'échelle de l'axe des ordonnées en fonction des
-        # valeurs prises par la variable socio-démographique choisie
+        # valeurs prises par la variable choisie
         dico_echelleY = {
                     "DISS1ST": [0, 60],
                     "DISS2ST": [0, 60],
@@ -2018,22 +2201,6 @@ def server(input, output, session):
 
         # retourner le graphique
         return fig
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #######
