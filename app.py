@@ -25,6 +25,8 @@ import numpy as np
 import datetime
 import orjson
 import plotly.graph_objects as go
+import plotly.express as px
+import colorlover as cl
 
 
 
@@ -366,6 +368,190 @@ app_ui = ui.page_fillable(
                 col_widths=(3, 9)
             )
         ),
+
+        # onglet 07 : ENJEUX DU VOTE (VUE GLOBALE)
+        ui.nav_panel("Premier enjeu du vote (vue globale)",
+            # définir deux colonnes
+            ui.layout_columns(
+                # colonne 01 : informations et choix de l'utilisateur
+                ui.card(
+                    # cadre 01 : informations sur la variable des enjeux du vote
+                    ui_card("PREMIER ENJEU DU VOTE",
+                            # bouton 01 : information sur la question posée dans l'enquête
+                            ui.input_action_button("Show_ENJVG_Question", # input ID
+                                                   "Question posée dans l'enquête" # texte affiché dans le bouton
+                            ),
+                            # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                            ui.input_action_button("Show_ENJVG_Info", # input ID
+                                                   "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                            ),
+                    )
+                ),
+
+                # colonne 02: graphique du vote en faveur des listes
+                ui.card(
+                        # afficher une ligne d'indication pour l'utilisateur
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
+                            ```
+                            """
+                        ),
+                        # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                        output_widget(id="Graph_EnjVG", width="auto", height="auto")
+                ),
+                # définir les largeurs des colonnes contenant les cadres graphiques
+                col_widths=(3, 9)
+            )
+        ),
+
+        # onglet 08 : ENJEUX DU VOTE AVEC DES VARIABLES SOCIO-DEMO
+        ui.nav_panel("Premier enjeu du vote (vue détaillée)",
+            # définir deux colonnes
+            ui.layout_columns(
+                # colonne 01 : informations et choix de l'utilisateur
+                ui.card(
+                    # cadre 01 : informations sur la variable des enjeux du vote
+                    ui_card("PREMIER ENJEU DU VOTE",
+                            # bouton 01 : information sur la question posée dans l'enquête
+                            ui.input_action_button("Show_ENJ_Question", # input ID
+                                                   "Question posée dans l'enquête" # texte affiché dans le bouton
+                            ),
+                            # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                        ui.input_action_button("Show_ENJ_Info", # input ID
+                                                   "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                            ),
+                    ),
+                    # cadre 02 : choix de la variable socio-démographique à croiser avec l'intention d'aller voter
+                    ui_card("CHOISIR UNE VARIABLE SOCIO- DEMOGRAPHIQUE",
+                            # groupe de boutons de sélection
+                            ui.input_radio_buttons(
+                                id="Select_VarSD_Enj",
+                                label="",
+                                choices={"Y7SEXEST": "Genre",
+                                         "Y7AGERST": "Âge",
+                                         "Y7REG13ST": "Région",
+                                         "Y7AGGLO5ST": "Taille d'agglomération",
+                                         "Y7EMPST": "Type d'emploi occupé",
+                                         "Y7PCSIST": "Catégorie professionnelle",
+                                         "Y7EDUST": "Niveau de scolarité atteint",
+                                         "Y7REL1ST": "Religion",
+                                         "Y7ECO2ST2": "Revenu mensuel du foyer",
+                                         "Y7INTPOLST": "Intérêt pour la politique",
+                                         "Y7Q7ST": "Positionnement idéologique",
+                                         "Y7PROXST": "Préférence partisane"
+                                }
+                            ),
+                            # bouton 03 : informations détaillées sur la variable socio-démographique choisie
+                            ui.input_action_button("Show_VarSD_Enj_Info", # input ID
+                                                   "Afficher sa description" # texte affiché dans le bouton
+                            )
+                    )
+                ),
+
+                # colonne 02: graphique des variables croisées par vagues d'enquête
+                ui.card(
+                        # afficher une ligne d'indication pour l'utilisateur
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
+                            ```
+                            """
+                        ),
+                        # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                        output_widget(id="Graph_Croise_Enj", width="auto", height="auto")
+                ),
+                # définir les largeurs des colonnes contenant les cadres graphiques
+                col_widths=(3, 9)
+            )
+        ),
+
+        # onglet 09 : CONTEXTE DU CHOIX DU VOTE
+        ui.nav_panel("Contexte du choix du vote",
+            # définir deux colonnes
+            ui.layout_columns(
+                # colonne 01 : informations et choix de l'utilisateur
+                ui.card(
+                    # cadre 01 : informations sur la variable du contexte du choix du vote
+                    ui_card("TODO",
+                            # bouton 01 : information sur la question posée dans l'enquête
+                            ui.input_action_button("Show_CONTEXT_Question", # input ID
+                                                   "Question posée dans l'enquête" # texte affiché dans le bouton
+                            ),
+                            # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                            ui.input_action_button("Show_CONTEXT_Info", # input ID
+                                                   "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                            ),
+                    )
+                ),
+
+                # colonne 02: graphique du vote en faveur des listes
+                ui.card(
+                        # afficher une ligne d'indication pour l'utilisateur
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
+                            ```
+                            """
+                        ),
+                        # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                        output_widget(id="Graph_Context", width="auto", height="auto")
+                ),
+                # définir les largeurs des colonnes contenant les cadres graphiques
+                col_widths=(3, 9)
+            )
+        ),
+
+        # onglet 10 : DECISION D'ELECTIONS LEGISLATIVES
+        ui.nav_panel("La dissolution de l'Assemblée nationale",
+            # définir deux colonnes
+            ui.layout_columns(
+                # colonne 01 : informations et choix de l'utilisateur
+                ui.card(
+                    # cadre 01 : informations sur la variable de la décision d'organiser des élections législatives
+                    ui_card("DISSOLUTION DE L'ASSEMBLEE NATIONALE",
+                            # bouton 01 : choix de la variable concernant la décision d'organiser des élections législatives
+                            # groupe de boutons de sélection
+                            ui.input_radio_buttons(
+                                id="Select_VarDissolAN",
+                                label="",
+                                choices={"DISS1ST": "Avis sur la dissolution de l'Assemblée nationale",
+                                         "DISS2ST": "Impression sur la dissolution de l'Assemblée nationale",
+                                         "DISS3ST": "Opinion sur la décision du Président de la République"
+                                }
+                            ),
+                            # bouton 02 : information sur la question posée dans l'enquête
+                            ui.input_action_button("Show_DISSOL_Question", # input ID
+                                                   "Question posée dans l'enquête" # texte affiché dans le bouton
+                            )
+                    )
+                ),
+
+                # colonne 02: graphique du vote en faveur des listes
+                ui.card(
+                        # afficher une ligne d'indication pour l'utilisateur
+                        ui.markdown(
+                            """
+                            ```
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
+                            ```
+                            """
+                        ),
+                        # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                        output_widget(id="Graph_DissolAN", width="auto", height="auto")
+                ),
+                # définir les largeurs des colonnes contenant les cadres graphiques
+                col_widths=(3, 9)
+            )
+        ),
+
         id="tab"
     ),
     # définition du theme de couleur de l'application
@@ -1559,6 +1745,296 @@ def server(input, output, session):
 
         # retourner le graphique
         return fig
+
+
+    #############
+    # onglet 07 #
+    #############
+
+    # bouton 01 : décrire la question posée dans l'enquête
+    @reactive.effect
+    @reactive.event(input.Show_ENJVG_Question)
+    def _():
+        m = ui.modal("La question posée aux répondants est la suivante : 'Parmi les sujets suivants, \
+                      quels sont les trois dont vous avez tenu le plus compte dans votre choix de vote \
+                      pour les élections européennes du dimanche 9 juin ? (en 1er)' \
+                      et ses modalités de réponse sont : \
+                      1 = 'Le chômage', 2 = 'La menace terroriste', 3 = 'Le pouvoir d’achat', \
+                      4 = 'Le système scolaire et l’éducation', 5 = 'Le système de santé', \
+                      6 = 'La fiscalité', 7 = 'L’avenir du système de retraite', \
+                      8 = 'La protection de l’environnement', 9 = 'L’immigration', \
+                      10 = 'La sécurité des biens et des personnes', 11 = 'Le niveau des inégalités sociales', \
+                      12 = 'La place de la France en Europe et dans le monde', \
+                      13 = 'Le montant des déficits publics', 14 = 'La guerre en Ukraine', \
+                      15 = 'L’avenir de l’agriculture', 16 = 'La situation à Gaza'.",
+                    title="Informations complémentaires sur la question contenue dans l'enquête :",
+                    easy_close=False
+            )
+        ui.modal_show(m)
+
+    # bouton 02 : décrire la variable des enjeux du vote
+    @reactive.effect
+    @reactive.event(input.Show_ENJVG_Info)
+    def _():
+        m = ui.modal("La variable sur le premier enjeu du vote présentée ici est une version simplifiée. \
+                    Ainsi, sur les 16 propositions de réponse soumises au choix des répondants, seules \
+                    les 4 propositions ayant reccuillies le plus de suffrages sont présentées en détail. \
+                    Les 12 autres propositions sont agrégées dans la modalité 'Autres réponses'.",
+                    title="Informations complémentaires sur la variable choisie pour les graphiques :",
+                    easy_close=False
+            )
+        ui.modal_show(m)
+
+    # graphique
+    @output
+    @render_plotly
+    def Graph_EnjVG():
+
+        # importer les données
+        csvfile = "data/T_w6_enjeurst0.csv"
+        data = pd.read_csv(csvfile)
+
+        # supprimer la première colonne (vide) de la base de donnée
+        data = data.drop(data.columns[0], axis=1)
+
+        # créer la figure en mémoire
+        fig = go.Figure()
+
+        # créer la liste des couleurs en fonction du nombre de modalités
+        couleurs_cl = cl.scales[str(max(3, len(data["ENJEURST_0"])))]['qual']['Set1']
+
+        fig.add_trace(go.Bar(
+            x=data["ENJEURST_0"],
+            y=data["pct"],
+            # changer de couleur en fonction de la modalité de réponse
+            marker_color=couleurs_cl,
+            # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
+            # au survol de la courbe par la souris, et supprimer toutes les autres
+            # informations qui pourraient s'afficher en plus (nom de la modalité)
+            hovertemplate='%{y:.1f}%<extra></extra>'
+            )
+        )
+
+        fig.update_layout(
+            autosize=True,
+            height=800,
+            template="plotly_white",
+            margin=dict(b=50, # b = bottom
+                        t=50,  # t = top
+                        l=50, # l = left
+                        r=200 # r = right
+                        )
+        )
+
+        # mise en forme détaillée et personnalisée du graphique
+        fig.update_layout(
+            # définir le titre du graphique et son apparence
+            title={'text': "Premier enjeu du vote",
+                   'y':0.99,
+                   'x':0.01,
+                   'xanchor': 'left',
+                   'yanchor': 'top'
+                    },
+            # définir le titre de l'axe des ordonnées et son apparence
+            yaxis_title=dict(
+                text='Pourcentage de répondants (%)',
+                font_size=12
+            ),
+            # définir l'affichage séparé des valeurs de % affichées sur les
+            # courbes quand la souris survole chaque vague (barre verticale)
+            hovermode="x",
+            # définir le thème général de l'apparence du graphique
+            template="plotly_white",
+            # définir les sources des données
+            annotations=[
+                dict(
+                    xref='paper',
+                    yref='paper',
+                    x=0,
+                    y=-0.05,
+                    xanchor='left',
+                    yanchor='top',
+                    text=   'Enquête électorale française pour les ' +
+                            'élections européennes de juin 2024, ' +
+                            'par Ipsos Sopra Steria, Cevipof, ' +
+                            'Le Monde, Fondation Jean Jaurès et ' +
+                            'Institut Montaigne (2024)',
+                    font=dict(size=10, color='grey'),
+                    showarrow=False
+                )
+            ],
+            # définir les marges de la zone graphique
+            # (augmentées à droite pour la légende)
+            margin=dict(b=305, # b = bottom
+                        t=30,  # t = top
+                        r=200 # r = right
+                        )
+        )
+
+        # retourner le graphique
+        return fig
+
+
+    #############
+    # onglet 10 #
+    #############
+
+    # bouton 02 : décrire la question posée dans l'enquête
+    @reactive.effect
+    @reactive.event(input.Show_DISSOL_Question)
+    def _():
+        # définir le nom de la variable socio-démographique choisie
+        dico_nom_var = {
+                    "DISS1ST": "Avis sur la dissolution de l'Assemblée nationale",
+                    "DISS2ST": "Impression sur la dissolution de l'Assemblée nationale",
+                    "DISS3ST": "Opinion sur la décision du Président de la République"                    
+        }
+        # définir la question de l'enquête associée à la variable socio-démographique choisie
+        dico_question_var = {
+                    "DISS1ST": "A l’issue des élections européennes, le président de la République Emmanuel Macron a décidé de dissoudre l’Assemblée nationale. Ainsi, de nouvelles élections législatives auront lieu les 30 juin et 7 juillet prochain. Diriez-vous que vous êtes favorable ou opposé à la dissolution de l’Assemblée nationale ?",
+                    "DISS2ST": "Et plus précisément, quand vous pensez à la dissolution de l’Assemblée nationale et à la perspective de nouvelles élections législatives, lequel des sentiments suivants est le plus proche de ce que vous ressentez ?",
+                    "DISS3ST": "Diriez-vous que la décision d’Emmanuel Macron de dissoudre l’Assemblée nationale est..."                    
+        }
+        # définir les modalités de réponse à la question de l'enquête associée à la variable socio-démographique choisie
+        dico_modalite_var = {
+                    "DISS1ST": "1 = 'Favorable' ; 2 = 'Opposé'",
+                    "DISS2ST": "1 = 'Sentiment positif' ; 2 = 'Indifférence' ; '3' = 'Sentiment négatif'",
+                    "DISS3ST": "1 = 'Audacieuse ou courageuse' ; 2 = 'Dangeureuse ou irresponsable'"
+        }
+        # afficher le texte de décrivant la question (avec parties fixes et variables en fonction du choix)
+        m = ui.modal("La variable '%s' correspond à la question suivante posée aux répondants : \
+                     '%s', \
+                    et ses modalités de réponse sont : \
+                    %s." % (dico_nom_var.get("%s" % input.Select_VarDissolAN()),
+                            dico_question_var.get("%s" % input.Select_VarDissolAN()),
+                            dico_modalite_var.get("%s" % input.Select_VarDissolAN())
+                            ),
+                    title="Informations complémentaires sur la question contenue dans l'enquête :",
+                    easy_close=False
+                    )
+        ui.modal_show(m)
+
+       
+    # graphique
+    @output
+    @render_plotly
+    def Graph_DissolAN():
+        # définir la partie variable du titre
+        dico_titre = {
+                    "DISS1ST": "Avis sur la dissolution de l'Assemblée nationale",
+                    "DISS2ST": "Impression sur la dissolution de l'Assemblée nationale",
+                    "DISS3ST": "Opinion sur la décision du Président de la République"
+        }
+        # définir l'échelle de l'axe des ordonnées en fonction des
+        # valeurs prises par la variable socio-démographique choisie
+        dico_echelleY = {
+                    "DISS1ST": [0, 60],
+                    "DISS2ST": [0, 60],
+                    "DISS3ST": [0, 70]        
+        }
+        # importer les données
+        csvfile = "data/T_w6_" + "%s" % input.Select_VarDissolAN().lower() + ".csv"
+        data = pd.read_csv(csvfile)
+
+        # supprimer la première colonne (vide) de la base de donnée
+        data = data.drop(data.columns[0], axis=1)
+
+        # créer la figure en mémoire
+        fig = go.Figure()
+
+        # créer la liste des couleurs en fonction du nombre de modalités
+        couleurs_cl = cl.scales[str(max(3, len(data["%s" % input.Select_VarDissolAN()])))]['qual']['Set1']
+
+        fig.add_trace(go.Bar(
+            x=data["%s" % input.Select_VarDissolAN()],
+            y=data["pct"],
+            # changer de couleur en fonction de la modalité de réponse
+            marker_color=couleurs_cl,
+            # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
+            # au survol de la courbe par la souris, et supprimer toutes les autres
+            # informations qui pourraient s'afficher en plus (nom de la modalité)
+            hovertemplate='%{y:.1f}%<extra></extra>'
+            )
+        )
+
+        fig.update_layout(
+            autosize=True,
+            height=800,
+            template="plotly_white",
+            margin=dict(b=50, # b = bottom
+                        t=50,  # t = top
+                        l=50, # l = left
+                        r=200 # r = right
+                        )
+        )
+
+        # mise en forme détaillée et personnalisée du graphique
+        fig.update_layout(
+            # définir le titre du graphique et son apparence
+            title={'text': "%s" % (dico_titre.get("%s" % input.Select_VarDissolAN())),
+                   'y':0.99,
+                   'x':0.01,
+                   'xanchor': 'left',
+                   'yanchor': 'top'
+                    },
+            # définir le titre de l'axe des ordonnées et son apparence
+            yaxis_title=dict(
+                text='Pourcentage de répondants (%)',
+                font_size=12
+            ),
+            # définir l'affichage séparé des valeurs de % affichées sur les
+            # courbes quand la souris survole chaque vague (barre verticale)
+            hovermode="x",
+            # définir le thème général de l'apparence du graphique
+            template="plotly_white",
+            # définir les sources des données
+            annotations=[
+                dict(
+                    xref='paper',
+                    yref='paper',
+                    x=0,
+                    y=-0.05,
+                    xanchor='left',
+                    yanchor='top',
+                    text=   'Enquête électorale française pour les ' +
+                            'élections européennes de juin 2024, ' +
+                            'par Ipsos Sopra Steria, Cevipof, ' +
+                            'Le Monde, Fondation Jean Jaurès et ' +
+                            'Institut Montaigne (2024)',
+                    font=dict(size=10, color='grey'),
+                    showarrow=False
+                )
+            ],
+            # définir les marges de la zone graphique
+            # (augmentées à droite pour la légende)
+            margin=dict(b=305, # b = bottom
+                        t=30,  # t = top
+                        r=200 # r = right
+                        )
+        )
+
+        # ajuster l'axe des ordonnées en fonction des valeurs observées
+        fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarDissolAN()))
+
+        # retourner le graphique
+        return fig
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #######
 # APP #
