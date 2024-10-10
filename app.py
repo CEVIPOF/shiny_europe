@@ -688,8 +688,8 @@ def server(input, output, session):
         fig.update_layout(
             # définir le titre du graphique et son apparence
             title={'text': "Indicateurs généraux",
-                   'y':1,
-                   'x':0,
+                   'y':0.98,
+                   'x':0.01,
                    'xanchor': 'left',
                    'yanchor': 'top'
                     },
@@ -711,11 +711,11 @@ def server(input, output, session):
             # définir les sources des données
             annotations=[
                 dict(
-                    xref='paper',
-                    yref='paper',
-                    x=0,
-                    y=-0.1,
-                    xanchor='left',
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
                     yanchor='top',
                     text=   'Enquête électorale française pour les ' +
                             'élections européennes de juin 2024, ' +
@@ -998,8 +998,8 @@ def server(input, output, session):
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
             title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Vote()),
-                    'y':1,
-                    'x':0,
+                    'y':0.98,
+                    'x':0.01,
                     'xanchor': 'left',
                     'yanchor': 'top'
             },
@@ -1035,11 +1035,11 @@ def server(input, output, session):
             # définir les sources des données
             annotations=[
                 dict(
-                    xref='paper',
-                    yref='paper',
-                    x=0,
-                    y=-0.1,
-                    xanchor='left',
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
                     yanchor='top',
                     text=   'Enquête électorale française pour les ' +
                             'élections européennes de juin 2024, ' +
@@ -1047,7 +1047,7 @@ def server(input, output, session):
                             'Le Monde, Fondation Jean Jaurès et ' +
                             'Institut Montaigne (2024)',
                     font=dict(size=10, color='grey'),
-                    showarrow=False,
+                    showarrow=False
                 )
             ],
             # définir les marges de la zone graphique
@@ -1325,8 +1325,8 @@ def server(input, output, session):
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
             title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Abst()),
-                    'y':1,
-                    'x':0,
+                    'y':0.98,
+                    'x':0.01,
                     'xanchor': 'left',
                     'yanchor': 'top'
             },
@@ -1362,11 +1362,11 @@ def server(input, output, session):
             # définir les sources des données
             annotations=[
                 dict(
-                    xref='paper',
-                    yref='paper',
-                    x=0,
-                    y=-0.1,
-                    xanchor='left',
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
                     yanchor='top',
                     text=   'Enquête électorale française pour les ' +
                             'élections européennes de juin 2024, ' +
@@ -1596,8 +1596,8 @@ def server(input, output, session):
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
             title={'text': "Participation en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Part()),
-                    'y':1,
-                    'x':0,
+                    'y':0.98,
+                    'x':0.01,
                     'xanchor': 'left',
                     'yanchor': 'top'
             },
@@ -1634,11 +1634,11 @@ def server(input, output, session):
             # définir les sources des données
             annotations=[
                 dict(
-                    xref='paper',
-                    yref='paper',
-                    x=0,
-                    y=-0.1,
-                    xanchor='left',
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
                     yanchor='top',
                     text=   'Enquête électorale française pour les ' +
                             'élections européennes de juin 2024, ' +
@@ -1827,22 +1827,11 @@ def server(input, output, session):
             )
         )
 
-        fig.update_layout(
-            autosize=True,
-            height=800,
-            template="plotly_white",
-            margin=dict(b=50, # b = bottom
-                        t=50,  # t = top
-                        l=50, # l = left
-                        r=200 # r = right
-                        )
-        )
-
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
             # définir le titre du graphique et son apparence
             title={'text': "Premier enjeu du vote",
-                   'y':0.99,
+                   'y':0.98,
                    'x':0.01,
                    'xanchor': 'left',
                    'yanchor': 'top'
@@ -1860,11 +1849,11 @@ def server(input, output, session):
             # définir les sources des données
             annotations=[
                 dict(
-                    xref='paper',
-                    yref='paper',
-                    x=0,
-                    y=-0.05,
-                    xanchor='left',
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
                     yanchor='top',
                     text=   'Enquête électorale française pour les ' +
                             'élections européennes de juin 2024, ' +
@@ -1876,9 +1865,10 @@ def server(input, output, session):
                 )
             ],
             # définir les marges de la zone graphique
-            # (augmentées à droite pour la légende)
-            margin=dict(b=305, # b = bottom
-                        t=30,  # t = top
+            # (augmentées à droite pour le cadre fixe de la légende)
+            margin=dict(b=50, # b = bottom
+                        t=50,  # t = top
+                        l=50, # l = left
                         r=200 # r = right
                         )
         )
@@ -1970,6 +1960,7 @@ def server(input, output, session):
                     "EURNT_3": [0, 90],
                     "EURNT_4": [0, 90]
         }
+        
         # importer les données
         csvfile = "data/T_w6_" + "%s" % input.Select_VarChoixVote().lower() + ".csv"
         data = pd.read_csv(csvfile)
@@ -1995,22 +1986,11 @@ def server(input, output, session):
             )
         )
 
-        fig.update_layout(
-            autosize=True,
-            height=800,
-            template="plotly_white",
-            margin=dict(b=50, # b = bottom
-                        t=50,  # t = top
-                        l=50, # l = left
-                        r=200 # r = right
-                        )
-        )
-
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
             # définir le titre du graphique et son apparence
             title={'text': "%s" % (dico_titre.get("%s" % input.Select_VarChoixVote())),
-                   'y':0.99,
+                   'y':0.98,
                    'x':0.01,
                    'xanchor': 'left',
                    'yanchor': 'top'
@@ -2028,11 +2008,11 @@ def server(input, output, session):
             # définir les sources des données
             annotations=[
                 dict(
-                    xref='paper',
-                    yref='paper',
-                    x=0,
-                    y=-0.05,
-                    xanchor='left',
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
                     yanchor='top',
                     text=   'Enquête électorale française pour les ' +
                             'élections européennes de juin 2024, ' +
@@ -2044,9 +2024,10 @@ def server(input, output, session):
                 )
             ],
             # définir les marges de la zone graphique
-            # (augmentées à droite pour la légende)
-            margin=dict(b=305, # b = bottom
-                        t=30,  # t = top
+            # (augmentées à droite pour le cadre fixe de la légende)
+            margin=dict(b=50, # b = bottom
+                        t=50,  # t = top
+                        l=50, # l = left
                         r=200 # r = right
                         )
         )
@@ -2140,22 +2121,11 @@ def server(input, output, session):
             )
         )
 
-        fig.update_layout(
-            autosize=True,
-            height=800,
-            template="plotly_white",
-            margin=dict(b=50, # b = bottom
-                        t=50,  # t = top
-                        l=50, # l = left
-                        r=200 # r = right
-                        )
-        )
-
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
             # définir le titre du graphique et son apparence
             title={'text': "%s" % (dico_titre.get("%s" % input.Select_VarDissolAN())),
-                   'y':0.99,
+                   'y':0.98,
                    'x':0.01,
                    'xanchor': 'left',
                    'yanchor': 'top'
@@ -2173,11 +2143,11 @@ def server(input, output, session):
             # définir les sources des données
             annotations=[
                 dict(
-                    xref='paper',
-                    yref='paper',
-                    x=0,
-                    y=-0.05,
-                    xanchor='left',
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
                     yanchor='top',
                     text=   'Enquête électorale française pour les ' +
                             'élections européennes de juin 2024, ' +
@@ -2189,9 +2159,10 @@ def server(input, output, session):
                 )
             ],
             # définir les marges de la zone graphique
-            # (augmentées à droite pour la légende)
-            margin=dict(b=305, # b = bottom
-                        t=30,  # t = top
+            # (augmentées à droite pour le cadre fixe de la légende)
+            margin=dict(b=50, # b = bottom
+                        t=50,  # t = top
+                        l=50, # l = left
                         r=200 # r = right
                         )
         )
@@ -2209,3 +2180,5 @@ def server(input, output, session):
 
 # définir une nouvelle instance de l'application
 app = App(app_ui, server)
+
+
