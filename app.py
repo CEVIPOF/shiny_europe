@@ -27,6 +27,7 @@ import orjson
 import plotly.graph_objects as go
 import plotly.express as px
 import colorlover as cl
+from string import ascii_lowercase
 
 
 
@@ -1960,13 +1961,41 @@ def server(input, output, session):
                     "EURNT_3": [0, 90],
                     "EURNT_4": [0, 90]
         }
-        
+
+        # définir une fonction qui affiche les étiquettes
+        # des modalités de la variable choisie dans la légende
+        # sur plusieurs lignes si leur longueur initiale dépasse la
+        # largeur du cadre de la légende
+        def wrap_label(label, max_length=20):
+            if len(label) <= max_length:
+                return label
+            words = label.split()
+            lines = []
+            current_line = []
+            current_length = 0
+            for word in words:
+                if current_length + len(word) > max_length:
+                    lines.append(' '.join(current_line))
+                    current_line = [word]
+                    current_length = len(word)
+                else:
+                    current_line.append(word)
+                    current_length += len(word) + 1
+            if current_line:
+                lines.append(' '.join(current_line))
+            return '<br>'.join(lines)
+
         # importer les données
         csvfile = "data/T_w6_" + "%s" % input.Select_VarChoixVote().lower() + ".csv"
         data = pd.read_csv(csvfile)
 
         # supprimer la première colonne (vide) de la base de donnée
         data = data.drop(data.columns[0], axis=1)
+        # identifier les étiquettes courtes (chiffres démarrant à 1)
+        data['ETIQCOURTE'] = data.index + 1
+        etiquettes_courtes = data["ETIQCOURTE"]
+        # idetifier les étiquettes longues (modalités de la variable dans la table lue)
+        etiquettes_longues = data["%s" % input.Select_VarChoixVote()]
 
         # créer la figure en mémoire
         fig = go.Figure()
@@ -1975,7 +2004,9 @@ def server(input, output, session):
         couleurs_cl = cl.scales[str(max(3, len(data["%s" % input.Select_VarChoixVote()])))]['qual']['Set1']
 
         fig.add_trace(go.Bar(
-            x=data["%s" % input.Select_VarChoixVote()],
+            # on représente la colonne des étiquettes courtes (et non la variable elle-même, car
+            # cette colonne correspond aux étiquettes longues de la légende)
+            x=data["ETIQCOURTE"],
             y=data["pct"],
             # changer de couleur en fonction de la modalité de réponse
             marker_color=couleurs_cl,
@@ -1985,6 +2016,9 @@ def server(input, output, session):
             hovertemplate='%{y:.1f}%<extra></extra>'
             )
         )
+
+        # créer le texte de la légende (correspondance entre les étiquettes courtes et les étiquettes longues)
+        legende_text = "<br>".join([f"{lettre}: {etiquette}" for lettre, etiquette in zip(etiquettes_courtes, etiquettes_longues)])
 
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
@@ -2005,8 +2039,9 @@ def server(input, output, session):
             hovermode="x",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
-            # définir les sources des données
+            # définir deux annotations
             annotations=[
+                # sources des données
                 dict(
                     xref='paper', # utiliser la largeur totale du graphique comme référence
                     yref='paper', # utiliser la hauteur totale du graphique comme référence
@@ -2021,6 +2056,23 @@ def server(input, output, session):
                             'Institut Montaigne (2024)',
                     font=dict(size=10, color='grey'),
                     showarrow=False
+                ),
+                # légende personnalisée
+                dict(
+                    valign="top", # aligner le texte en haut de chaque marqueur de la légende
+                    x=0.67, # position horizontale de la légende (1 = à droite du graphique)
+                    y=1.10, # position verticale de la légende (1 = en haut)
+                    xref='paper',
+                    yref='paper',
+                    xanchor='left', # ancrer la légende à gauche de sa position x
+                    yanchor='top', # ancrer la légende en haut de sa position y
+                    text=f"<b>Légende :</b><br>{legende_text}",
+                    showarrow=False,
+                    font=dict(size=12),
+                    align='left',
+                    bgcolor='rgba(255,255,255,0.8)', # fond légèrement transparent
+                    bordercolor='grey',
+                    borderwidth=1
                 )
             ],
             # définir les marges de la zone graphique
@@ -2030,6 +2082,15 @@ def server(input, output, session):
                         l=50, # l = left
                         r=200 # r = right
                         )
+        )
+        
+        # configurer l'axe des abscisses pour n'afficher que des nombres entiers
+        fig.update_xaxes(
+            tickmode='linear',
+            tick0=1,
+            dtick=1,
+            tickfont=dict(size=12),
+            tickangle=0
         )
 
         # ajuster l'axe des ordonnées en fonction des valeurs observées
