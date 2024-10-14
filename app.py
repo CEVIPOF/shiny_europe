@@ -2017,214 +2017,412 @@ def server(input, output, session):
         # définir l'échelle de l'axe des ordonnées en fonction des
         # valeurs prises par la variable socio-démographique choisie
         dico_echelleY = {
-                    "Y6SEXEST": [35, 65],
-                    "Y6AGERST": [25, 80],
-                    "Y6REG13ST": [40, 65],
-                    "Y6AGGLO5ST": [40, 65],
-                    "Y6EMPST": [35, 70],
-                    "Y6PCSIST": [25, 75],
-                    "Y6EDUST": [35, 65],
-                    "Y6REL1ST": [20, 70],
-                    "Y6ECO2ST2": [30, 70],
-                    "Y6INTPOLST": [10, 90],
-                    "Y6Q7ST": [30, 85],
-                    "Y6PROXST": [20, 75],
+                    "Y6SEXEST": [10, 40],
+                    "Y6AGERST": [10, 45],
+                    "Y6REG13ST": [15, 35],
+                    "Y6AGGLO5ST": [15, 35],
+                    "Y6EMPST": [15, 40],
+                    "Y6PCSIST": [10, 45],
+                    "Y6EDUST": [15, 40],
+                    "Y6REL1ST": [10, 45],
+                    "Y6ECO2ST2": [10, 45],
+                    "Y6INTPOLST": [0, 75],
+                    "Y6Q7ST": [5, 40],
+                    "Y6PROXST": [5, 55],
         }
 
-        # définir une fonction qui affiche les étiquettes
-        # des modalités de la variablr SD choisie dans la légende
-        # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
-        def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
-                    lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+        # # définir une fonction qui affiche les étiquettes
+        # # des modalités de la variable SD choisie dans la légende
+        # # sur plusieurs lignes si leur longueur initiale dépasse la
+        # # largeur du cadre de la légende
+        # def wrap_label(label, max_length=20):
+        #     if len(label) <= max_length:
+        #         return label
+        #     words = label.split()
+        #     lines = []
+        #     current_line = []
+        #     current_length = 0
+        #     for word in words:
+        #         if current_length + len(word) > max_length:
+        #             lines.append(' '.join(current_line))
+        #             current_line = [word]
+        #             current_length = len(word)
+        #         else:
+        #             current_line.append(word)
+        #             current_length += len(word) + 1
+        #     if current_line:
+        #         lines.append(' '.join(current_line))
+        #     return '<br>'.join(lines)
+        
 
-        # importer les données
-        csvfile = "data/T_certst3_" + "%s" % input.Select_VarSD_Vote().lower() + ".csv"
+        # Lire le fichier CSV
+        csvfile = "data/T_w6_enjeurst_0_" + "%s" % input.Select_VarSD_Enj().lower()[2:] + ".csv"
         data = pd.read_csv(csvfile)
 
         # supprimer la première colonne (vide) de la base de donnée
         data = data.drop(data.columns[0], axis=1)
 
-        # calculer les intervalles de confiance à 95% de probabilité (ou 5% de risque)
-        # d'après la formule pour les proportions contenue dans l'encadré 3 du document :
-        # https://www.sciencespo.fr/cevipof/sites/sciencespo.fr.cevipof/files/Note_Inge%cc%81s1_electionspresidentielles2022_mars2022_V8.pdf
-        # calculer la borne BASSE
-        data["IC95bb"] = data["pct"] - 1.96*np.sqrt((data["pct"]*(100-data["pct"]))/data["TAILLEECH"])
-        # calculer la borne HAUTE
-        data["IC95bh"] = data["pct"] + 1.96*np.sqrt((data["pct"]*(100-data["pct"]))/data["TAILLEECH"])
+        # "pivoter" le dataFrame pour obtenir le format souhaité
+        data_pivot = data.pivot(index='Y6ENJEURST_0',
+                                columns='%s' % input.Select_VarSD_Enj(),
+                                values='pct')
 
-        # créer la figure en mémoire
+        # normaliser les pourcentages pour qu'ils s'additionnent à 100% pour chaque enjeu
+        data_pivot = data_pivot.div(data_pivot.sum(axis=1), axis=0) * 100
+
+        # créer le graphique à barres (avec % empilés)
         fig = go.Figure()
 
-        # créer et sélectionner les couleurs des courbes pour les modalités de la variable SD
-        couleurs = ['blue', 'red', 'green', 'purple', 'orange', 'magenta']
-        nb_mod = len(data["%s" % input.Select_VarSD_Vote()].unique())
-        # array : l'indice de position commence à 0, et se termine une valeur
-        # avant le nombre indiqué comme limite à droite dans la sélection
-        couleurs_mod = couleurs[:nb_mod]
-
-        # ajouter une courbe pour chaque modalité de la variable SD
-        # pour chacune des modalités de la variable SD :
-        for i, varSD_modal in enumerate(data["%s" % input.Select_VarSD_Vote()].unique()):
-            # trier les valeurs de la table selon la vague de l'enquête
-            df_varSD = data[data["%s" % input.Select_VarSD_Vote()] == varSD_modal].sort_values('VAGUE')
-            # ajouter la courbe principale (pourcentage selon la vague)
-            fig.add_trace(go.Scatter( # ajouter un objet de type Scatter à la zone de graphique
-                x=df_varSD['VAGUE'],
-                y=df_varSD['pct'],
-                # afficher les courbes avec des marqueurs (ronds)
-                mode='lines+markers',
-                # afficher les étiquettes des modalités sur plusieurs lignes dans le cadre
-                # de la légende
-                name=wrap_label(varSD_modal),
-                # afficher les courbes selon le dictionnaire de couleurs
-                line=dict(color=couleurs_mod[i]),
-                # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
-                # au survol de la courbe par la souris, et supprimer toutes les autres
-                # informations qui pourraient s'afficher en plus (nom de la modalité)
-                hovertemplate='%{y:.1f}%<extra></extra>'
-            ))
-            # ajouter l'intervalle de confiance autour de la courbe principale des données
-            fig.add_trace(go.Scatter(
-                # définir une zone fermée, en ajoutant la liste des dates inversées
-                # à la liste des dates chronologiques des vagues de l'enquête
-                x=df_varSD['VAGUE'].tolist() + df_varSD['VAGUE'].tolist()[::-1],
-                # créer le contour de l'intervalle de confiance, en ajoutant la
-                # liste inversée des bornes inférieures à la liste des bornes supérieures
-                y=df_varSD['IC95bh'].tolist() + df_varSD['IC95bb'].tolist()[::-1],
-                # remplir l'espace entre les lignes ainsi définies
-                fill='toself',
-                # définir la couleur de remplissage des zones de confiance
-                # identique à la couleur des courbes principales auxquelles
-                # elles correspondent
-                fillcolor=couleurs_mod[i],
-                # rendre la ligne de contour de la zone de confiance invisible
-                # (opacité = 0, soit transparence totale)
-                line=dict(color='rgba(255, 255, 255, 0)'),
-                # empêcher l'affichage d'informations quand la souris survole
-                # la zone de confiance
-                hoverinfo="skip",
-                # empêcher l'affichage des zones de confiance dans la légende
-                showlegend=False,
-                # définir l'opacité de la zone de confiance
-                # (20% d'opacité correspond à une transparence de 80%)
-                opacity=0.2,
+        for region in data_pivot.columns:
+            fig.add_trace(go.Bar(
+                name=region,
+                x=data_pivot.index,
+                y=data_pivot[region],
+                text=data_pivot[region].apply(lambda x: f'{x:.1f}%'),
+                textposition='inside'
             ))
 
-        # ajouter des lignes verticales pour chaque vague de l'enquête
-        for date in data['VAGUE'].unique():
-            fig.add_vline(x=date, line_width=2, line_color="grey")
-
-        # mise en forme détaillée et personnalisée du graphique
+        # Mise en page du graphique
         fig.update_layout(
-            title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Vote()),
-                    'y':0.98,
-                    'x':0.01,
-                    'xanchor': 'left',
-                    'yanchor': 'top'
-            },
-            # définir le titre de la légende
-            legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Vote()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
-            # définir le thème général de l'apparence du graphique
-            template="plotly_white",
-             # définir l'apparence de l'axe des abscisses
-            xaxis=dict(
-                tickformat='%Y-%m-%d',
-                hoverformat='%Y-%m-%d',
-                # ajouter un 'rangeslider' sous le graphique
-                rangeslider=dict(visible=False), # désactivé actuellement
-                # ajouter des boutons au-dessus du graphique pour sélectionner
-                # la plage temporelle à observer
-                rangeselector=dict(
-                    buttons=list([
-                        dict(step="all", label="Depuis la 1ère vague de l'enquête"),
-                        dict(count=9, label="Depuis 9 mois", step="month", stepmode="backward"),
-                        dict(count=6, label="Depuis 6 mois", step="month", stepmode="backward"),
-                        dict(count=3, label="Depuis 3 mois", step="month", stepmode="backward")
-                    ])
-                )
-            ),
-            # définir le titre de l'axe des ordonnées et son apparence
-            yaxis_title=dict(
-                text='Pourcentage de répondants (%)',
-                font_size=12
-            ),
-            # définir les sources des données
-            annotations=[
-                dict(
-                    xref='paper', # utiliser la largeur totale du graphique comme référence
-                    yref='paper', # utiliser la hauteur totale du graphique comme référence
-                    x=0.5, # placer le point d'ancrage au milieu de la largeur
-                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
-                    xanchor='center', # centrer le texte par rapport au point d'ancrage
-                    yanchor='top',
-                    text=   'Enquête électorale française pour les ' +
-                            'élections européennes de juin 2024, ' +
-                            'par Ipsos Sopra Steria, Cevipof, ' +
-                            'Le Monde, Fondation Jean Jaurès et ' +
-                            'Institut Montaigne (2024)',
-                    font=dict(size=10, color='grey'),
-                    showarrow=False
-                )
-            ],
-            # définir les marges de la zone graphique
-            # (augmentées à droite pour le cadre fixe de la légende)
-            margin=dict(b=50, # b = bottom
-                        t=50,  # t = top
-                        l=50, # l = left
-                        r=200 # r = right
-                        ),
-            # fixer la position de la légende
-            legend=dict(
-                orientation="v",
-                valign='top',  # aligner le texte en haut de chaque marqueur de la légende
-                x=1.02, # position horizontale de la légende (1 = à droite du graphique)
-                y=1, # position verticale de la légende (1 = en haut)
-                xanchor='left', # ancrer la légende à gauche de sa position x
-                yanchor='top', # ancrer la légende en haut de sa position y
-                bgcolor='rgba(255,255,255,0.8)' # fond légèrement transparent
-            )
+            title='Répartition des régions par enjeu',
+            xaxis_title='Enjeux',
+            yaxis_title='Pourcentage',
+            barmode='stack',
+            legend_title='Régions',
+            height=600,
+            width=1000
         )
 
-        # ajuster l'axe des ordonnées en fonction des valeurs observées
-        fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarSD_Vote()))
+        # ajuster l'échelle de l'axe y à 100%
+        fig.update_yaxes(range=[0, 100])
 
-        # modifier l'apparence des courbes (affinées et "arrondies")
-        fig.update_traces(line_shape="spline")
+
+        # # mise en forme détaillée et personnalisée du graphique
+        # fig.update_layout(
+        #     title={'text': "Participation en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Enj()),
+        #             'y':0.98,
+        #             'x':0.01,
+        #             'xanchor': 'left',
+        #             'yanchor': 'top'
+        #     },
+        #     barmode='stack',
+        #     # définir le titre de la légende
+        #     legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Enj()),
+        #     # définir l'affichage séparé des valeurs de % affichées sur les
+        #     # courbes quand la souris survole chaque vague (barre verticale)
+        #     hovermode="x",
+        #     # définir le thème général de l'apparence du graphique
+        #     template="plotly_white",
+        #      # définir l'apparence de l'axe des abscisses
+        #     xaxis=dict(
+        #         tickformat='%Y-%m-%d',
+        #         hoverformat='%Y-%m-%d',
+        #         # ajouter un 'rangeslider' sous le graphique
+        #         rangeslider=dict(visible=False), # désactivé actuellement
+        #     #     # ajouter des boutons au-dessus du graphique pour sélectionner
+        #     #     # la plage temporelle à observer
+        #     #     rangeselector=dict(
+        #     #         buttons=list([
+        #     #             dict(step="all", label="Depuis la 1ère vague de l'enquête"),
+        #     #             dict(count=9, label="Depuis 9 mois", step="month", stepmode="backward"),
+        #     #             dict(count=6, label="Depuis 6 mois", step="month", stepmode="backward"),
+        #     #             dict(count=3, label="Depuis 3 mois", step="month", stepmode="backward")
+        #     #         ])
+        #     #     )
+        #     # ),
+        #     # définir le titre de l'axe des ordonnées et son apparence
+        #     yaxis_title=dict(
+        #         text='Pourcentage de répondants (%)',
+        #         font_size=12
+        #     ),
+        #     # définir les sources des données
+        #     annotations=[
+        #         dict(
+        #             xref='paper', # utiliser la largeur totale du graphique comme référence
+        #             yref='paper', # utiliser la hauteur totale du graphique comme référence
+        #             x=0.5, # placer le point d'ancrage au milieu de la largeur
+        #             y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+        #             xanchor='center', # centrer le texte par rapport au point d'ancrage
+        #             yanchor='top',
+        #             text=   'Enquête électorale française pour les ' +
+        #                     'élections européennes de juin 2024, ' +
+        #                     'par Ipsos Sopra Steria, Cevipof, ' +
+        #                     'Le Monde, Fondation Jean Jaurès et ' +
+        #                     'Institut Montaigne (2024)',
+        #             font=dict(size=10, color='grey'),
+        #             showarrow=False,
+        #         )
+        #     ],
+        #     # définir les marges de la zone graphique
+        #     # (augmentées à droite pour le cadre fixe de la légende)
+        #     margin=dict(b=50, # b = bottom
+        #                 t=50,  # t = top
+        #                 l=50, # l = left
+        #                 r=200 # r = right
+        #                 ),
+        #     # fixer la position de la légende
+        #     legend=dict(
+        #         orientation="v",
+        #         valign='top',  # aligner le texte en haut de chaque marqueur de la légende
+        #         x=1.02, # position horizontale de la légende (1 = à droite du graphique)
+        #         y=1, # position verticale de la légende (1 = en haut)
+        #         xanchor='left', # ancrer la légende à gauche de sa position x
+        #         yanchor='top', # ancrer la légende en haut de sa position y
+        #         bgcolor='rgba(255,255,255,0.8)' # fond légèrement transparent
+        #         )
+        #     )
+        # )
+
+        # # ajuster l'axe des ordonnées en fonction des valeurs observées
+        # fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarSD_Enj()))
 
         # retourner le graphique
         return fig
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        # # définir l'échelle de l'axe des ordonnées en fonction des
+        # # valeurs prises par la variable socio-démographique choisie
+        # dico_echelleY = {
+        #             "Y6SEXEST": [35, 65],
+        #             "Y6AGERST": [25, 80],
+        #             "Y6REG13ST": [40, 65],
+        #             "Y6AGGLO5ST": [40, 65],
+        #             "Y6EMPST": [35, 70],
+        #             "Y6PCSIST": [25, 75],
+        #             "Y6EDUST": [35, 65],
+        #             "Y6REL1ST": [20, 70],
+        #             "Y6ECO2ST2": [30, 70],
+        #             "Y6INTPOLST": [10, 90],
+        #             "Y6Q7ST": [30, 85],
+        #             "Y6PROXST": [20, 75],
+        # }
 
+        # # définir une fonction qui affiche les étiquettes
+        # # des modalités de la variablr SD choisie dans la légende
+        # # sur plusieurs lignes si leur longueur initiale dépasse la
+        # # largeur du cadre de la légende
+        # def wrap_label(label, max_length=20):
+        #     if len(label) <= max_length:
+        #         return label
+        #     words = label.split()
+        #     lines = []
+        #     current_line = []
+        #     current_length = 0
+        #     for word in words:
+        #         if current_length + len(word) > max_length:
+        #             lines.append(' '.join(current_line))
+        #             current_line = [word]
+        #             current_length = len(word)
+        #         else:
+        #             current_line.append(word)
+        #             current_length += len(word) + 1
+        #     if current_line:
+        #         lines.append(' '.join(current_line))
+        #     return '<br>'.join(lines)
 
+        # # importer les données
+        # csvfile = "data/T_certst3_" + "%s" % input.Select_VarSD_Vote().lower() + ".csv"
+        # data = pd.read_csv(csvfile)
 
+        # # supprimer la première colonne (vide) de la base de donnée
+        # data = data.drop(data.columns[0], axis=1)
 
+        # # calculer les intervalles de confiance à 95% de probabilité (ou 5% de risque)
+        # # d'après la formule pour les proportions contenue dans l'encadré 3 du document :
+        # # https://www.sciencespo.fr/cevipof/sites/sciencespo.fr.cevipof/files/Note_Inge%cc%81s1_electionspresidentielles2022_mars2022_V8.pdf
+        # # calculer la borne BASSE
+        # data["IC95bb"] = data["pct"] - 1.96*np.sqrt((data["pct"]*(100-data["pct"]))/data["TAILLEECH"])
+        # # calculer la borne HAUTE
+        # data["IC95bh"] = data["pct"] + 1.96*np.sqrt((data["pct"]*(100-data["pct"]))/data["TAILLEECH"])
 
+        # # créer la figure en mémoire
+        # fig = go.Figure()
 
+        # # créer et sélectionner les couleurs des courbes pour les modalités de la variable SD
+        # couleurs = ['blue', 'red', 'green', 'purple', 'orange', 'magenta']
+        # nb_mod = len(data["%s" % input.Select_VarSD_Vote()].unique())
+        # # array : l'indice de position commence à 0, et se termine une valeur
+        # # avant le nombre indiqué comme limite à droite dans la sélection
+        # couleurs_mod = couleurs[:nb_mod]
 
+        # # ajouter une courbe pour chaque modalité de la variable SD
+        # # pour chacune des modalités de la variable SD :
+        # for i, varSD_modal in enumerate(data["%s" % input.Select_VarSD_Vote()].unique()):
+        #     # trier les valeurs de la table selon la vague de l'enquête
+        #     df_varSD = data[data["%s" % input.Select_VarSD_Vote()] == varSD_modal].sort_values('VAGUE')
+        #     # ajouter la courbe principale (pourcentage selon la vague)
+        #     fig.add_trace(go.Scatter( # ajouter un objet de type Scatter à la zone de graphique
+        #         x=df_varSD['VAGUE'],
+        #         y=df_varSD['pct'],
+        #         # afficher les courbes avec des marqueurs (ronds)
+        #         mode='lines+markers',
+        #         # afficher les étiquettes des modalités sur plusieurs lignes dans le cadre
+        #         # de la légende
+        #         name=wrap_label(varSD_modal),
+        #         # afficher les courbes selon le dictionnaire de couleurs
+        #         line=dict(color=couleurs_mod[i]),
+        #         # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
+        #         # au survol de la courbe par la souris, et supprimer toutes les autres
+        #         # informations qui pourraient s'afficher en plus (nom de la modalité)
+        #         hovertemplate='%{y:.1f}%<extra></extra>'
+        #     ))
+        #     # ajouter l'intervalle de confiance autour de la courbe principale des données
+        #     fig.add_trace(go.Scatter(
+        #         # définir une zone fermée, en ajoutant la liste des dates inversées
+        #         # à la liste des dates chronologiques des vagues de l'enquête
+        #         x=df_varSD['VAGUE'].tolist() + df_varSD['VAGUE'].tolist()[::-1],
+        #         # créer le contour de l'intervalle de confiance, en ajoutant la
+        #         # liste inversée des bornes inférieures à la liste des bornes supérieures
+        #         y=df_varSD['IC95bh'].tolist() + df_varSD['IC95bb'].tolist()[::-1],
+        #         # remplir l'espace entre les lignes ainsi définies
+        #         fill='toself',
+        #         # définir la couleur de remplissage des zones de confiance
+        #         # identique à la couleur des courbes principales auxquelles
+        #         # elles correspondent
+        #         fillcolor=couleurs_mod[i],
+        #         # rendre la ligne de contour de la zone de confiance invisible
+        #         # (opacité = 0, soit transparence totale)
+        #         line=dict(color='rgba(255, 255, 255, 0)'),
+        #         # empêcher l'affichage d'informations quand la souris survole
+        #         # la zone de confiance
+        #         hoverinfo="skip",
+        #         # empêcher l'affichage des zones de confiance dans la légende
+        #         showlegend=False,
+        #         # définir l'opacité de la zone de confiance
+        #         # (20% d'opacité correspond à une transparence de 80%)
+        #         opacity=0.2,
+        #     ))
 
+        # # ajouter des lignes verticales pour chaque vague de l'enquête
+        # for date in data['VAGUE'].unique():
+        #     fig.add_vline(x=date, line_width=2, line_color="grey")
 
+        # # mise en forme détaillée et personnalisée du graphique
+        # fig.update_layout(
+        #     title={'text': "Certitude d'aller voter en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Vote()),
+        #             'y':0.98,
+        #             'x':0.01,
+        #             'xanchor': 'left',
+        #             'yanchor': 'top'
+        #     },
+        #     # définir le titre de la légende
+        #     legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Vote()),
+        #     # définir l'affichage séparé des valeurs de % affichées sur les
+        #     # courbes quand la souris survole chaque vague (barre verticale)
+        #     hovermode="x",
+        #     # définir le thème général de l'apparence du graphique
+        #     template="plotly_white",
+        #      # définir l'apparence de l'axe des abscisses
+        #     xaxis=dict(
+        #         tickformat='%Y-%m-%d',
+        #         hoverformat='%Y-%m-%d',
+        #         # ajouter un 'rangeslider' sous le graphique
+        #         rangeslider=dict(visible=False), # désactivé actuellement
+        #         # ajouter des boutons au-dessus du graphique pour sélectionner
+        #         # la plage temporelle à observer
+        #         rangeselector=dict(
+        #             buttons=list([
+        #                 dict(step="all", label="Depuis la 1ère vague de l'enquête"),
+        #                 dict(count=9, label="Depuis 9 mois", step="month", stepmode="backward"),
+        #                 dict(count=6, label="Depuis 6 mois", step="month", stepmode="backward"),
+        #                 dict(count=3, label="Depuis 3 mois", step="month", stepmode="backward")
+        #             ])
+        #         )
+        #     ),
+        #     # définir le titre de l'axe des ordonnées et son apparence
+        #     yaxis_title=dict(
+        #         text='Pourcentage de répondants (%)',
+        #         font_size=12
+        #     ),
+        #     # définir les sources des données
+        #     annotations=[
+        #         dict(
+        #             xref='paper', # utiliser la largeur totale du graphique comme référence
+        #             yref='paper', # utiliser la hauteur totale du graphique comme référence
+        #             x=0.5, # placer le point d'ancrage au milieu de la largeur
+        #             y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+        #             xanchor='center', # centrer le texte par rapport au point d'ancrage
+        #             yanchor='top',
+        #             text=   'Enquête électorale française pour les ' +
+        #                     'élections européennes de juin 2024, ' +
+        #                     'par Ipsos Sopra Steria, Cevipof, ' +
+        #                     'Le Monde, Fondation Jean Jaurès et ' +
+        #                     'Institut Montaigne (2024)',
+        #             font=dict(size=10, color='grey'),
+        #             showarrow=False
+        #         )
+        #     ],
+        #     # définir les marges de la zone graphique
+        #     # (augmentées à droite pour le cadre fixe de la légende)
+        #     margin=dict(b=50, # b = bottom
+        #                 t=50,  # t = top
+        #                 l=50, # l = left
+        #                 r=200 # r = right
+        #                 ),
+        #     # fixer la position de la légende
+        #     legend=dict(
+        #         orientation="v",
+        #         valign='top',  # aligner le texte en haut de chaque marqueur de la légende
+        #         x=1.02, # position horizontale de la légende (1 = à droite du graphique)
+        #         y=1, # position verticale de la légende (1 = en haut)
+        #         xanchor='left', # ancrer la légende à gauche de sa position x
+        #         yanchor='top', # ancrer la légende en haut de sa position y
+        #         bgcolor='rgba(255,255,255,0.8)' # fond légèrement transparent
+        #     )
+        # )
 
+        # # ajuster l'axe des ordonnées en fonction des valeurs observées
+        # fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarSD_Vote()))
 
+        # # modifier l'apparence des courbes (affinées et "arrondies")
+        # fig.update_traces(line_shape="spline")
 
+        # # retourner le graphique
+        # return fig
 
 
 
