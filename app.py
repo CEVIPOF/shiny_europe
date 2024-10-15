@@ -1683,7 +1683,7 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.Show_LIST_Question)
     def _():
-        m = ui.modal("La question posée aux répondants est la suivante : 'QUESTION LISTE'",
+        m = ui.modal("La question posée aux répondants est la suivante : 'Voici les listes qui se présentaient lors des élections européennes du 9 juin 2024. Pouvez-vous dire celle pour laquelle vous avez voté ?'",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
@@ -1695,7 +1695,7 @@ def server(input, output, session):
     def _():
         m = ui.modal("La variable sur la participation présentée ici sur les graphiques est une modalité synthétique \
                     de la question posée aux répondants de l'enquête. \
-                    Ainsi, parmi les quatre modalités de réponse à la question de l'enquête [...]",
+                    Ainsi, à partir de l'indication du vote du répondant, une échelle gauche-droite est construite.",
                     title="Informations complémentaires sur la variable choisie pour les graphiques :",
                     easy_close=False
             )
