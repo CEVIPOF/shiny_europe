@@ -1578,8 +1578,8 @@ def server(input, output, session):
         # calcul des totaux votants/non-votants pour la normalisation à 100% de ces catégories
         total_votant = data[data["Y6PARTEU24ST"] == "Vous avez voté"]["pct"].sum()
         total_abstention = data[data["Y6PARTEU24ST"] == "Vous n'avez pas voté"]["pct"].sum()
-        data.loc[data["Y6PARTEU24ST"] == "Vous avez voté", "pct_normalized"] = data["pct"] * 100 / total_votant
-        data.loc[data["Y6PARTEU24ST"] == "Vous n'avez pas voté", "pct_normalized"] = data["pct"] * 100 / total_abstention
+        data.loc[data["Y6PARTEU24ST"] == "Vous avez voté", "pct_normalized"] = round(data["pct"] * 100 / total_votant, 1)
+        data.loc[data["Y6PARTEU24ST"] == "Vous n'avez pas voté", "pct_normalized"] = round(data["pct"] * 100 / total_abstention, 1)
 
         # créer la figure en mémoire
         fig = go.Figure()
@@ -1600,6 +1600,7 @@ def server(input, output, session):
                     'xanchor': 'left',
                     'yanchor': 'top'
             },
+            bargap=0.7,
             barmode='stack',
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Part()),
