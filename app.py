@@ -1414,7 +1414,7 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.Show_PART_Question)
     def _():
-        m = ui.modal("La question posée aux répondants est la suivante : 'QUESTION PARTICIPATION'",
+        m = ui.modal("La question posée aux répondants est la suivante : 'Un électeur sur deux n’a pas voté lors des élections européennes du 9 juin 2024. Dans votre cas personnel, qu’est ce qui correspond le mieux à votre attitude à cette occasion ?'",
                     title="Informations complémentaires sur la question contenue dans l'enquête :",
                     easy_close=False
             )
@@ -1424,9 +1424,8 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.Show_PARTST_Info)
     def _():
-        m = ui.modal("La variable sur la participation présentée ici sur les graphiques est une modalité synthétique \
-                    de la question posée aux répondants de l'enquête. \
-                    Ainsi, parmi les quatre modalités de réponse à la question de l'enquête [...]",
+        m = ui.modal("la variable sur la participation aux élections européennes présentée ici sur les graphiques est une modalité synthétique de la question posée aux répondants de l'enquête. \
+            Ainsi, à partir des quatre modalités de réponse à la question de l'enquête, on en construit 2 : a voté ou n'a pas voté.",
                     title="Informations complémentaires sur la variable choisie pour les graphiques :",
                     easy_close=False
             )
@@ -1579,8 +1578,8 @@ def server(input, output, session):
         # calcul des totaux votants/non-votants pour la normalisation à 100% de ces catégories
         total_votant = data[data["Y6PARTEU24ST"] == "Vous avez voté"]["pct"].sum()
         total_abstention = data[data["Y6PARTEU24ST"] == "Vous n'avez pas voté"]["pct"].sum()
-        data.loc[data["Y6PARTEU24ST"] == "Vous avez voté", "pct_normalized"] = data["pct"] * 100 / total_votant
-        data.loc[data["Y6PARTEU24ST"] == "Vous n'avez pas voté", "pct_normalized"] = data["pct"] * 100 / total_abstention
+        data.loc[data["Y6PARTEU24ST"] == "Vous avez voté", "pct_normalized"] = round(data["pct"] * 100 / total_votant, 1)
+        data.loc[data["Y6PARTEU24ST"] == "Vous n'avez pas voté", "pct_normalized"] = round(data["pct"] * 100 / total_abstention, 1)
 
         # créer la figure en mémoire
         fig = go.Figure()
@@ -1601,6 +1600,7 @@ def server(input, output, session):
                     'xanchor': 'left',
                     'yanchor': 'top'
             },
+            bargap=0.7,
             barmode='stack',
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Part()),
@@ -2206,7 +2206,7 @@ def server(input, output, session):
                         "EURNT_1": "Choix du vote pour le RN par envie de soutenir Mme Le Pen",
                         "EURNT_2": "Choix du vote pour le RN par volonté de sanctionner le pouvoir en place",
                         "EURNT_3": "Choix du vote pour le RN par envie de soutenir M. Bardella",
-                        "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"              
+                        "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"
         }
         # définir la question de l'enquête associée à la variable choisie
         dico_question_var = {"EUCHOIXST": "A quel moment avez-vous décidé de la liste pour laquelle vous avez voté ?",
@@ -2217,7 +2217,7 @@ def server(input, output, session):
                              "EURNT_1": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par envie de soutenir Marine Le Pen",
                              "EURNT_2": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par volonté de sanctionner le pouvoir en place et les autres partis politiques",
                              "EURNT_3": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par envie de soutenir Jordan Bardella",
-                             "EURNT_4": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par adhésion aux valeurs et aux idées que défend le RN"  
+                             "EURNT_4": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par adhésion aux valeurs et aux idées que défend le RN"
         }
         # définir les modalités de réponse à la question de l'enquête associée à la variable choisie
         dico_modalite_var = {"EUCHOIXST": "1 = 'Il y a au moins un mois' ; 2 = 'Les dernières semaines avant le scrutin' ; 3 = 'Les derniers jours avant le scrutin' ; 4 = 'Juste avant le week-end des élections' ; 5 = 'Au dernier moment, le jour du scrutin ou la veille'",
@@ -2243,7 +2243,7 @@ def server(input, output, session):
                     )
         ui.modal_show(m)
 
-       
+
     # graphique
     @output
     @render_plotly
@@ -2257,14 +2257,14 @@ def server(input, output, session):
                       "EURNT_1": "Choix du vote pour le RN par envie de soutenir Mme Le Pen",
                       "EURNT_2": "Choix du vote pour le RN par volonté de sanctionner le pouvoir en place",
                       "EURNT_3": "Choix du vote pour le RN par envie de soutenir M. Bardella",
-                      "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"   
+                      "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"
         }
         # définir l'échelle de l'axe des ordonnées en fonction des
         # valeurs prises par la variable choisie
         dico_echelleY = {
                     "EUCHOIXST": [0, 60],
                     "EUDECST": [0, 60],
-                    "EUMOTPRST": [0, 40],       
+                    "EUMOTPRST": [0, 40],
                     "EUELARGST": [0, 50],
                     "EURNT_0": [0, 90],
                     "EURNT_1": [0, 90],
@@ -2371,7 +2371,7 @@ def server(input, output, session):
                         r=200 # r = right
                         )
         )
-        
+
         # configurer l'axe des abscisses pour n'afficher que des nombres entiers
         fig.update_xaxes(
             tickmode='linear',
@@ -2400,13 +2400,13 @@ def server(input, output, session):
         dico_nom_var = {
                     "DISS1ST": "Avis sur la dissolution de l'Assemblée nationale",
                     "DISS2ST": "Impression sur la dissolution de l'Assemblée nationale",
-                    "DISS3ST": "Opinion sur la décision du Président de la République"                    
+                    "DISS3ST": "Opinion sur la décision du Président de la République"
         }
         # définir la question de l'enquête associée à la variable choisie
         dico_question_var = {
                     "DISS1ST": "A l’issue des élections européennes, le président de la République Emmanuel Macron a décidé de dissoudre l’Assemblée nationale. Ainsi, de nouvelles élections législatives auront lieu les 30 juin et 7 juillet prochain. Diriez-vous que vous êtes favorable ou opposé à la dissolution de l’Assemblée nationale ?",
                     "DISS2ST": "Et plus précisément, quand vous pensez à la dissolution de l’Assemblée nationale et à la perspective de nouvelles élections législatives, lequel des sentiments suivants est le plus proche de ce que vous ressentez ?",
-                    "DISS3ST": "Diriez-vous que la décision d’Emmanuel Macron de dissoudre l’Assemblée nationale est..."                    
+                    "DISS3ST": "Diriez-vous que la décision d’Emmanuel Macron de dissoudre l’Assemblée nationale est..."
         }
         # définir les modalités de réponse à la question de l'enquête associée à la variable choisie
         dico_modalite_var = {
@@ -2427,7 +2427,7 @@ def server(input, output, session):
                     )
         ui.modal_show(m)
 
-       
+
     # graphique
     @output
     @render_plotly
@@ -2443,7 +2443,7 @@ def server(input, output, session):
         dico_echelleY = {
                     "DISS1ST": [0, 60],
                     "DISS2ST": [0, 60],
-                    "DISS3ST": [0, 70]        
+                    "DISS3ST": [0, 70]
         }
         # importer les données
         csvfile = "data/T_w6_" + "%s" % input.Select_VarDissolAN().lower() + ".csv"
@@ -2529,5 +2529,3 @@ def server(input, output, session):
 
 # définir une nouvelle instance de l'application
 app = App(app_ui, server)
-
-
