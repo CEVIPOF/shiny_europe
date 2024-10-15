@@ -338,7 +338,7 @@ app_ui = ui.page_fillable(
                 # colonne 01 : informations et choix de l'utilisateur
                 ui.card(
                     # cadre 01 : informations sur la variable de l'intention d'aller voter
-                    ui_card("TODO",
+                    ui_card("Votes pour les listes",
                             # bouton 01 : information sur la question posée dans l'enquête
                             ui.input_action_button("Show_LIST_Question", # input ID
                                                    "Question posée dans l'enquête" # texte affiché dans le bouton
@@ -347,6 +347,14 @@ app_ui = ui.page_fillable(
                         ui.input_action_button("Show_LIST_Info", # input ID
                                                    "Variable choisie pour les graphiques" # texte affiché dans le bouton
                             ),
+                    ),
+                    ui_card("Détail des couleurs politiques",
+                        ui.p("Très à gauche : LFI"),
+                        ui.p("Gauche : Parti Socialiste"),
+                        ui.p("Centre : Horizons"),
+                        ui.p("Droite : Les Républicains"),
+                        ui.p("Très à droite : Rassemblement National"),
+                        ui.p("Autres listes : Parti animaliste"),
                     )
                 ),
 
@@ -1691,7 +1699,7 @@ def server(input, output, session):
 
     # bouton 02 : décrire la variable de l'intention d'aller voter choisie
     @reactive.effect
-    @reactive.event(input.Show_EU24DXST_Info)
+    @reactive.event(input.Show_LIST_Info)
     def _():
         m = ui.modal("La variable sur la participation présentée ici sur les graphiques est une modalité synthétique \
                     de la question posée aux répondants de l'enquête. \
@@ -1732,7 +1740,6 @@ def server(input, output, session):
         # importer les données
         csvfile = "data/T_w6_eu24dxst.csv"
         data = pd.read_csv(csvfile)
-
         # supprimer la première colonne (vide) de la base de donnée
         data = data.drop(data.columns[0], axis=1)
 
@@ -1741,11 +1748,15 @@ def server(input, output, session):
 
         fig.add_trace(go.Bar(
             x=data["EU24DXST"],
-            y=data["pct"]
+            y=data["pct"],
+            marker_color=['red', 'pink', 'yellow', 'blue', 'black', 'grey'],
+            text=["Très à gauche", "Gauche", "Centre", "Droite", "Très à droite", "Autres listes"],
+            textposition='outside'
         ))
 
         fig.update_layout(
             autosize=True,
+            font_size=20,
             height=800,
             template="plotly_white",
             margin=dict(b=50, # b = bottom
@@ -1754,7 +1765,7 @@ def server(input, output, session):
                         r=200 # r = right
                         )
         )
-
+        fig.update_xaxes(visible=False, showticklabels=False)
         # retourner le graphique
         return fig
 
