@@ -495,11 +495,7 @@ app_ui = ui.page_fillable(
                                          "EUDECST": "Choix fait par adhésion ou par défaut",
                                          "EUMOTPRST": "Choix lié au Président ou au Gouvernement en place",
                                          "EUELARGST": "Choix lié à l'élargissement de l'UE",
-                                         "EURNT_0": "Choix du vote pour le RN (Rassemblement national) par adhésion à son programme sur l'Europe",
-                                         "EURNT_1": "Choix du vote pour le RN par envie de soutenir Mme Le Pen",
-                                         "EURNT_2": "Choix du vote pour le RN par volonté de sanctionner le pouvoir en place",
-                                         "EURNT_3": "Choix du vote pour le RN par envie de soutenir M. Bardella",
-                                         "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"
+                                         "EURNST_0": "Première raison du choix de vote pour la liste du Rassemblement National (RN) conduite par Jordan Bardella"
                                 }
                             ),
                             # bouton 02 : information sur la question posée dans l'enquête
@@ -2154,51 +2150,6 @@ def server(input, output, session):
         # retourner le graphique
         return fig
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
     #############
     # onglet 09 #
@@ -2210,36 +2161,24 @@ def server(input, output, session):
     def _():
         # définir le nom de la variable choisie
         dico_nom_var = {"EUCHOIXST": "Moment du choix du vote",
-                        "EUDECST": "Choix fait par adhésion ou par défaut",
-                        "EUMOTPRST": "Choix lié au Président ou au Gouvernement en place",
-                        "EUELARGST": "Choix lié à l'élargissement de l'UE",
-                        "EURNT_0": "Choix du vote pour le RN (Rassemblement national) par adhésion à son programme sur l'Europe",
-                        "EURNT_1": "Choix du vote pour le RN par envie de soutenir Mme Le Pen",
-                        "EURNT_2": "Choix du vote pour le RN par volonté de sanctionner le pouvoir en place",
-                        "EURNT_3": "Choix du vote pour le RN par envie de soutenir M. Bardella",
-                        "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"
+                        "EUDECST": "Choix du vote fait par adhésion ou par défaut",
+                        "EUMOTPRST": "Choix du vote lié au Président ou au Gouvernement en place",
+                        "EUELARGST": "Choix du vote lié à l'élargissement de l'UE",
+                        "EURNST_0": "Première raison du choix de vote pour la liste du Rassemblement National (RN) conduite par Jordan Bardella"
         }
         # définir la question de l'enquête associée à la variable choisie
         dico_question_var = {"EUCHOIXST": "A quel moment avez-vous décidé de la liste pour laquelle vous avez voté ?",
                              "EUDECST": "Avez-vous voté pour cette liste... ?",
                              "EUMOTPRST": "Lors des élections européennes, avez-vous voté...",
                              "EUELARGST": "Pour certains, il faut continuer l’élargissement de l’Union européenne et accueillir de nouveaux pays membres. Pour d'autres, il faut arrêter l’élargissement de l’Union européenne et ne plus accueillir de nouveaux pays membres. Sur une échelle de 0 à 10, dites-moi quelle est votre opinion ? (0 signifie qu’il faut arrêter l’élargissement de l’Union européenne, 10 signifie qu’il faut continuer l’élargissement de l’Union européenne)",
-                             "EURNT_0": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par adhésion à son programme sur l’Europe",
-                             "EURNT_1": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par envie de soutenir Marine Le Pen",
-                             "EURNT_2": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par volonté de sanctionner le pouvoir en place et les autres partis politiques",
-                             "EURNT_3": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par envie de soutenir Jordan Bardella",
-                             "EURNT_4": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? Par adhésion aux valeurs et aux idées que défend le RN"
+                             "EURNST_0": "Pour quelles raisons avez-vous voté pour la liste du Rassemblement National conduite par Jordan Bardella ? (en premier)"
         }
         # définir les modalités de réponse à la question de l'enquête associée à la variable choisie
         dico_modalite_var = {"EUCHOIXST": "1 = 'Il y a au moins un mois' ; 2 = 'Les dernières semaines avant le scrutin' ; 3 = 'Les derniers jours avant le scrutin' ; 4 = 'Juste avant le week-end des élections' ; 5 = 'Au dernier moment, le jour du scrutin ou la veille'",
                              "EUDECST": "1 = 'Avant tout par adhésion' ; 2 = 'Avant tout par défaut'",
                              "EUMOTPRST": "1 = 'Avant tout pour manifester votre soutien au Président de la République et au Gouvernement' ; 2 = 'Avant tout pour manifester votre opposition au Président de la République et au Gouvernement' ; 3 = 'Ni l'un, ni l'autre'",
                              "EUELARGST": "1 = 'Arrêter l'élargissement' ; 2 = 'Ni l'un, ni l'autre' ; 3 = 'Continuer l'élargissement'",
-                             "EURNT_0": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'",
-                             "EURNT_1": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'",
-                             "EURNT_2": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'",
-                             "EURNT_3": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'",
-                             "EURNT_4": "0 = 'Non cité par le répondant' ; 1 = 'Cité par le répondant'"
+                             "EURNST_0": "'1' = 'Par adhésion à son programme sur l'Europe' ; '2' = 'Par envie de soutenir Marine Le Pen' ; '3' = 'Par volonté de sanctionner le pouvoir en place et les autres partis politiques' ; '4' = 'Par envie de soutenir Jordan Bardella' ; '5' = 'Par adhésion aux valeurs et aux idées que défend le RN'"
         }
         # afficher le texte de décrivant la question (avec parties fixes et variables en fonction du choix)
         m = ui.modal("La variable '%s' correspond à la question suivante posée aux répondants : \
@@ -2261,14 +2200,10 @@ def server(input, output, session):
     def Graph_ContextChoixVote():
         # définir la partie variable du titre
         dico_titre = {"EUCHOIXST": "Moment du choix du vote",
-                      "EUDECST": "Choix fait par adhésion ou par défaut",
-                      "EUMOTPRST": "Choix lié au Président ou au Gouvernement en place",
-                      "EUELARGST": "Choix lié à l'élargissement de l'UE",
-                      "EURNT_0": "Choix du vote pour le RN (Rassemblement national) par adhésion à son programme sur l'Europe",
-                      "EURNT_1": "Choix du vote pour le RN par envie de soutenir Mme Le Pen",
-                      "EURNT_2": "Choix du vote pour le RN par volonté de sanctionner le pouvoir en place",
-                      "EURNT_3": "Choix du vote pour le RN par envie de soutenir M. Bardella",
-                      "EURNT_4": "Choix du vote pour le RN par adhésion aux valeurs et idées du RN"
+                      "EUDECST": "Choix du vote fait par adhésion ou par défaut",
+                      "EUMOTPRST": "Choix du vote lié au Président ou au Gouvernement en place",
+                      "EUELARGST": "Choix du vote lié à l'élargissement de l'UE",
+                      "EURNST_0": "Première raison du choix de vote pour la liste du RN"
         }
         # définir l'échelle de l'axe des ordonnées en fonction des
         # valeurs prises par la variable choisie
@@ -2277,11 +2212,7 @@ def server(input, output, session):
                     "EUDECST": [0, 60],
                     "EUMOTPRST": [0, 40],
                     "EUELARGST": [0, 50],
-                    "EURNT_0": [0, 90],
-                    "EURNT_1": [0, 90],
-                    "EURNT_2": [0, 90],
-                    "EURNT_3": [0, 90],
-                    "EURNT_4": [0, 90]
+                    "EURNST_0": [0, 60]
         }
 
         # importer les données
