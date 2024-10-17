@@ -2210,7 +2210,7 @@ def server(input, output, session):
         dico_echelleY = {
                     "EUCHOIXST": [0, 60],
                     "EUDECST": [0, 60],
-                    "EUMOTPRST": [0, 40],
+                    "EUMOTPRST": [0, 60],
                     "EUELARGST": [0, 50],
                     "EURNST_0": [0, 60]
         }
