@@ -1795,7 +1795,7 @@ def server(input, output, session):
     def _():
         m = ui.modal("La variable sur le premier enjeu du vote présentée ici est une version simplifiée. \
                     Ainsi, sur les 16 propositions de réponse soumises au choix des répondants, seules \
-                    les 4 propositions ayant reccuillies le plus de suffrages sont présentées en détail. \
+                    les 4 propositions ayant reccueilli le plus de suffrages sont présentées en détail. \
                     Les 12 autres propositions sont agrégées dans la modalité 'Autres réponses'.",
                     title="Informations complémentaires sur la variable choisie pour les graphiques :",
                     easy_close=False
@@ -1912,7 +1912,7 @@ def server(input, output, session):
     def _():
         m = ui.modal("La variable sur le premier enjeu du vote présentée ici est une version simplifiée. \
                     Ainsi, sur les 16 propositions de réponse soumises au choix des répondants, seules \
-                    les 4 propositions ayant reccuillies le plus de suffrages sont présentées en détail. \
+                    les 4 propositions ayant reccueilli le plus de suffrages sont présentées en détail. \
                     Les 12 autres propositions sont agrégées dans la modalité 'Autres réponses'.",
                     title="Informations complémentaires sur la variable choisie pour les graphiques :",
                     easy_close=False
@@ -2301,8 +2301,8 @@ def server(input, output, session):
                     font=dict(size=12),
                     align='left',
                     bgcolor='rgba(255,255,255,0.8)', # fond légèrement transparent
-                    bordercolor='grey',
-                    borderwidth=1
+                    # bordercolor='grey',
+                    # borderwidth=1
                 )
             ],
             # définir les marges de la zone graphique
