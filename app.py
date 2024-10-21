@@ -402,7 +402,7 @@ app_ui = ui.page_fillable(
                         ui.markdown(
                             """
                             ```
-                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales.
                             Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                             ```
                             """
@@ -465,7 +465,7 @@ app_ui = ui.page_fillable(
                         ui.markdown(
                             """
                             ```
-                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales.
                             Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                             ```
                             """
@@ -511,7 +511,7 @@ app_ui = ui.page_fillable(
                         ui.markdown(
                             """
                             ```
-                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales.
                             Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                             ```
                             """
@@ -555,7 +555,7 @@ app_ui = ui.page_fillable(
                         ui.markdown(
                             """
                             ```
-                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales.
                             Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                             ```
                             """
@@ -1777,7 +1777,7 @@ def server(input, output, session):
                       pour les élections européennes du dimanche 9 juin ? (en 1er)' \
                       et ses modalités de réponse sont : \
                       1 = 'Le chômage', 2 = 'La menace terroriste', 3 = 'Le pouvoir d’achat', \
-                      4 = 'Le système scolaire et l’éducation', 5 = 'Le système de santé', \
+                      4 = 'Système scolaire et éducation', 5 = 'Le système de santé', \
                       6 = 'La fiscalité', 7 = 'L’avenir du système de retraite', \
                       8 = 'La protection de l’environnement', 9 = 'L’immigration', \
                       10 = 'La sécurité des biens et des personnes', 11 = 'Le niveau des inégalités sociales', \
@@ -1808,7 +1808,7 @@ def server(input, output, session):
     def Graph_EnjVG():
 
         # importer les données
-        csvfile = "data/T_w6_enjeurst0.csv"
+        csvfile = "data/T_w6_enjeurst_0.csv"
         data = pd.read_csv(csvfile)
 
         # supprimer la première colonne (vide) de la base de donnée
@@ -1881,6 +1881,7 @@ def server(input, output, session):
         # retourner le graphique
         return fig
 
+
     #############
     # onglet 08 #
     #############
@@ -1894,7 +1895,7 @@ def server(input, output, session):
                       pour les élections européennes du dimanche 9 juin ? (en 1er)' \
                       et ses modalités de réponse sont : \
                       1 = 'Le chômage', 2 = 'La menace terroriste', 3 = 'Le pouvoir d’achat', \
-                      4 = 'Le système scolaire et l’éducation', 5 = 'Le système de santé', \
+                      4 = 'Système scolaire et éducation', 5 = 'Le système de santé', \
                       6 = 'La fiscalité', 7 = 'L’avenir du système de retraite', \
                       8 = 'La protection de l’environnement', 9 = 'L’immigration', \
                       10 = 'La sécurité des biens et des personnes', 11 = 'Le niveau des inégalités sociales', \
@@ -2034,8 +2035,7 @@ def server(input, output, session):
                     "Y6Q7ST": [5, 40],
                     "Y6PROXST": [5, 55],
         }        
-
-                # définir une fonction qui affiche les étiquettes
+        # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
         # largeur du cadre de la légende
@@ -2058,40 +2058,40 @@ def server(input, output, session):
                 lines.append(' '.join(current_line))
             return '<br>'.join(lines)
 
-        # Lire le fichier CSV
+        # lire le fichier CSV des données
         csvfile = "data/T_w6_enjeurst_0_" + "%s" % input.Select_VarSD_Enj().lower()[2:] + ".csv"
-        data = pd.read_csv(csvfile)
+        df = pd.read_csv(csvfile)
+        
+        # Définir l'ordre des modalités pour Y6ENJEURST_0
+        ordre_modalites = ["Le chômage", "Système scolaire et éducation",
+                           "La sécurité des biens et des personnes", "Le montant des déficits publics"]
 
-        # pivoter le DataFrame pour obtenir le format souhaité
-        data_pivot = data.pivot(index='Y6ENJEURST_0',
-                                columns='%s' % input.Select_VarSD_Enj(),
-                                values='pct')
+        # Filtrer et pivoter les données
+        df_pivot = df[df['Y6ENJEURST_0'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_Enj(), columns='Y6ENJEURST_0', values='pct')
+        df_pivot = df_pivot.reindex(columns=ordre_modalites)
 
-        # normaliser les pourcentages pour qu'ils s'additionnent à 100% pour chaque enjeu
-        data_pivot = data_pivot.div(data_pivot.sum(axis=1), axis=0) * 100
+        # créer une palette de couleurs automatique
+        nb_couleurs = len(df_pivot.index)
+        palette = px.colors.qualitative.Plotly[:nb_couleurs]
 
-        # créer le graphique à barres (avec % empilés)
+        # créer le graphique
         fig = go.Figure()
 
-        for Var_SD in data_pivot.columns:
+        for i, VarSD in enumerate(df_pivot.index):
             fig.add_trace(go.Bar(
-                # afficher les étiquettes des modalités sur plusieurs lignes dans le cadre
-                # de la légende
-                name=wrap_label(Var_SD),
-                x=data_pivot.index,
-                y=data_pivot[Var_SD],
+                x=ordre_modalites,
+                y=df_pivot.loc[VarSD],
+                name=wrap_label(VarSD),
+                marker_color=palette[i],
                 # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
                 hovertemplate='%{y:.1f}%<extra></extra>'
             ))
 
-        # ajuster l'échelle de l'axe y à 100%
-        fig.update_yaxes(range=[0, 100])
-
         # mise en forme détaillée et personnalisée du graphique
         fig.update_layout(
-            barmode='stack', # barres cumulées pour chaque modalité de ENJEURST_0
+            barmode='group', # barres séparées et groupées pour les modalités de la VarSD choisie
             title={'text': "Premier enjeu du vote en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Enj()),
                     'y':0.98,
                     'x':0.01,
@@ -2150,6 +2150,13 @@ def server(input, output, session):
         # retourner le graphique
         return fig
         
+
+
+
+
+
+
+
 
     #############
     # onglet 09 #
