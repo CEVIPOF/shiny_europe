@@ -109,7 +109,7 @@ app_ui = ui.page_fillable(
 
         # REMARQUE :
         # le code pour les onglets 02 à 04 a été retiré de cette version du programme.
-        # En effet, ces onglet contiennent les INTENTIONS d'aller voter des répondants
+        # En effet, ces onglets contiennent les INTENTIONS d'aller voter des répondants
         # que l'on représente uniquement AVANT le scrutin.
         # Cette partie de code est disponible dans le bloc séparé sur la représentation
         # des intentions d'aller voter, utilisable à nouveau pour des élections futures.
@@ -433,7 +433,7 @@ def server(input, output, session):
 
     # REMARQUE :
     # le code pour les onglets 02 à 04 a été retiré de cette version du programme.
-    # En effet, ces onglet contiennent les INTENTIONS d'aller voter des répondants
+    # En effet, ces onglets contiennent les INTENTIONS d'aller voter des répondants
     # que l'on représente uniquement AVANT le scrutin.
     # Cette partie de code est disponible dans le bloc séparé sur la représentation
     # des intentions d'aller voter, utilisable à nouveau pour des élections futures.
