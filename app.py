@@ -438,9 +438,9 @@ def server(input, output, session):
     # Cette partie de code est disponible dans le bloc séparé sur la représentation
     # des intentions d'aller voter, utilisable à nouveau pour des élections futures.
 
-    #############
-    # onglet 05 #
-    #############
+    #############################
+    # onglet 05 : PARTICIPATION #
+    #############################
 
     # bouton 01 : décrire la question posée dans l'enquête
     @reactive.effect
@@ -706,9 +706,9 @@ def server(input, output, session):
         # retourner le graphique
         return fig
 
-    #############
-    # onglet 06 #
-    #############
+    ##################################
+    # onglet 06 : LISTES ÉLECTORALES #
+    ##################################
 
     # bouton 01 : décrire la question posée dans l'enquête
     @reactive.effect
@@ -792,9 +792,9 @@ def server(input, output, session):
         # retourner le graphique
         return fig
 
-    #############
-    # onglet 07 #
-    #############
+    #####################################
+    # onglet 07 : PREMIER ENJEU DU VOTE #
+    #####################################
 
     # bouton 01 : décrire la question posée dans l'enquête
     @reactive.effect
@@ -910,9 +910,9 @@ def server(input, output, session):
         return fig
 
 
-    #############
-    # onglet 08 #
-    #############
+    ####################################
+    # onglet 08 : DETAIL PREMIER ENJEU #
+    ####################################
 
     # bouton 01 : décrire la question posée dans l'enquête
     @reactive.effect
@@ -1062,7 +1062,7 @@ def server(input, output, session):
                     "Y6INTPOLST": [0, 75],
                     "Y6Q7ST": [5, 40],
                     "Y6PROXST": [5, 55],
-        }        
+        }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
@@ -1089,7 +1089,7 @@ def server(input, output, session):
         # lire le fichier CSV des données
         csvfile = "data/T_w6_enjeurst_0_" + "%s" % input.Select_VarSD_Enj().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        
+
         # Définir l'ordre des modalités pour Y6ENJEURST_0
         ordre_modalites = ["Le chômage", "Système scolaire et éducation",
                            "La sécurité des biens et des personnes", "Le montant des déficits publics"]
@@ -1177,7 +1177,6 @@ def server(input, output, session):
 
         # retourner le graphique
         return fig
-        
 
 
 
@@ -1186,9 +1185,10 @@ def server(input, output, session):
 
 
 
-    #############
-    # onglet 09 #
-    #############
+
+    #########################################
+    # onglet 09 : CONTEXTE DU CHOIX DE VOTE #
+    #########################################
 
     # bouton 02 : décrire la question posée dans l'enquête
     @reactive.effect
@@ -1365,9 +1365,9 @@ def server(input, output, session):
         return fig
 
 
-    #############
-    # onglet 10 #
-    #############
+    ##########################################
+    # onglet 10 : DISSOLUTION DE L'ASSEMBLÉE #
+    ##########################################
 
     # bouton 02 : décrire la question posée dans l'enquête
     @reactive.effect
