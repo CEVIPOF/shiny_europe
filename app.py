@@ -1063,6 +1063,22 @@ def server(input, output, session):
                     "Y6Q7ST": [5, 40],
                     "Y6PROXST": [5, 55],
         }
+        # définir les modalités des variables socio-démo et leur ordre
+        dico_modalite_var = {
+                    "Y6SEXEST": "1 = 'Homme' ; 2 = 'Femme'",
+                    "Y6AGERST": "1 = '18 à 24 ans' ; 2 = '25 à 34 ans' ; 3 = '35 à 49 ans' ; 4 = '50 à 59 ans' ; 5 = '60 ans et plus'",
+                    "Y6REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
+                    "Y6AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
+                    "Y6EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
+                    "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+                    "Y6EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
+                    "Y6REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
+                    "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+                    "Y6INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
+                    "Y6Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
+                    "Y6PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
@@ -1172,8 +1188,15 @@ def server(input, output, session):
                 xanchor='left', # ancrer la légende à gauche de sa position x
                 yanchor='top', # ancrer la légende en haut de sa position y
                 bgcolor='rgba(255,255,255,0.8)' # fond légèrement transparent
-            )
+            ),
         )
+        # tentative de réordonnancement des barres dans chaque groupe
+        # problème : ce code peut réordonner les groupes, mais pas les barres dans les groupes...
+        # fig.update_xaxes(
+        #     # print([x.split(" = ")[1][1:-1] for x in dico_modalite_var[input.Select_VarSD_Enj()].split(' ; ')]),
+        #     categoryorder='array',
+        #     categoryarray=[x.split(" = ")[1][1:-1] for x in dico_modalite_var[input.Select_VarSD_Enj()].split(' ; ')],
+        # )
 
         # retourner le graphique
         return fig
