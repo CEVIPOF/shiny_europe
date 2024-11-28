@@ -700,9 +700,6 @@ def server(input, output, session):
             )
         )
 
-        # ajuster l'axe des ordonnées en fonction des valeurs observées
-        fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarSD_Abst()))
-
         # retourner le graphique
         return fig
 
