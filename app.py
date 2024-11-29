@@ -2,7 +2,7 @@
 """
 Construction d'une application interactive de visualisation de données
 pour les enquêtes électorales françaises faites pour les élections européennes
-de juin 2024
+de juin 2024 et les élections législatives de juillet 2024
 
 PAYS : France
 VAGUES : 1 à 7
@@ -19,15 +19,14 @@ Année : 2024
 # importation des librairies utiles au projet
 from shiny import App, ui, reactive
 from shinywidgets import render_widget, render_plotly, output_widget
-import shinyswatch
 import pandas as pd
 import numpy as np
-import datetime
-import orjson
 import plotly.graph_objects as go
 import plotly.express as px
 import colorlover as cl
-
+import shinyswatch
+import datetime
+import orjson
 
 
 ########
@@ -63,22 +62,23 @@ app_ui = ui.page_fillable(
                         ### L'Enquête Électorale Française
 
                         L'Enquête Électorale Française (ENEF) pour les élections européennes du 9 juin 2024
+                        et pour les élections législatives anticipées des 30 juin et 7 juillet 2024,
                         est un dispositif d'enquêtes par panel réalisées par l'institut _IPSOS_ pour le
                         _CEVIPOF_, la _Fondation Jean Jaurès_, _Institut Montaigne_ et _Le Monde_.
                         <br>
                         <br>
                         Composé de plus de 10 000 personnes, le panel d'individus est interrogé
-                        à 6 reprises de juin 2023 à juin 2024, afin de mieux comprendre les logiques de
+                        à 7 reprises de juin 2023 à juillet 2024, afin de mieux comprendre les logiques de
                         leurs décisions de vote pour ces élections.
                         <br>
                         Les résultats détaillés de ce dispositif d'enquêtes, accompagnés de décryptages et
-                        d'analyses, sont disponibles sur la [page dédiée du Cevipof](https://www.sciencespo.fr/cevipof/fr/content/resultats-et-decrypyages-par-vagues.html).
+                        d'analyses, sont disponibles sur la [page dédiée du Cevipof](https://www.sciencespo.fr/cevipof/fr/etudes-enquetes/enquete-electorale-francaise-2023-elections-europeennes-2024/).
                         <br>
                         <br>
                         L'attention de l'utilisateur est appelée sur le fait que les opinions mesurées en
                         pourcentage sont sujettes à un _aléa de mesure statistique_, ou _marge d'erreur_,
                         qu'il est important de prendre en compte lors de l'interprétation de ces nombres.
-                        L'utilisateur pourra consulter la page 3 des [rapports de résultats détaillés](https://www.sciencespo.fr/cevipof/fr/content/resultats-et-decrypyages-par-vagues.html)
+                        L'utilisateur pourra consulter la page 3 des [rapports de résultats détaillés](https://www.sciencespo.fr/cevipof/fr/etudes-enquetes/enquete-electorale-francaise-2023-elections-europeennes-2024/#resultats)
                         pour une évaluation synthétique de ces aléas, et une
                         [note](https://www.sciencespo.fr/cevipof/sites/sciencespo.fr.cevipof/files/Note_Inge%cc%81s1_electionspresidentielles2022_mars2022_V8.pdf)
                         pour une présentation détaillée de cette problématique.
@@ -99,7 +99,7 @@ app_ui = ui.page_fillable(
                         robuste des potentiels liens structurels entre les variables.
                         <br>
                         <br>
-                        Il est par conséquent vivement recommandé à l'utilisateur de [contacter le Cevipof](https://www.sciencespo.fr/cevipof/fr/liste-de-contacts.html)
+                        Il est par conséquent vivement recommandé à l'utilisateur de [contacter le Cevipof](https://www.sciencespo.fr/cevipof/fr/centre/contact/)
                         et les chercheurs membres du laboratoire en cas de doute, ou pour toute question ou besoin
                         de clarification, de contextualisation ou d'analyse détaillée et commentée de ces
                         principaux résultats graphiques.
@@ -107,14 +107,7 @@ app_ui = ui.page_fillable(
                     )
         ),
 
-        # REMARQUE :
-        # le code pour les onglets 02 à 04 a été retiré de cette version du programme.
-        # En effet, ces onglets contiennent les INTENTIONS d'aller voter des répondants
-        # que l'on représente uniquement AVANT le scrutin.
-        # Cette partie de code est disponible dans le bloc séparé sur la représentation
-        # des intentions d'aller voter, utilisable à nouveau pour des élections futures.
-
-        # onglet 05 : PARTICIPATION AVEC DES VARIABLES SOCIO-DEMO
+        # onglet 02 : PARTICIPATION CROISEE AVEC DES VARIABLES SOCIO-DEMO
         ui.nav_panel("Participation",
             # définir deux colonnes
             ui.layout_columns(
@@ -164,7 +157,7 @@ app_ui = ui.page_fillable(
                         ui.markdown(
                             """
                             ```
-                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales.
                             Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                             ```
                             """
@@ -177,14 +170,14 @@ app_ui = ui.page_fillable(
             )
         ),
 
-        # onglet 06 : VOTE EN FAVEUR DES LISTES
-        ui.nav_panel("Listes éléctorales",
+        # onglet 03 : VOTE EN FAVEUR DES LISTES POLITIQUES
+        ui.nav_panel("Votes en faveur des listes politiques",
             # définir deux colonnes
             ui.layout_columns(
                 # colonne 01 : informations et choix de l'utilisateur
                 ui.card(
                     # cadre 01 : informations sur la variable de l'intention d'aller voter
-                    ui_card("Votes pour les listes",
+                    ui_card("Votes en faveur des listes",
                             # bouton 01 : information sur la question posée dans l'enquête
                             ui.input_action_button("Show_LIST_Question", # input ID
                                                    "Question posée dans l'enquête" # texte affiché dans le bouton
@@ -210,7 +203,7 @@ app_ui = ui.page_fillable(
                         ui.markdown(
                             """
                             ```
-                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales grises (vagues de l'enquête).
+                            Pour afficher les valeurs du graphique, amener la souris sur les barres verticales.
                             Les marges d'erreur sont données dans les rapports de résultats détaillés de chaque vague.
                             ```
                             """
@@ -223,7 +216,7 @@ app_ui = ui.page_fillable(
             )
         ),
 
-        # onglet 07 : ENJEUX DU VOTE (VUE GLOBALE)
+        # onglet 04 : ENJEUX DU VOTE (VUE GLOBALE)
         ui.nav_panel("Premier enjeu du vote (vue globale)",
             # définir deux colonnes
             ui.layout_columns(
@@ -261,7 +254,7 @@ app_ui = ui.page_fillable(
             )
         ),
 
-        # onglet 08 : ENJEUX DU VOTE AVEC DES VARIABLES SOCIO-DEMO
+        # onglet 05 : ENJEUX DU VOTE CROISES AVEC DES VARIABLES SOCIO-DEMO
         ui.nav_panel("Premier enjeu du vote (vue détaillée)",
             # définir deux colonnes
             ui.layout_columns(
@@ -305,7 +298,7 @@ app_ui = ui.page_fillable(
                     )
                 ),
 
-                # colonne 02: graphique des variables croisées par vagues d'enquête
+                # colonne 02: graphique des variables croisées
                 ui.card(
                         # afficher une ligne d'indication pour l'utilisateur
                         ui.markdown(
@@ -324,14 +317,14 @@ app_ui = ui.page_fillable(
             )
         ),
 
-        # onglet 09 : CONTEXTE DU CHOIX DU VOTE
-        ui.nav_panel("Contexte du choix du vote",
+        # onglet 06 : CONTEXTE DE CHOIX DU VOTE
+        ui.nav_panel("Contexte de choix du vote",
             # définir deux colonnes
             ui.layout_columns(
                 # colonne 01 : informations et choix de l'utilisateur
                 ui.card(
                     # cadre 01 : informations sur la variable du contexte du choix du vote
-                    ui_card("CONTEXTE DU CHOIX DU VOTE",
+                    ui_card("CONTEXTE DE CHOIX DU VOTE",
                             # bouton 01 : choix de la variable concernant le contexte du choix du vote
                             # groupe de boutons de sélection
                             ui.input_radio_buttons(
@@ -370,8 +363,8 @@ app_ui = ui.page_fillable(
             )
         ),
 
-        # onglet 10 : DECISION D'ELECTIONS LEGISLATIVES
-        ui.nav_panel("La dissolution de l'Assemblée nationale",
+        # onglet 7 : DECISION D'ORGANISER DES ELECTIONS LEGISLATIVES ANTICIPEES
+        ui.nav_panel("Dissolution de l'Assemblée nationale",
             # définir deux colonnes
             ui.layout_columns(
                 # colonne 01 : informations et choix de l'utilisateur
