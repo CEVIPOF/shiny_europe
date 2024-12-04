@@ -37,8 +37,6 @@ import orjson
 ## BLOC UI ##
 #############
 
-
-
 # définir des cadres graphiques personnalisés
 def ui_card(title, *args):
     return (
@@ -103,7 +101,7 @@ page_presentation = ui.markdown(
 
 
 
-# définir un message d'indication pour l'utilisateur (concernant les graphiques)
+# définir un message d'indication pour l'utilisateur concernant les graphiques
 message_utilisateur_graph = ui.markdown(
     """
     ```
@@ -125,10 +123,10 @@ page_electionsUE = ui.navset_card_underline(
         ui.layout_columns(
             # colonne 01 : informations et choix de l'utilisateur
             ui.card(
-                # cadre 01 : informations sur la variable de l'intention d'aller voter
+                # cadre 01 : informations sur la variable
                 ui_card(
                     # titre du cadre
-                    "Participation au vote",
+                    "PARTICIPATION AU VOTE",
                     # bouton 01 : information sur la question posée dans l'enquête
                     ui.input_action_button(
                         "Show_PART_Question", # input ID
@@ -194,10 +192,10 @@ page_electionsUE = ui.navset_card_underline(
         ui.layout_columns(
             # colonne 01 : informations et choix de l'utilisateur
             ui.card(
-                # cadre 01 : informations sur la variable de l'intention d'aller voter
+                # cadre 01 : informations sur la variable
                 ui_card(
                     # titre du cadre
-                    "Votes en faveur des listes",
+                    "VOTES EN FAVEUR DES LISTES",
                     # bouton 01 : information sur la question posée dans l'enquête
                     ui.input_action_button(
                         "Show_LIST_Question", # input ID
@@ -234,7 +232,7 @@ page_electionsUE = ui.navset_card_underline(
         ui.layout_columns(
             # colonne 01 : informations et choix de l'utilisateur
             ui.card(
-                # cadre 01 : informations sur la variable des enjeux du vote
+                # cadre 01 : informations sur la variable
                 ui_card(
                     # titre du cadre
                     "PREMIER ENJEU DU VOTE",
@@ -274,7 +272,7 @@ page_electionsUE = ui.navset_card_underline(
         ui.layout_columns(
             # colonne 01 : informations et choix de l'utilisateur
             ui.card(
-                # cadre 01 : informations sur la variable des enjeux du vote
+                # cadre 01 : informations sur la variable
                 ui_card(
                     # titre du cadre
                     "PREMIER ENJEU DU VOTE",
@@ -342,7 +340,7 @@ page_electionsUE = ui.navset_card_underline(
         ui.layout_columns(
             # colonne 01 : informations et choix de l'utilisateur
             ui.card(
-                # cadre 01 : informations sur la variable du contexte du choix du vote
+                # cadre 01 : informations sur la variable
                 ui_card(
                     # titre du cadre
                     "CONTEXTE DE CHOIX DU VOTE",
@@ -431,21 +429,206 @@ page_electionsUE = ui.navset_card_underline(
 
 
 
-# A FAIRE !!!
-# définir le contenur de la page 03
+# définir le contenu de la page 03
 page_electionsLEGIS = ui.navset_card_underline(
     
+    # onglet 01 : PARTICIPATION AU 1er TOUR
     ui.nav_panel(
-        "Plot",
-        ""
+        "Participation (1er tour)",
+        # définir deux colonnes
+        ui.layout_columns(
+            # colonne 01 : informations et choix de l'utilisateur
+            ui.card(
+                # cadre 01 : informations sur la variable
+                ui_card(
+                    # titre du cadre
+                    "PARTICIPATION AU VOTE",
+                    # bouton 01 : information sur la question posée dans l'enquête
+                    ui.input_action_button(
+                        "Show_PART_Question_Legis_T1", # input ID
+                        "Question posée dans l'enquête" # texte affiché dans le bouton
+                    ),
+                    # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                    ui.input_action_button(
+                        "Show_PARTST_Info_Legis_T1", # input ID
+                        "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                    )
+                ),
+            ),
+            # colonne 02: graphique des variables croisées par vagues d'enquête
+            ui.card(
+                # afficher une ligne d'indication pour l'utilisateur
+                message_utilisateur_graph,
+                # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                output_widget(
+                    id="Graph_Part_Legis_T1",
+                    width="auto",
+                    height="auto"
+                )
+            ),
+            # définir les largeurs des colonnes contenant les cadres graphiques
+            col_widths=(3, 9)
+        )
     ),
 
+    # onglet 02 : VOTE EN FAVEUR DES LISTES POLITIQUES AU 1er TOUR
     ui.nav_panel(
-        "Table",
-        ""
+        # titre de l'onglet
+        "Votes en faveur des listes politiques (1er tour)",
+        # définir deux colonnes
+        ui.layout_columns(
+            # colonne 01 : informations et choix de l'utilisateur
+            ui.card(
+                # cadre 01 : informations sur la variable
+                ui_card(
+                    # titre du cadre
+                    "VOTES EN FAVEUR DES LISTES",
+                    # bouton 01 : information sur la question posée dans l'enquête
+                    ui.input_action_button(
+                        "Show_LIST_Question_Legis_T1", # input ID
+                        "Question posée dans l'enquête" # texte affiché dans le bouton
+                    ),
+                    # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                    ui.input_action_button(
+                        "Show_LIST_Info_Legis_T1", # input ID
+                        "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                    ),
+                )
+            ),
+            # colonne 02: graphique du vote en faveur des listes
+            ui.card(
+                # afficher une ligne d'indication pour l'utilisateur
+                message_utilisateur_graph,
+                # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                output_widget(
+                    id="Graph_List_Legis_T1",
+                    width="auto",
+                    height="auto"
+                )
+            ),
+            # définir les largeurs des colonnes contenant les cadres graphiques
+            col_widths=(3, 9)
+        )
     ),
 
-    title="Penguins data",
+    # onglet 03 : PARTICIPATION AU 2e TOUR
+    ui.nav_panel(
+        "Participation (2e tour)",
+        # définir deux colonnes
+        ui.layout_columns(
+            # colonne 01 : informations et choix de l'utilisateur
+            ui.card(
+                # cadre 01 : informations sur la variable
+                ui_card(
+                    # titre du cadre
+                    "PARTICIPATION AU VOTE",
+                    # bouton 01 : information sur la question posée dans l'enquête
+                    ui.input_action_button(
+                        "Show_PART_Question_Legis_T2", # input ID
+                        "Question posée dans l'enquête" # texte affiché dans le bouton
+                    ),
+                    # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                    ui.input_action_button(
+                        "Show_PARTST_Info_Legis_T2", # input ID
+                        "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                    )
+                ),
+            ),
+            # colonne 02: graphique des variables croisées par vagues d'enquête
+            ui.card(
+                # afficher une ligne d'indication pour l'utilisateur
+                message_utilisateur_graph,
+                # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                output_widget(
+                    id="Graph_Part_Legis_T2",
+                    width="auto",
+                    height="auto"
+                )
+            ),
+            # définir les largeurs des colonnes contenant les cadres graphiques
+            col_widths=(3, 9)
+        )
+    ),
+
+    # onglet 04 : VOTE EN FAVEUR DES LISTES POLITIQUES AU 2e TOUR
+    ui.nav_panel(
+        # titre de l'onglet
+        "Votes en faveur des listes politiques (2e tour)",
+        # définir deux colonnes
+        ui.layout_columns(
+            # colonne 01 : informations et choix de l'utilisateur
+            ui.card(
+                # cadre 01 : informations sur la variable
+                ui_card(
+                    # titre du cadre
+                    "VOTES EN FAVEUR DES LISTES",
+                    # bouton 01 : information sur la question posée dans l'enquête
+                    ui.input_action_button(
+                        "Show_LIST_Question_Legis_T2", # input ID
+                        "Question posée dans l'enquête" # texte affiché dans le bouton
+                    ),
+                    # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                    ui.input_action_button(
+                        "Show_LIST_Info_Legis_T2", # input ID
+                        "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                    ),
+                )
+            ),
+            # colonne 02: graphique du vote en faveur des listes
+            ui.card(
+                # afficher une ligne d'indication pour l'utilisateur
+                message_utilisateur_graph,
+                # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                output_widget(
+                    id="Graph_List_Legis_T2",
+                    width="auto",
+                    height="auto"
+                )
+            ),
+            # définir les largeurs des colonnes contenant les cadres graphiques
+            col_widths=(3, 9)
+        )
+    ),
+
+    # onglet 05 : FRONT REPUBLICAIN
+    ui.nav_panel(
+        # titre de l'onglet
+        "Existence d'un front républicain (2e tour)",
+        # définir deux colonnes
+        ui.layout_columns(
+            # colonne 01 : informations et choix de l'utilisateur
+            ui.card(
+                # cadre 01 : informations sur la variable
+                ui_card(
+                    # titre du cadre
+                    "FRONT REPUBLICAIN",
+                    # bouton 01 : information sur la question posée dans l'enquête
+                    ui.input_action_button(
+                        "Show_FR_Question_Legis_T2", # input ID
+                        "Question posée dans l'enquête" # texte affiché dans le bouton
+                    ),
+                    # bouton 02 : information sur la variable sélectionnée pour les graphiques
+                    ui.input_action_button(
+                        "Show_FR_Info_Legis_T2", # input ID
+                        "Variable choisie pour les graphiques" # texte affiché dans le bouton
+                    ),
+                )
+            ),
+            # colonne 02: graphique du vote en faveur des listes
+            ui.card(
+                # afficher une ligne d'indication pour l'utilisateur
+                message_utilisateur_graph,
+                # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
+                output_widget(
+                    id="Graph_Fr_Legis_T2",
+                    width="auto",
+                    height="auto"
+                )
+            ),
+            # définir les largeurs des colonnes contenant les cadres graphiques
+            col_widths=(3, 9)
+        )
+    )
 )
 
 
@@ -489,6 +672,10 @@ def server(input, output, session):
     # que l'on représente uniquement AVANT le scrutin.
     # Cette partie de code est disponible dans le bloc séparé sur la représentation
     # des intentions d'aller voter, utilisable à nouveau pour des élections futures.
+
+    ################################################################################
+    ##                          ELECTIONS EUROPEENNES                             ##
+    ################################################################################
 
     #############################
     # onglet 01 : PARTICIPATION #
@@ -705,7 +892,7 @@ def server(input, output, session):
         fig.update_layout(
             barmode='group', # barres séparées et groupées pour les modalités de la VarSD choisie
             title={
-                'text': "Participation au scrutin en fonction de %s" % dico_titre.get("%s" % input.Select_VarSD_Part()),
+                'text': "Participation au vote en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Part()),
                 'y':0.98,
                 'x':0.01,
                 'xanchor': 'left',
@@ -1655,6 +1842,466 @@ def server(input, output, session):
         fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarDissolAN()))
         # retourner le graphique
         return fig
+
+    ################################################################################
+    ##                          ELECTIONS LEGISLATIVES                            ##
+    ################################################################################
+
+    ########################################
+    # onglet 01 : PARTICIPATION (1er tour) #
+    ########################################
+
+
+
+# REPRISE !!!
+
+
+
+    # bouton 01 : décrire la question posée dans l'enquête
+    @reactive.effect
+    @reactive.event(input.Show_PART_Question)
+    def _():
+        m = ui.modal(
+            "La question posée aux répondants est la suivante : 'Un électeur sur trois n’a pas voté au premier tour des élections législatives le 30 juin 2024. Dans votre cas personnel, qu’est ce qui correspond le mieux à votre attitude à cette occasion ?'",
+            title="Informations complémentaires sur la question contenue dans l'enquête :",
+            easy_close=False
+        )
+        ui.modal_show(m)
+
+    # bouton 02 : décrire la variable de l'intention d'aller voter choisie
+    @reactive.effect
+    @reactive.event(input.Show_PARTST_Info)
+    def _():
+        m = ui.modal(
+            "la variable sur la participation aux élections législatives présentée ici sur les graphiques est une modalité synthétique de la question posée aux répondants de l'enquête. \
+            Ainsi, à partir des quatre modalités de réponse à la question de l'enquête, on en construit 2 : a voté ou n'a pas voté.",
+            title="Informations complémentaires sur la variable choisie pour les graphiques :",
+            easy_close=False
+        )
+        ui.modal_show(m)
+
+    # bouton 03 : afficher la description de la variable socio-démographique choisie
+    # avec plusieurs parties de texte qui dépendent de ce choix (via des dictionnaires)
+    @reactive.effect
+    @reactive.event(input.Show_VarSD_Part_Info)
+    def _():
+        # définir le nom de la variable socio-démographique choisie
+        dico_nom_var = {
+            "Y6SEXEST": "Genre",
+            "Y6AGERST": "Âge",
+            "Y6REG13ST": "Région",
+            "Y6AGGLO5ST": "Taille d'agglomération",
+            "Y6EMPST": "Type d'emploi occupé",
+            "Y6PCSIST": "Catégorie professionnelle",
+            "Y6EDUST": "Niveau de scolarité atteint",
+            "Y6REL1ST": "Religion",
+            "Y6ECO2ST2": "Revenu mensuel du foyer",
+            "Y6INTPOLST": "Intérêt pour la politique",
+            "Y6Q7ST": "Positionnement idéologique",
+            "Y6PROXST": "Préférence partisane"
+        }
+        # définir la question de l'enquête associée à la variable socio-démographique choisie
+        dico_question_var = {
+            "Y6SEXEST": "Êtes-vous ?",
+            "Y6AGERST": "Quelle est votre date de naissance ?",
+            "Y6REG13ST": "Veuillez indiquer le département et la commune où vous résidez.",
+            "Y6AGGLO5ST": "Veuillez indiquer le département et la commune où vous résidez.",
+            "Y6EMPST": "Quelle est votre situation professionnelle actuelle ?",
+            "Y6PCSIST": "Quelle est votre situation professionnelle actuelle ?",
+            "Y6EDUST": "Choisissez votre niveau de scolarité le plus élevé.",
+            "Y6REL1ST": "Quelle est votre religion, si vous en avez une ?",
+            "Y6ECO2ST2": " Pour finir, nous avons besoin de connaître, à des fins statistiques uniquement, la tranche dans laquelle se situe le revenu MENSUEL NET de votre FOYER après déduction des impôts sur le revenu (veuillez considérer toutes vos sources de revenus: salaires, bourses, prestations retraite et sécurité sociale, dividendes, revenus immobiliers, pensions alimentaires etc.).",
+            "Y6INTPOLST": "De manière générale, diriez-vous que vous vous intéressez à la politique ?",
+            "Y6Q7ST": "Sur une échelle de 0 à 10, où 0 correspond à la gauche et 10 correspond à la droite, où diriez-vous que vous vous situez ?",
+            "Y6PROXST": "De quel parti vous sentez-vous proche ou moins éloigné que les autres ?"
+        }
+        # définir les modalités de réponse à la question de l'enquête associée à la variable socio-démographique choisie
+        dico_modalite_var = {
+            "Y6SEXEST": "1 = 'Homme' ; 2 = 'Femme'",
+            "Y6AGERST": "1 = '18 à 24 ans' ; 2 = '25 à 34 ans' ; 3 = '35 à 49 ans' ; 4 = '50 à 59 ans' ; 5 = '60 ans et plus'",
+            "Y6REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
+            "Y6AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
+            "Y6EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
+            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y6EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
+            "Y6REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
+            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y6INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
+            "Y6Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
+            "Y6PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
+        m = ui.modal(
+            "La variable '%s' correspond à ou est calculée à partir de la question suivante posée aux répondants : \
+            '%s', \
+            et ses modalités de réponse (inchangées par rapport au questionnaire ou regroupées pour les présents graphiques) sont : \
+            %s." % (
+                dico_nom_var.get(
+                    "%s" % input.Select_VarSD_Part()
+                ),
+                dico_question_var.get("%s" % input.Select_VarSD_Part()),
+                dico_modalite_var.get("%s" % input.Select_VarSD_Part())
+            ),
+            title="Informations complémentaires sur la variable socio-démographique choisie :",
+            easy_close=False
+        )
+        ui.modal_show(m)
+
+    # graphique
+    @output
+    @render_plotly
+    def Graph_Croise_Part():
+        # définir la partie variable du titre
+        dico_titre = {
+            "Y6SEXEST": "du genre",
+            "Y6AGERST": "de l'âge",
+            "Y6REG13ST": "de la région de résidence",
+            "Y6AGGLO5ST": "de la taille de l'agglomération de résidence",
+            "Y6EMPST": "du type d'emploi occupé",
+            "Y6PCSIST": "de la catégorie socio-professionnelle",
+            "Y6EDUST": "du niveau de scolarité atteint",
+            "Y6REL1ST": "de la religion",
+            "Y6ECO2ST2": "du revenu mensuel du foyer",
+            "Y6INTPOLST": "de l'intérêt pour la politique",
+            "Y6Q7ST": "du positionnement idéologique",
+            "Y6PROXST": "de la préférence partisane"
+        }
+        # définir la partie variable du titre de la légende
+        dico_legende = {
+            "Y6SEXEST": "Genre",
+            "Y6AGERST": "Âge",
+            "Y6REG13ST": "Région",
+            "Y6AGGLO5ST": "Taille d'agglomération",
+            "Y6EMPST": "Type d'emploi occupé",
+            "Y6PCSIST": "Catégorie professionnelle",
+            "Y6EDUST": "Niveau de scolarité atteint",
+            "Y6REL1ST": "Religion",
+            "Y6ECO2ST2": "Revenu mensuel du foyer",
+            "Y6INTPOLST": "Intérêt pour la politique",
+            "Y6Q7ST": "Positionnement idéologique",
+            "Y6PROXST": "Préférence partisane"
+        }
+        # définir l'échelle de l'axe des ordonnées en fonction des
+        # valeurs prises par la variable socio-démographique choisie
+        dico_echelleY = {
+            "Y6SEXEST": [10, 40],
+            "Y6AGERST": [10, 45],
+            "Y6REG13ST": [15, 35],
+            "Y6AGGLO5ST": [15, 35],
+            "Y6EMPST": [15, 40],
+            "Y6PCSIST": [10, 45],
+            "Y6EDUST": [15, 40],
+            "Y6REL1ST": [10, 45],
+            "Y6ECO2ST2": [10, 45],
+            "Y6INTPOLST": [0, 75],
+            "Y6Q7ST": [5, 40],
+            "Y6PROXST": [5, 55],
+        }
+        # définir les modalités des variables socio-démo et leur ordre
+        dico_modalite_var = {
+            "Y6SEXEST": "1 = 'Homme' ; 2 = 'Femme'",
+            "Y6AGERST": "1 = '18 à 24 ans' ; 2 = '25 à 34 ans' ; 3 = '35 à 49 ans' ; 4 = '50 à 59 ans' ; 5 = '60 ans et plus'",
+            "Y6REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
+            "Y6AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
+            "Y6EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
+            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y6EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
+            "Y6REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
+            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y6INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
+            "Y6Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
+            "Y6PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir une fonction qui affiche les étiquettes
+        # des modalités de la variablr SD choisie dans la légende
+        # sur plusieurs lignes si leur longueur initiale dépasse la
+        # largeur du cadre de la légende
+        def wrap_label(label, max_length=20):
+            if len(label) <= max_length:
+                return label
+            words = label.split()
+            lines = []
+            current_line = []
+            current_length = 0
+            for word in words:
+                if current_length + len(word) > max_length:
+                    lines.append(' '.join(current_line))
+                    current_line = [word]
+                    current_length = len(word)
+                else:
+                    current_line.append(word)
+                    current_length += len(word) + 1
+            if current_line:
+                lines.append(' '.join(current_line))
+            return '<br>'.join(lines)
+        # lire le fichier CSV des données
+        csvfile = "data/T_w6_parteu24st_" + "%s" % input.Select_VarSD_Part().lower()[2:] + ".csv"
+        df = pd.read_csv(csvfile)
+        # définir l'ordre des modalités pour Y6ENJEURST_0
+        ordre_modalites = [
+            "Vous avez voté",
+            "Vous n'avez pas voté"
+        ]
+        # filtrer et pivoter les données
+        df_pivot = df[df['Y6PARTEU24ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_Part(), columns='Y6PARTEU24ST', values='pct')
+        df_pivot = df_pivot.reindex(columns=ordre_modalites)
+        # créer une palette de couleurs automatique
+        nb_couleurs = len(df_pivot.index)
+        palette = px.colors.qualitative.Plotly[:nb_couleurs]
+        # créer le graphique
+        fig = go.Figure()
+        # ajouter les données
+        for i, VarSD in enumerate(df_pivot.index):
+            fig.add_trace(
+                go.Bar(
+                    x=ordre_modalites,
+                    y=df_pivot.loc[VarSD],
+                    name=wrap_label(VarSD),
+                    marker_color=palette[i],
+                    # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
+                    # au survol de la courbe par la souris, et supprimer toutes les autres
+                    # informations qui pourraient s'afficher en plus (nom de la modalité)
+                    hovertemplate='%{y:.1f}%<extra></extra>'
+                )
+            )
+         # mettre en forme le graphique
+        fig.update_layout(
+            barmode='group', # barres séparées et groupées pour les modalités de la VarSD choisie
+            title={
+                'text': "Participation au vote en fonction %s" % dico_titre.get("%s" % input.Select_VarSD_Part()),
+                'y':0.98,
+                'x':0.01,
+                'xanchor': 'left',
+                'yanchor': 'top'
+            },
+            # définir le titre de la légende
+            legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Part()),
+            # définir l'affichage séparé des valeurs de % affichées sur les
+            # courbes quand la souris survole chaque vague (barre verticale)
+            hovermode="x",
+            # définir le thème général de l'apparence du graphique
+            template="plotly_white",
+            # définir le titre de l'axe des ordonnées et son apparence
+            yaxis_title=dict(
+                text='Pourcentage de répondants (%)',
+                font_size=12
+            ),
+            # définir les sources des données
+            annotations=[
+                dict(
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
+                    yanchor='top',
+                    text=
+                        'Enquête électorale française pour les ' +
+                        'élections européennes de juin 2024, ' +
+                        'par Ipsos Sopra Steria, Cevipof, ' +
+                        'Le Monde, Fondation Jean Jaurès et ' +
+                        'Institut Montaigne (2024)',
+                    font=dict(
+                        size=10,
+                        color='grey'
+                    ),
+                    showarrow=False
+                )
+            ],
+            # définir les marges de la zone graphique
+            # (augmentées à droite pour le cadre fixe de la légende)
+            margin=dict(
+                b=50, # b = bottom
+                t=50,  # t = top
+                l=50, # l = left
+                r=200 # r = right
+            ),
+            # fixer la position de la légende
+            legend=dict(
+                orientation="v",
+                valign='top',  # aligner le texte en haut de chaque marqueur de la légende
+                x=1.02, # position horizontale de la légende (1 = à droite du graphique)
+                y=1, # position verticale de la légende (1 = en haut)
+                xanchor='left', # ancrer la légende à gauche de sa position x
+                yanchor='top', # ancrer la légende en haut de sa position y
+                bgcolor='rgba(255,255,255,0.8)' # fond légèrement transparent
+            ),
+        )
+        # retourner le graphique
+        return fig
+
+
+
+    ##################################
+    # onglet 02 : LISTES POLITIQUES  #
+    ##################################
+
+    # bouton 01 : décrire la question posée dans l'enquête
+    @reactive.effect
+    @reactive.event(input.Show_LIST_Question)
+    def _():
+        m = ui.modal(
+            "La question posée aux répondants est la suivante : 'Voici les listes qui se présentaient lors des élections européennes du 9 juin 2024. Pouvez-vous dire celle pour laquelle vous avez voté ?'",
+            title="Informations complémentaires sur la question contenue dans l'enquête :",
+            easy_close=False
+        )
+        ui.modal_show(m)
+
+    # bouton 02 : décrire la variable des enjeux du vote
+    @reactive.effect
+    @reactive.event(input.Show_LIST_Info)
+    def _():
+        m = ui.modal(
+            "La variable sur la participation présentée ici sur les graphiques est une modalité synthétique \
+            de la question posée aux répondants de l'enquête. \
+            Ainsi, à partir de l'indication du vote du répondant, une échelle gauche-droite est construite.",
+            title="Informations complémentaires sur la variable choisie pour les graphiques :",
+            easy_close=Falsee
+        )
+        ui.modal_show(m)
+
+    # graphique
+    @output
+    @render_plotly
+    def Graph_List():
+        # importer les données
+        csvfile = "data/T_w6_eu24dxst.csv"
+        data = pd.read_csv(csvfile)
+        # supprimer la première colonne (vide) de la base de donnée
+        data = data.drop(
+            data.columns[0],
+            axis=1
+        )
+        # identifier les étiquettes courtes (chiffres démarrant à 1)
+        data['ETIQCOURTE'] = data.index + 1
+        etiquettes_courtes = data["ETIQCOURTE"]
+        # identifier les étiquettes longues (modalités de la variable dans la table lue)
+        etiquettes_longues = data["EU24DXST"]
+        # créer la figure en mémoire
+        fig = go.Figure()
+        # créer la liste des couleurs en fonction du nombre de modalités
+        couleurs_cl = cl.scales[str(max(3, len(data["EU24DXST"])))]['qual']['Set1']
+        # ajouter les données
+        fig.add_trace(
+            go.Bar(
+                # on représente la colonne des étiquettes courtes (et non la variable elle-même, car
+                # cette colonne correspond aux étiquettes longues de la légende)
+                x=data["ETIQCOURTE"],
+                y=data["pct"],
+                # changer de couleur en fonction de la modalité de réponse
+                marker_color=couleurs_cl,
+                # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
+                # au survol de la courbe par la souris, et supprimer toutes les autres
+                # informations qui pourraient s'afficher en plus (nom de la modalité)
+                hovertemplate='%{y:.1f}%<extra></extra>'
+            )
+        )
+        # créer le texte de la légende (correspondance entre les étiquettes courtes et les étiquettes longues)
+        legende_text = "<br>".join([f"{lettre}: {etiquette}" for lettre, etiquette in zip(etiquettes_courtes, etiquettes_longues)])
+        # mettre en forme le graphique
+        fig.update_layout(
+            # définir le titre du graphique et son apparence
+            title={
+                'text': "Vote en faveur des listes politiques",
+                'y':0.98,
+                'x':0.01,
+                'xanchor': 'left',
+                'yanchor': 'top'
+            },
+            # définir le titre de l'axe des ordonnées et son apparence
+            yaxis_title=dict(
+                text='Pourcentage de répondants (%)',
+                font_size=12
+            ),
+            # définir l'affichage séparé des valeurs de % affichées sur les
+            # courbes quand la souris survole chaque vague (barre verticale)
+            hovermode="x",
+            # définir le thème général de l'apparence du graphique
+            template="plotly_white",
+            # définir deux annotations
+            annotations=[
+                # sources des données
+                dict(
+                    xref='paper', # utiliser la largeur totale du graphique comme référence
+                    yref='paper', # utiliser la hauteur totale du graphique comme référence
+                    x=0.5, # placer le point d'ancrage au milieu de la largeur
+                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
+                    xanchor='center', # centrer le texte par rapport au point d'ancrage
+                    yanchor='top',
+                    text=
+                        'Enquête électorale française pour les ' +
+                        'élections européennes de juin 2024, ' +
+                        'par Ipsos Sopra Steria, Cevipof, ' +
+                        'Le Monde, Fondation Jean Jaurès et ' +
+                        'Institut Montaigne (2024)',
+                    font=dict(
+                        size=10,
+                        color='grey'
+                    ),
+                    showarrow=False
+                ),
+                # légende personnalisée
+                dict(
+                    valign="top", # aligner le texte en haut de chaque marqueur de la légende
+                    x=0.05, # position horizontale de la légende (1 = à droite du graphique)
+                    y=1.00, # position verticale de la légende (1 = en haut)
+                    xref='paper',
+                    yref='paper',
+                    xanchor='left', # ancrer la légende à gauche de sa position x
+                    yanchor='top', # ancrer la légende en haut de sa position y
+                    text=f"<b>Légende :</b><br>{legende_text}",
+                    showarrow=False,
+                    font=dict(size=12),
+                    align='left',
+                    bgcolor='rgba(255,255,255,0.8)', # fond légèrement transparent
+                )
+            ],
+            # définir les marges de la zone graphique
+            # (augmentées à droite pour le cadre fixe de la légende)
+            margin=dict(
+                b=50, # b = bottom
+                t=50,  # t = top
+                l=50, # l = left
+                r=200 # r = right
+            )
+        )
+        # configurer l'axe des abscisses pour n'afficher que des nombres entiers
+        fig.update_xaxes(
+            tickmode='linear',
+            tick0=1,
+            dtick=1,
+            tickfont=dict(size=12),
+            tickangle=0
+        )
+        # # ajuster l'axe des ordonnées en fonction des valeurs observées
+        # fig.update_yaxes(range=dico_echelleY.get("%s" % input.Select_VarChoixVote()))
+        # retourner le graphique
+        return fig
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
