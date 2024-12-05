@@ -650,42 +650,11 @@ page_electionsLEGIS = ui.navset_card_underline(
 
     # onglet 05 : FRONT REPUBLICAIN
     ui.nav_panel(
-        # titre de l'onglet
-        "Existence d'un front républicain (2e tour)",
-        # définir deux colonnes
-        ui.layout_columns(
-            # colonne 01 : informations et choix de l'utilisateur
-            ui.card(
-                # cadre 01 : informations sur la variable
-                ui_card(
-                    # titre du cadre
-                    "FRONT REPUBLICAIN",
-                    # bouton 01 : information sur la question posée dans l'enquête
-                    ui.input_action_button(
-                        "Show_FRONTREP_Question_Legis_T2", # input ID
-                        "Question posée dans l'enquête" # texte affiché dans le bouton
-                    ),
-                    # bouton 02 : information sur la variable sélectionnée pour les graphiques
-                    ui.input_action_button(
-                        "Show_FRONTREP_Info_Legis_T2", # input ID
-                        "Variable choisie pour les graphiques" # texte affiché dans le bouton
-                    ),
-                )
-            ),
-            # colonne 02: graphique
-            ui.card(
-                # afficher une ligne d'indication pour l'utilisateur
-                message_utilisateur_graph,
-                # afficher le graphique ad hoc (voir définition dans le bloc 'Server' plus bas)
-                output_widget(
-                    id="Graph_FrontRep_Legis_T2",
-                    width="auto",
-                    height="auto"
-                )
-            ),
-            # définir les largeurs des colonnes contenant les cadres graphiques
-            col_widths=(3, 9)
-        )
+
+
+
+
+
     )
 )
 
@@ -2771,153 +2740,10 @@ def server(input, output, session):
 
 
     ###########################################
-    # onglet 05 : FRONT REPUBLICAIN (2e tour) #
+    # onglet 05 : XXX #
     ###########################################
 
-    # bouton 01 : décrire la question posée dans l'enquête
-    @reactive.effect
-    @reactive.event(input.Show_FRONTREP_Question_Legis_T2)
-    def _():
-        m = ui.modal(
-            "La question posée aux répondants est la suivante : 'Voici les candidats qui se présentaient au second tour des élections législatives dans votre circonscription. Pouvez-vous dire celui pour lequel vous avez voté ?'",
-            title="Informations complémentaires sur la question contenue dans l'enquête :",
-            easy_close=False
-        )
-        ui.modal_show(m)
 
-    # bouton 02 : décrire la variable
-    @reactive.effect
-    @reactive.event(input.Show_FRONTREP_Info_Legis_T2)
-    def _():
-        m = ui.modal(
-            "La variable sur l'existence d'un 'front républicain' contient 6 modalités de réponse : \
-            1 = 'Duel NFP - RN&alliés : Electeurs ENS T1 / NFP T2', \
-            2 = 'Duel NFP - RN&alliés : Electeurs LR/DVD T1 / NFP T2', \
-            3 = 'Duel ENS - RN&alliés : Electeurs NFP T1 / ENS T2', \
-            4 = 'Duel ENS - RN&alliés : Electeurs LR/DVD T1 / ENS T2', \
-            5 = 'Duel LR/DVD - RN&alliés : Electeurs NFP T1 / LR/DVD T2', \
-            6 = 'Duel LR/DVD - RN&alliés : Electeurs ENS T1 / LR/DVD T2'.",
-            title="Informations complémentaires sur la variable choisie pour les graphiques :",
-            easy_close=False
-        )
-        ui.modal_show(m)
-
-    # graphique
-    @output
-    @render_plotly
-    def Graph_FrontRep_Legis_T2():
-        # importer les données
-        csvfile = "data/T_w7_leg24frst.csv"
-        data = pd.read_csv(csvfile)
-        # supprimer la première colonne (vide) de la base de donnée
-        data = data.drop(
-            data.columns[0],
-            axis=1
-        )
-        # identifier les étiquettes courtes (chiffres démarrant à 1)
-        data['ETIQCOURTE'] = data.index + 1
-        etiquettes_courtes = data["ETIQCOURTE"]
-        # identifier les étiquettes longues (modalités de la variable dans la table lue)
-        etiquettes_longues = data["LEG24FRST"]
-        # créer la figure en mémoire
-        fig = go.Figure()
-        # créer la liste des couleurs en fonction du nombre de modalités
-        couleurs_cl = cl.scales[str(max(3, len(data["LEG24FRST"])))]['qual']['Set1']
-        # ajouter les données
-        fig.add_trace(
-            go.Bar(
-                # on représente la colonne des étiquettes courtes (et non la variable elle-même, car
-                # cette colonne correspond aux étiquettes longues de la légende)
-                x=data["ETIQCOURTE"],
-                y=data["pct"],
-                # changer de couleur en fonction de la modalité de réponse
-                marker_color=couleurs_cl,
-                # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
-                # au survol de la courbe par la souris, et supprimer toutes les autres
-                # informations qui pourraient s'afficher en plus (nom de la modalité)
-                hovertemplate='%{y:.1f}%<extra></extra>'
-            )
-        )
-        # créer le texte de la légende (correspondance entre les étiquettes courtes et les étiquettes longues)
-        legende_text = "<br>".join([f"{lettre}: {etiquette}" for lettre, etiquette in zip(etiquettes_courtes, etiquettes_longues)])
-        # mettre en forme le graphique
-        fig.update_layout(
-            # définir le titre du graphique et son apparence
-            title={
-                'text': "Vote en faveur d'un front républicain (couleurs politiques)",
-                'y':0.98,
-                'x':0.01,
-                'xanchor': 'left',
-                'yanchor': 'top'
-            },
-            # définir le titre de l'axe des ordonnées et son apparence
-            yaxis_title=dict(
-                text='Pourcentage de répondants (%)',
-                font_size=12
-            ),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
-            # définir le thème général de l'apparence du graphique
-            template="plotly_white",
-            # définir deux annotations
-            annotations=[
-                # sources des données
-                dict(
-                    xref='paper', # utiliser la largeur totale du graphique comme référence
-                    yref='paper', # utiliser la hauteur totale du graphique comme référence
-                    x=0.5, # placer le point d'ancrage au milieu de la largeur
-                    y=-0.1, # valeur à ajuster pour positionner verticalement le texte sous le graphique
-                    xanchor='center', # centrer le texte par rapport au point d'ancrage
-                    yanchor='top',
-                    text=
-                        'Enquête électorale française pour les ' +
-                        'élections européennes de juin 2024, ' +
-                        'par Ipsos Sopra Steria, Cevipof, ' +
-                        'Le Monde, Fondation Jean Jaurès et ' +
-                        'Institut Montaigne (2024)',
-                    font=dict(
-                        size=10,
-                        color='grey'
-                    ),
-                    showarrow=False
-                ),
-                # légende personnalisée
-                dict(
-                    valign="top", # aligner le texte en haut de chaque marqueur de la légende
-                    x=0.75, # position horizontale de la légende (1 = à droite du graphique)
-                    y=1.00, # position verticale de la légende (1 = en haut)
-                    xref='paper',
-                    yref='paper',
-                    xanchor='left', # ancrer la légende à gauche de sa position x
-                    yanchor='top', # ancrer la légende en haut de sa position y
-                    text=f"<b>Légende :</b><br>{legende_text}",
-                    showarrow=False,
-                    font=dict(size=12),
-                    align='left',
-                    bgcolor='rgba(255,255,255,0.8)', # fond légèrement transparent
-                )
-            ],
-            # définir les marges de la zone graphique
-            # (augmentées à droite pour le cadre fixe de la légende)
-            margin=dict(
-                b=50, # b = bottom
-                t=50,  # t = top
-                l=50, # l = left
-                r=200 # r = right
-            )
-        )
-        # configurer l'axe des abscisses pour n'afficher que des nombres entiers
-        fig.update_xaxes(
-            tickmode='linear',
-            tick0=1,
-            dtick=1,
-            tickfont=dict(size=12),
-            tickangle=0
-        )
-
-        # retourner le graphique
-        return fig
 
 
 
