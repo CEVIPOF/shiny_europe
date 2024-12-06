@@ -648,14 +648,14 @@ page_electionsLEGIS = ui.navset_card_underline(
         )
     ),
 
-    # onglet 05 : FRONT REPUBLICAIN
-    ui.nav_panel(
+    # # onglet 05 : FRONT REPUBLICAIN
+    # ui.nav_panel(
 
 
 
 
 
-    )
+    # )
 )
 
 
