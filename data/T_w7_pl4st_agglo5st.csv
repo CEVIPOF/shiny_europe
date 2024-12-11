@@ -1,0 +1,16 @@
+"","Y7AGGLO5ST","Y7PL4ST","pct","n","unweighted_n","VAGUE","TAILLEECH"
+"1","Zone rurale (moins de 2 000 habitants)","Sentiment positif (joie, espoir ou soulagement)",26.4005943554225,2488.41372088587,2240,"2024-07-26",11204
+"2","Zone rurale (moins de 2 000 habitants)","Indifférence",13.2121053397283,2488.41372088587,2240,"2024-07-26",11204
+"3","Zone rurale (moins de 2 000 habitants)","Sentiment négatif (déception, colère ou peur)",60.3873003048492,2488.41372088587,2240,"2024-07-26",11204
+"4","Zone urbaine de 2 000 à 9 999 habitants","Sentiment positif (joie, espoir ou soulagement)",29.6458572127355,1538.30820373893,1369,"2024-07-26",11204
+"5","Zone urbaine de 2 000 à 9 999 habitants","Indifférence",11.3012261802295,1538.30820373893,1369,"2024-07-26",11204
+"6","Zone urbaine de 2 000 à 9 999 habitants","Sentiment négatif (déception, colère ou peur)",59.052916607035,1538.30820373893,1369,"2024-07-26",11204
+"7","Zone urbaine de 10 000 à 49 999 habitants","Sentiment positif (joie, espoir ou soulagement)",28.1360777381606,1286.2181079339,1295,"2024-07-26",11204
+"8","Zone urbaine de 10 000 à 49 999 habitants","Indifférence",14.1436325629919,1286.2181079339,1295,"2024-07-26",11204
+"9","Zone urbaine de 10 000 à 49 999 habitants","Sentiment négatif (déception, colère ou peur)",57.7202896988474,1286.2181079339,1295,"2024-07-26",11204
+"10","Zone urbaine de 50 000 à 199 999 habitants","Sentiment positif (joie, espoir ou soulagement)",31.8902305765383,1348.96131496246,1560,"2024-07-26",11204
+"11","Zone urbaine de 50 000 à 199 999 habitants","Indifférence",12.1884192791686,1348.96131496246,1560,"2024-07-26",11204
+"12","Zone urbaine de 50 000 à 199 999 habitants","Sentiment négatif (déception, colère ou peur)",55.9213501442931,1348.96131496246,1560,"2024-07-26",11204
+"13","Zone urbaine de 200 000 habitants et plus","Sentiment positif (joie, espoir ou soulagement)",36.8407491167044,4542.09865247882,4740,"2024-07-26",11204
+"14","Zone urbaine de 200 000 habitants et plus","Indifférence",11.1881732460377,4542.09865247882,4740,"2024-07-26",11204
+"15","Zone urbaine de 200 000 habitants et plus","Sentiment négatif (déception, colère ou peur)",51.9710776372579,4542.09865247882,4740,"2024-07-26",11204
