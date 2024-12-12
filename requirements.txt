@@ -1,7 +1,9 @@
-matplotlib
-plotly
 shiny
 shinywidgets
-shinyswatch
 pandas
+numpy
+plotly
+colorlover
+shinyswatch
+datetime
 orjson
