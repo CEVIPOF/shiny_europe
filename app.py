@@ -2275,6 +2275,7 @@ def server(input, output, session):
         # retourner le graphique
         return fig
 
+
     ################################################################################
     ##                          ELECTIONS LEGISLATIVES                            ##
     ################################################################################
@@ -3604,8 +3605,8 @@ def server(input, output, session):
         df = pd.read_csv(csvfile)
         # définir l'ordre des modalités
         ordre_modalites = [
-            "L’appel au Front Républicain exprime l’inquiétude de ceux qui pensent que le Rassemblement National est une menace pour la démocratie",
-            "Le Front Républicain est une tactique permettant aux partis traditionnels de conserver le pouvoir"
+            "Le RN est une menace pour la démocratie",
+            "Tactique des partis traditionnels pour garder le pouvoir"
         ]
         # filtrer et pivoter les données
         df_pivot = df[df['Y7PL5ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_AvFr_Legis_T2(), columns='Y7PL5ST', values='pct')
