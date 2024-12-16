@@ -1172,13 +1172,13 @@ def server(input, output, session):
             "Y6REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y6AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y6EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y6EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y6REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y6INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y6Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y6PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y6PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -1254,46 +1254,162 @@ def server(input, output, session):
             "Y6REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y6AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y6EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y6EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y6REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y6INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y6Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y6PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y6PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y6SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y6AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y6REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y6AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y6EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y6PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y6EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y6REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y6ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y6INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y6Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y6PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w6_parteu24st_" + "%s" % input.Select_VarSD_Part().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités pour Y6ENJEURST_0
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_Part()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y6PARTEU24ST'] = df['Y6PARTEU24ST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y6PARTEU24ST
         ordre_modalites = [
             "Vous avez voté",
             "Vous n'avez pas voté"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_Part()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y6PARTEU24ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_Part(), columns='Y6PARTEU24ST', values='pct')
+        df_pivot = df[df['Y6PARTEU24ST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y6PARTEU24ST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -1744,13 +1860,13 @@ def server(input, output, session):
             "Y6REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y6AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y6EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y6EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y6REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y6INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y6Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y6PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y6PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -1824,44 +1940,164 @@ def server(input, output, session):
             "Y6REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y6AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y6EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y6PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y6EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y6REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y6ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y6INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y6Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y6PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y6PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y6SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y6AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y6REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y6AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y6EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y6PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y6EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y6REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y6ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y6INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y6Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y6PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w6_enjeurst_0_" + "%s" % input.Select_VarSD_Enj().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_Enj()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y6ENJEURST_0'] = df['Y6ENJEURST_0'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
         # définir l'ordre des modalités pour Y6ENJEURST_0
-        ordre_modalites = ["Le chômage", "Système scolaire et éducation",
-                           "La sécurité des biens et des personnes", "Le montant des déficits publics"]
+        ordre_modalites = [
+            "Le chômage",
+            "Système scolaire et éducation",
+            "La sécurité des biens et des personnes",
+            "Le montant des déficits publics"
+        ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_Enj()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y6ENJEURST_0'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_Enj(), columns='Y6ENJEURST_0', values='pct')
+        df_pivot = df[df['Y6ENJEURST_0'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y6ENJEURST_0',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -2349,13 +2585,13 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -2431,46 +2667,162 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y7SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y7AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y7REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y7AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y7EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y7PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y7EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y7REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y7ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y7INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y7Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y7PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w7_partl24ast_" + "%s" % input.Select_VarSD_Part_Legis_T1().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités pour Y6ENJEURST_0
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_Part_Legis_T1()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y7PARTL24AST'] = df['Y7PARTL24AST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y7PARTL24AST
         ordre_modalites = [
             "Vous avez voté",
             "Vous n'avez pas voté"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_Part_Legis_T1()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y7PARTL24AST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_Part_Legis_T1(), columns='Y7PARTL24AST', values='pct')
+        df_pivot = df[df['Y7PARTL24AST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y7PARTL24AST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -2779,13 +3131,13 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -2861,46 +3213,162 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y7SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y7AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y7REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y7AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y7EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y7PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y7EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y7REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y7ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y7INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y7Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y7PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w7_partl24bst_" + "%s" % input.Select_VarSD_Part_Legis_T2().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités pour Y6ENJEURST_0
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_Part_Legis_T2()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y7PARTL24BST'] = df['Y7PARTL24BST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y7PARTL24BST
         ordre_modalites = [
             "Vous avez voté",
             "Vous n'avez pas voté"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_Part_Legis_T2()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y7PARTL24BST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_Part_Legis_T2(), columns='Y7PARTL24BST', values='pct')
+        df_pivot = df[df['Y7PARTL24BST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y7PARTL24BST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -3208,13 +3676,13 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -3290,46 +3758,162 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y7SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y7AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y7REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y7AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y7EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y7PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y7EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y7REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y7ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y7INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y7Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y7PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w7_pl4st_" + "%s" % input.Select_VarSD_SentRes_Legis_T2().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_SentRes_Legis_T2()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y7PL4ST'] = df['Y7PL4ST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y7PL4ST
         ordre_modalites = [
             "Sentiment positif (joie, espoir ou soulagement)",
             "Sentiment négatif (déception, colère ou peur)"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_SentRes_Legis_T2()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y7PL4ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_SentRes_Legis_T2(), columns='Y7PL4ST', values='pct')
+        df_pivot = df[df['Y7PL4ST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y7PL4ST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -3488,13 +4072,13 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -3570,46 +4154,162 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y7SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y7AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y7REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y7AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y7EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y7PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y7EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y7REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y7ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y7INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y7Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y7PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w7_pl5st_" + "%s" % input.Select_VarSD_AvFr_Legis_T2().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_AvFr_Legis_T2()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y7PL5ST'] = df['Y7PL5ST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y7PL5ST
         ordre_modalites = [
             "Le RN est une menace pour la démocratie",
             "Tactique des partis traditionnels pour garder le pouvoir"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_AvFr_Legis_T2()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y7PL5ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_AvFr_Legis_T2(), columns='Y7PL5ST', values='pct')
+        df_pivot = df[df['Y7PL5ST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y7PL5ST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -3766,13 +4466,13 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -3848,46 +4548,162 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y7SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y7AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y7REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y7AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y7EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y7PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y7EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y7REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y7ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y7INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y7Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y7PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w7_pl6st_" + "%s" % input.Select_VarSD_AccVues_Legis_T2().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_AccVues_Legis_T2()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y7PL6ST'] = df['Y7PL6ST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y7PL6ST
         ordre_modalites = [
             "Souvent",
             "Rarement ou jamais"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_AccVues_Legis_T2()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y7PL6ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_AccVues_Legis_T2(), columns='Y7PL6ST', values='pct')
+        df_pivot = df[df['Y7PL6ST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y7PL6ST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -4044,13 +4860,13 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -4126,46 +4942,162 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y7SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y7AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y7REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y7AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y7EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y7PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y7EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y7REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y7ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y7INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y7Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y7PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w7_pl13st_" + "%s" % input.Select_VarSD_AvConsDiss_Legis_T2().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_AvConsDiss_Legis_T2()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y7PL13ST'] = df['Y7PL13ST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y7PL13ST
         ordre_modalites = [
             "Des conséquences positives",
             "Des conséquences négatives"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_AvConsDiss_Legis_T2()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y7PL13ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_AvConsDiss_Legis_T2(), columns='Y7PL13ST', values='pct')
+        df_pivot = df[df['Y7PL13ST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y7PL13ST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -4322,13 +5254,13 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -4404,46 +5336,162 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
-        # définir une fonction qui affiche les étiquettes
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y7SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y7AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y7REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y7AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y7EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y7PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y7EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y7REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y7ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y7INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y7Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y7PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
+        }
+       # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w7_pl15st_" + "%s" % input.Select_VarSD_DegConfAN_Legis_T2().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_DegConfAN_Legis_T2()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y7PL15ST'] = df['Y7PL15ST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y7PL15ST
         ordre_modalites = [
             "Confiance",
             "Pas confiance"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_DegConfAN_Legis_T2()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y7PL15ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_DegConfAN_Legis_T2(), columns='Y7PL15ST', values='pct')
+        df_pivot = df[df['Y7PL15ST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y7PL15ST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
@@ -4600,13 +5648,13 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Extême gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
         }
         # définir le texte complet à afficher (avec parties fixes et variables en fonction du choix effectué)
         m = ui.modal(
@@ -4682,46 +5730,162 @@ def server(input, output, session):
             "Y7REG13ST": "1 = 'Ile de France' ; 2 = 'Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)' ; 3 = 'Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)' ; 4 = 'Sud ouest (Nouvelle Aquitaine et Occitanie)' ; 5 = 'Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)'",
             "Y7AGGLO5ST": "1 = 'Zone rurale (moins de 2 000 habitants)' ; 2 = 'Zone urbaine de 2 000 à 9 999 habitants' ; 3 = 'Zone urbaine de 10 000 à 49 999 habitants' ; 4 = 'Zone urbaine de 50 000 à 199 999 habitants' ; 5 = 'Zone urbaine de 200 000 habitants et plus'",
             "Y7EMPST": "1 = 'Salarié (salarié à plein temps ou à temps partiel)' ; 2 = 'Indépendant (travaille à mon compte)' ; 3 = 'Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)'",
-            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d'entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
+            "Y7PCSIST": "1 = 'Agriculteur exploitant, artisan, commerçant, chef d entreprise' ; 2 = 'Cadre supérieur' ; 3 = 'Profession intermédiaire' ; 4 = 'Employé' ; 5 = 'Ouvrier' ; 6 = 'Retraité, inactif'",
             "Y7EDUST": "1 = 'Aucun diplôme' ; 2 = 'CAP, BEP' ; 3 = 'Baccalauréat' ; 4 = 'Bac +2' ; 5 = 'Bac +3 et plus'",
             "Y7REL1ST": "1 = 'Catholique' ; 2 = 'Juive' ; 3 = 'Musulmane' ; 4 = 'Autre religion (protestante, boudhiste ou autre)' ; 5 = 'Sans religion'",
-            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = 'De 3 500 à 4 999 euros'",
+            "Y7ECO2ST2": "1 = 'Moins de 1 250 euros' ; 2 = 'De 1 250 euros à 1 999 euros' ; 3 = 'De 2 000 à 3 499 euros' ; 4 = 'De 3 500 à 4 999 euros' ; 5 = '5 000 euros et plus'",
             "Y7INTPOLST": "1 = 'Beaucoup' ; 2 = 'Un peu' ; 3 = 'Pas vraiment' ; 4 = 'Pas du tout'",
             "Y7Q7ST": "1 = 'Très à gauche' ; 2 = 'Plutôt à gauche' ; 3 = 'Au centre' ; 4 = 'Plutôt à droite' ; 5 = 'Très à droite'",
-            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, L’UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+            "Y7PROXST": "1 = 'Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)' ; 2 = 'Gauche (Parti Socialiste, Europe Ecologie - Les Verts)' ; 3 = 'Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))' ; 4 = 'Droite (Les Républicains)' ; 5 = 'Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)' ; 6 = 'Autre parti ou aucun parti'"
+        }
+        # définir un dictionnaire qui contient l'ordre figé des modalités pour chaque variable socio-démographique
+        dico_ordre_modalites = {
+            "Y7SEXEST": [
+                "Homme",
+                "Femme"
+            ],
+            "Y7AGERST": [
+                "18 à 24 ans",
+                "25 à 34 ans",
+                "35 à 49 ans",
+                "50 à 59 ans",
+                "60 ans et plus"
+            ],
+            "Y7REG13ST": [
+                "Ile de France",
+                "Nord et Est (Hauts de France, Grand Est et Bourgogne Franche Comté)",
+                "Ouest (Normandie, Bretagne, Pays de la Loire et Centre Val de Loire)",
+                "Sud ouest (Nouvelle Aquitaine et Occitanie)",
+                "Sud est (Auvergne Rhône Alpes, Provence Alpes Côte d'Azur et Corse)"
+            ],
+            "Y7AGGLO5ST": [
+                "Zone rurale (moins de 2 000 habitants)",
+                "Zone urbaine de 2 000 à 9 999 habitants",
+                "Zone urbaine de 10 000 à 49 999 habitants",
+                "Zone urbaine de 50 000 à 199 999 habitants",
+                "Zone urbaine de 200 000 habitants et plus"
+            ],
+            "Y7EMPST": [
+                "Salarié (salarié à plein temps ou à temps partiel)",
+                "Indépendant (travaille à mon compte)",
+                "Sans emploi (ne travaille pas actuellement tout en recherchant un emploi ou non, personne au foyer, retraité, étudiant ou élève)"
+            ],
+            "Y7PCSIST": [
+                "Agriculteur exploitant, artisan, commerçant, chef d entreprise",
+                "Cadre supérieur",
+                "Profession intermédiaire",
+                "Employé",
+                "Ouvrier",
+                "Retraité, inactif"
+            ],
+            "Y7EDUST": [
+                "Aucun diplôme",
+                "CAP, BEP",
+                "Baccalauréat",
+                "Bac +2",
+                "Bac +3 et plus"
+            ],
+            "Y7REL1ST": [
+                "Catholique",
+                "Juive",
+                "Musulmane",
+                "Autre religion (protestante, boudhiste ou autre)",
+                "Sans religion"
+            ],
+            "Y7ECO2ST2": [
+                "Moins de 1 250 euros",
+                "De 1 250 euros à 1 999 euros",
+                "De 2 000 à 3 499 euros",
+                "De 3 500 à 4 999 euros",
+                "5 000 euros et plus"
+            ],
+            "Y7INTPOLST": [
+                "Beaucoup",
+                "Un peu",
+                "Pas vraiment",
+                "Pas du tout"
+            ],
+            "Y7Q7ST": [
+                "Très à gauche",
+                "Plutôt à gauche",
+                "Au centre",
+                "Plutôt à droite",
+                "Très à droite"
+            ],
+            "Y7PROXST": [
+                "Très à gauche (Lutte Ouvrière, Nouveau Parti Anticapitaliste, Parti Communiste Français, France Insoumise)",
+                "Gauche (Parti Socialiste, Europe Ecologie - Les Verts)",
+                "Centre (Renaissance, Le MoDem (Mouvement Démocrate), Horizons, UDI (Union des Démocrates et Indépendants))",
+                "Droite (Les Républicains)",
+                "Très à droite (Debout la France, Rassemblement national (ex Front National), Reconquête!)",
+                "Autre parti ou aucun parti"
+            ]
         }
         # définir une fonction qui affiche les étiquettes
         # des modalités de la variablr SD choisie dans la légende
         # sur plusieurs lignes si leur longueur initiale dépasse la
-        # largeur du cadre de la légende
+        # largeur du cadre de la légende (version robuste avec gestion des erreurs)
         def wrap_label(label, max_length=20):
-            if len(label) <= max_length:
-                return label
-            words = label.split()
-            lines = []
-            current_line = []
-            current_length = 0
-            for word in words:
-                if current_length + len(word) > max_length:
+            try:
+                # Si le label est un float ou NaN
+                if pd.isna(label) or isinstance(label, float):
+                    return "Non renseigné"
+                # Convertir en string si ce n'est pas déjà le cas
+                label = str(label).strip()
+                # Si la chaîne est vide après nettoyage
+                if not label:
+                    return "Non renseigné"
+                if len(label) <= max_length:
+                    return label
+                words = label.split()
+                lines = []
+                current_line = []
+                current_length = 0
+                for word in words:
+                    if current_length + len(word) > max_length:
+                        lines.append(' '.join(current_line))
+                        current_line = [word]
+                        current_length = len(word)
+                    else:
+                        current_line.append(word)
+                        current_length += len(word) + 1  
+                if current_line:
                     lines.append(' '.join(current_line))
-                    current_line = [word]
-                    current_length = len(word)
-                else:
-                    current_line.append(word)
-                    current_length += len(word) + 1
-            if current_line:
-                lines.append(' '.join(current_line))
-            return '<br>'.join(lines)
+                return '<br>'.join(lines)
+            except Exception as e:
+                print(f"Erreur dans wrap_label avec {label}: {str(e)}")
+                return str(label) 
+                # retourner le label tel quel en cas d'erreur
         # lire le fichier CSV des données
         csvfile = "data/T_w7_pl16st_" + "%s" % input.Select_VarSD_SouhDemPR_Legis_T2().lower()[2:] + ".csv"
         df = pd.read_csv(csvfile)
-        # définir l'ordre des modalités
+        # nettoyer les données lues
+        var_sd = input.Select_VarSD_SouhDemPR_Legis_T2()
+        df[var_sd] = df[var_sd].fillna("Non renseigné")  # Gérer les NaN
+        df[var_sd] = df[var_sd].astype(str)  # Convertir en string
+        df['Y7PL16ST'] = df['Y7PL16ST'].fillna("Non renseigné")
+        # s'assurer que toutes les modalités sont des chaînes de caractères dans "dico_ordre_modalites"
+        dico_ordre_modalites[var_sd] = [str(modal) for modal in dico_ordre_modalites[var_sd]]
+        # filtrer pour ne garder que les modalités définies dans "dico_ordre_modalites"
+        df = df[df[var_sd].isin(dico_ordre_modalites[var_sd])]
+        # définir l'ordre des modalités pour Y7PL16ST
         ordre_modalites = [
             "Favorable",
             "Pas favorable"
         ]
+        # créer une colonne catégorielle avec l'ordre souhaité pour la variable socio-démographique
+        var_sd = input.Select_VarSD_SouhDemPR_Legis_T2()
+        df[var_sd] = pd.Categorical(
+            df[var_sd],
+            categories=dico_ordre_modalites[var_sd],
+            ordered=True
+        )
         # filtrer et pivoter les données
-        df_pivot = df[df['Y7PL16ST'].isin(ordre_modalites)].pivot(index='%s' % input.Select_VarSD_SouhDemPR_Legis_T2(), columns='Y7PL16ST', values='pct')
+        df_pivot = df[df['Y7PL16ST'].isin(ordre_modalites)].pivot(
+            index=var_sd,
+            columns='Y7PL16ST',
+            values='pct'
+        )
         df_pivot = df_pivot.reindex(columns=ordre_modalites)
         # créer une palette de couleurs automatique
         nb_couleurs = len(df_pivot.index)
