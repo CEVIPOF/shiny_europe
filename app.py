@@ -23,7 +23,7 @@ Année : 2024
 from shiny import App, ui, reactive
 from shinywidgets import render_widget, render_plotly, output_widget
 import pandas as pd
-#import numpy as np
+import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 import colorlover as cl
