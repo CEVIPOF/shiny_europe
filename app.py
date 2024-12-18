@@ -1427,7 +1427,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # aligner ce texte 'y' dans la bulle de manière automatique
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -1442,9 +1449,12 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Part()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
+            # configuration spécifique pour les bulles d'info :
+            # réduire la distance de détection du survol de la souris
+            hoverdistance=1,
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -1566,7 +1576,14 @@ def server(input, output, session):
                 # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
-                hovertemplate='%{y:.1f}%<extra></extra>'
+                hovertemplate='%{y:.1f}%<extra></extra>',
+                # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                # au-dessus de la barre verticale survolée par la souris
+                hoverinfo='y',
+                # centrer ce texte 'y' dans la bulle
+                hoverlabel=dict(
+                   align='auto'
+                )
             )
         )
         # créer le texte de la légende (correspondance entre les étiquettes courtes et les étiquettes longues)
@@ -1586,9 +1603,9 @@ def server(input, output, session):
                 text='Pourcentage de répondants (%)',
                 font_size=12
             ),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir deux annotations
@@ -1736,8 +1753,8 @@ def server(input, output, session):
                 text='Pourcentage de répondants (%)',
                 font_size=12
             ),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
             hovermode="x",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
@@ -2115,7 +2132,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
         # mettre en forme le graphique
@@ -2130,9 +2154,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Enj()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -2285,7 +2309,14 @@ def server(input, output, session):
                 # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
-                hovertemplate='%{y:.1f}%<extra></extra>'
+                hovertemplate='%{y:.1f}%<extra></extra>',
+                # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                # au-dessus de la barre verticale survolée par la souris
+                hoverinfo='y',
+                # centrer ce texte 'y' dans la bulle
+                hoverlabel=dict(
+                    align='auto'
+                )
             )
         )
         # créer le texte de la légende (correspondance entre les étiquettes courtes et les étiquettes longues)
@@ -2307,9 +2338,9 @@ def server(input, output, session):
                 text='Pourcentage de répondants (%)',
                 font_size=12
             ),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir deux annotations
@@ -2453,7 +2484,14 @@ def server(input, output, session):
                 # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
-                hovertemplate='%{y:.1f}%<extra></extra>'
+                hovertemplate='%{y:.1f}%<extra></extra>',
+                # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                # au-dessus de la barre verticale survolée par la souris
+                hoverinfo='y',
+                # centrer ce texte 'y' dans la bulle
+                hoverlabel=dict(
+                    align='auto'
+                )
             )
         )
         # mettre en forme le graphique
@@ -2473,9 +2511,9 @@ def server(input, output, session):
                 text='Pourcentage de répondants (%)',
                 font_size=12
             ),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir les sources des données
@@ -2840,7 +2878,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -2855,9 +2900,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Part_Legis_T1()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -2977,7 +3022,14 @@ def server(input, output, session):
                 # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
-                hovertemplate='%{y:.1f}%<extra></extra>'
+                hovertemplate='%{y:.1f}%<extra></extra>',
+                # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                # au-dessus de la barre verticale survolée par la souris
+                hoverinfo='y',
+                # centrer ce texte 'y' dans la bulle
+                hoverlabel=dict(
+                    align='auto'
+                )
             )
         )
         # créer le texte de la légende (correspondance entre les étiquettes courtes et les étiquettes longues)
@@ -2997,9 +3049,9 @@ def server(input, output, session):
                 text='Pourcentage de répondants (%)',
                 font_size=12
             ),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir deux annotations
@@ -3386,7 +3438,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -3401,9 +3460,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_Part_Legis_T2()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -3522,7 +3581,14 @@ def server(input, output, session):
                 # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                 # au survol de la courbe par la souris, et supprimer toutes les autres
                 # informations qui pourraient s'afficher en plus (nom de la modalité)
-                hovertemplate='%{y:.1f}%<extra></extra>'
+                hovertemplate='%{y:.1f}%<extra></extra>',
+                # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                # au-dessus de la barre verticale survolée par la souris
+                hoverinfo='y',
+                # centrer ce texte 'y' dans la bulle
+                hoverlabel=dict(
+                   align='auto'
+                )
             )
         )
         # créer le texte de la légende (correspondance entre les étiquettes courtes et les étiquettes longues)
@@ -3542,9 +3608,9 @@ def server(input, output, session):
                 text='Pourcentage de répondants (%)',
                 font_size=12
             ),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir deux annotations
@@ -3931,7 +3997,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -3946,9 +4019,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_SentRes_Legis_T2()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -4327,7 +4400,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -4342,9 +4422,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_AvFr_Legis_T2()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -4721,7 +4801,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -4736,9 +4823,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_AccVues_Legis_T2()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -5115,7 +5202,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -5130,9 +5224,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_AvConsDiss_Legis_T2()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -5509,7 +5603,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -5524,9 +5625,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_DegConfAN_Legis_T2()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
@@ -5903,7 +6004,14 @@ def server(input, output, session):
                     # afficher les valeurs sous le format 'xx.x%' dans la bulle qui s'affiche
                     # au survol de la courbe par la souris, et supprimer toutes les autres
                     # informations qui pourraient s'afficher en plus (nom de la modalité)
-                    hovertemplate='%{y:.1f}%<extra></extra>'
+                    hovertemplate='%{y:.1f}%<extra></extra>',
+                    # n'afficher la bulle contenant la valeur 'y' en % uniquement
+                    # au-dessus de la barre verticale survolée par la souris
+                    hoverinfo='y',
+                    # centrer ce texte 'y' dans la bulle
+                    hoverlabel=dict(
+                        align='auto'
+                    )
                 )
             )
          # mettre en forme le graphique
@@ -5918,9 +6026,9 @@ def server(input, output, session):
             },
             # définir le titre de la légende
             legend_title="%s" % dico_legende.get("%s" % input.Select_VarSD_SouhDemPR_Legis_T2()),
-            # définir l'affichage séparé des valeurs de % affichées sur les
-            # courbes quand la souris survole chaque vague (barre verticale)
-            hovermode="x",
+            # définir l'affichage séparé des valeurs de % affichées au-dessus de
+            # chaque barre verticale quand la souris la survole
+            hovermode="closest",
             # définir le thème général de l'apparence du graphique
             template="plotly_white",
             # définir le titre de l'axe des ordonnées et son apparence
